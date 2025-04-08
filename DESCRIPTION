@@ -11,14 +11,17 @@ Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    broom,
-    here,
-    knitr,
-    palmerpenguins,
-    readr,
-    remotes,
-    rmarkdown,
-    spelling,
-    tidyverse,
-    visdat,
-    naniar
+  broom,
+  devtools,
+  here,
+  knitr,
+  naniar,
+  palmerpenguins,
+  readr,
+  remotes,
+  rmarkdown,
+  spelling,
+  stringr,
+  tidyverse,
+  usethis,
+  visdat
