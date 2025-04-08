@@ -1,0 +1,44 @@
+# A file
+
+- 9am - 9:30am: installation and setup (there is also time for this before the course)
+  - git + github
+  - R, RStudio
+  - package dependencies
+- 9:30am - 10:30am: functions discussion
+  - DRY
+  - Expression
+  - finding the functions within
+    - heavily hint at the structure of the upcoming functions
+  - Discussions around centralisation
+    - If I have some code to clean up the data, but someone else has some other code, how do we make sure these are kept up to date?
+- 10:30 - 11am: morning tea
+- 11am - 12:30pm: 
+  - cleaning up an analysis script
+  - Turning it into functions
+    - Three functions
+       - praise
+       - sort out abbreviations with a join
+       - remove dashes etc
+       - sort out missing data
+  - Getting it ready to be a package
+    - create_package()
+- 12:30 - 13:30
+  - Lunch
+13:30 - 15:00
+  - Adding dependencies with `use_package()` - DESCRIPTION file
+  - Adding documentation with `roxygen2`
+  - Passing R CMD Check
+  - Adding data to the package
+  - Adding a README
+  - Putting it on github
+15:00 - 15:30
+  - afternoon tea
+15:30 - 17:00
+  - Add vignette (copy the README, for the moment)
+  - Add tests 
+  - Add NEWS
+  - Add pkgdown
+  - Add CI
+    - R pkg check
+    - test coverage
+  - Add your pkg to R-universe
