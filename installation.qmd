@@ -14,15 +14,6 @@ In this section, the aim is to have everyone setup with R, RStudio, the tools yo
 * How do I install git?
 * How do I install RTools?
 
-# You can skip this if the following code runs
-
-```{r}
-
-```
-
-Otherwise, proceed to the sections that are relevant:
-
-
 ## Software Setup
 
 ### Installing R
@@ -72,7 +63,7 @@ A lot. To save you time, we can edit a very special file called "The R profile",
 
 I recommend running the following code from devtools to help set this up:
 
-```{r}
+```r
 use_devtools()
 ```
 
@@ -170,11 +161,8 @@ Your software needs a home. You'll typically start with your project on your lap
 - Provides a way to log ideas and bugs via issues.
 - Provides a way for the community to contribute to your code.
 
-My favourite book on using git and github with R is the book ["happy git with R"]() By Jenny Bryan, Jim Hester, and the Stat 545 TAs. Honestly, it's hard to recommend better installation instructions than their battle tested ones, so I'll point you to this resource in case you run into troubles here:
+My favourite book on using git and github with R is the book ["happy git with R"](https://happygitwithr.com/) By Jenny Bryan, Jim Hester, and the Stat 545 TAs. Honestly, it's hard to recommend better installation instructions than their battle tested ones, so I'll point you to this resource in case you run into troubles here.
 
-#### installing git
-
-Installing git can sometimes be a challenge. This is largely because there are different ways to install it on windows vs mac vs linux.
 
 #### setting up github
 
@@ -182,64 +170,66 @@ Getting set up on github you need an account. It's easy enough to set up - go to
 
 1. Keep it short. `jsmith` is better than `jonathansmith`.
 2. Avoid numbers and jokes. `jsmith` is better than `jsmith123`
+3. Keep it professional. `jsmithisthebest` 
+4. Keep it lowercase
 
-#### The "git handshake"
+#### installing git
 
-In order for your computer to talk to git and github properly, there are a few things they need to know.
+Installing git can sometimes be a challenge. This is largely because there are different ways to install it on windows vs mac vs linux. As states earlier, the best, most battle tested instructions are at https://happygitwithr.com/install-git.
+
+Once you've installed git, I recommend running this:
 
 ```{r}
 usethis::git_vaccinate()
 ```
 
+Which ensures that you ignore specific files (specifically, Rproj.user, .Rhistory, .Rdata, .httr-oauth, .DS_Store, and .quarto). This is important because it decreases your chances of leaking credentials or other important details to GitHub.
 
-git needs to know your name and email, give it like so:
+#### The "git handshake"
+
+In order for your computer to talk to git and github properly, it needs to know three things:
+
+1. Name
+2. Email
+3. Credentials
+
+git needs to know your name and email - this should be the name and email you used to set up your github account. Set this up with `use_git_config()`
 
 ```{r}
 #| eval: false
-library(gert)
-git_config_global_set(
-  name = ,
-  value = 
+library(usethis)
+use_git_config(
+  user.name = "Ned Kelly", 
+  user.email = "ned@example.org"
 )
 ```
 
-And verify with:
 
-```{r}
+github needs a personal access token - this is so you can talk to github from R. This becomes really handy, and dare I say it, nearly magical later on. To get this, run:
+
+```r
+usethis::create_github_token()
+```
+
+This will open up GitHub and create a Personal Access Token. If this doesn't work, go to https://github.com/settings/tokens and click "Generate New Token", and select the (classic)."
+
+Generally speaking you want the following scopes selected: "repo", "user", and "workflow".
+
+A token will be created - keep this page open, and copy the token to your clipboard.
+
+Then, go to R, and run:
+
+```r
+gitcreds::gitcreds_set()
+```
+
+And paste this PAT code in. Then, verify all of this with:
+
+```r
 usethis::git_sitrep()
 ```
-
-
-github needs a personal developer token - this is so you can talk to github from R. This becomes really handy, and dare I say it, nearly magical later on. To get this, run:
-
-```{r}
-credentials::
-```
-
 
 ### Installing RTools
 
 This is actually something that you only need to do if you want to use C or C++ with your R package, which isn't something you need to do for this course. To read more on this, see ["The R build toolchain"](https://r-pkgs.org/setup.html#setup-tools) from the R Packages book.
-
-## Test Script
-
-You should be able to run the following code on your machine
-
-```{r}
-#| label: library-test
-#| eval: false
-library(quarto)
-library(knitr)
-library(here)
-library(tidyverse)
-library(broom)
-library(fs)
-library(usethis)
-```
-
-As well as:
-
-```{r}
-# various sitrep code
-```
 
