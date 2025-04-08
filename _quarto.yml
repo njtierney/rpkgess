@@ -6,43 +6,44 @@ book:
   title: "R Package Essentials"
   author: "Nicholas Tierney"
   description: |
-     I first learnt to write an R package from [Hilary Parker's famous blog post, ["Writing an R package from scratch"](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/). Then I consulted [Hadley Wickham's "R packages" book (1st edition)](https://r-pkgs.org/). I consider the "R packages" book (now in its second edition, by Hadley Wickham and Jenny Bryan), to be the authority on best practices for package development, alongside the rOpenSci guide, ["rOpenSci Packages: Development, Maintenance, and Peer Review"](https://devguide.ropensci.org/index.html), by Salmon et al. These are excellent pieces of reference test, however I think there is a need for a resource that sits somewhere between a blog post on making an R package, and resource. I want something that contains __just enough__ information to get you started on the right path to making an R package. This is what that book represents to me. Along the way I'll include breadcrumbs to other resources to look into when you want to learn more.
+     I first learnt to write an R package from Hilary Parker's famous blog post, ["Writing an R package from scratch"](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/). Then I consulted [Hadley Wickham's "R packages" book (1st edition)](https://r-pkgs.org/). I consider the "R packages" book (now in its second edition, by Hadley Wickham and Jenny Bryan), to be the authority on best practices for package development, alongside the rOpenSci guide, ["rOpenSci Packages: Development, Maintenance, and Peer Review"](https://devguide.ropensci.org/index.html), by Salmon et al. These are excellent pieces of reference test, however I think there is a need for a resource that sits somewhere between a blog post on making an R package, and resource. I want something that contains __just enough__ information to get you started on the right path to making an R package. This is what that book represents to me. Along the way I'll include breadcrumbs to other resources to look into when you want to learn more.
   site-url: https://rpkgess.njtierney.com
   repo-url: https://github.com/njtierney/rpkgess
   repo-branch: main
   repo-actions: [edit, issue]
   # sharing: [twitter]
-  date: "2024-11-21"
-  page-footer: "Copyright 2022-2024, Nicholas Tierney"
+  date: "2025-04-08"
+  page-footer: "Copyright 2025, Nicholas Tierney"
   page-navigation: true
   search: true
   chapters:
     - "index.qmd"
     - "license.qmd"
-    - "why-qmd.qmd"
+    - "philosophy.qmd"
     - "installation.qmd"
     - "rstudio.qmd"
     - "workflow.qmd"
-    - "using-qmd.qmd"
-    - "pdf-html-word.qmd"
+    - "why-functions.qmd"
     - "keyboard-shortcuts.qmd"
-    - "figures-tables-captions.qmd"
-    - "changing-figures.qmd"
-    - "math.qmd"
-    - "cite-fig-tab-sec.qmd"
-    - "citations-and-styles.qmd"
-    - "caption-reference-eqn.qmd"
+    - "iterating-a-script.qmd"
+    - "create-the-pkg.qmd"
+    - "how-to-use-extra-pkgs.qmd"
+    - "add-documentation.qmd"
+    - "using-checks.qmd"
+    - "add-data.qmd"
+    - "add-readme.qmd"
+    - "push-to-github.qmd"
+    - "add-vignette.qmd"
+    - "add-tests.qmd"
+    - "add-website.qmd"
+    - "add-ci.qmd"
+    - "publish.qmd"
     - "common-problems.qmd"
-    - "alternative-outputs-and-exts.qmd"
     - "next-steps.qmd"
     - "references.qmd"
     - "acknowledgements.qmd"
   appendices:
-    - "appendix-visual-vs-source-mode.qmd"
-    - "appendix-template.qmd"
     - "appendix-faq.qmd"
-    - "appendix-html-extensions.qmd"
-    - "appendix-manuscript.qmd"
 bibliography:
   - book.bib
   - packages.bib
@@ -51,7 +52,7 @@ format:
   html:
     theme:
       - cosmo
-      - qmd4sci.scss
+      - rpkgess.scss
     code-background: true
     code-copy: true
     code-overflow: wrap

@@ -1,0 +1,68 @@
+# Installation
+
+In this section, the aim is to have everyone setup with R, RStudio, the tools you need to build an R package, and __git__.
+
+## Overview
+
+* **Duration** 15 minutes
+
+## Questions
+
+* How do I install R?
+* How do I install RStudio
+  * What about Positron?
+* How do I install git?
+* How do I install RTools?
+
+## Software Setup
+
+### R
+
+#### Windows
+
+[https://cloud.r-project.org/bin/windows/](https://cloud.r-project.org/bin/windows/)
+
+#### MacOS
+
+[https://cloud.r-project.org/bin/macosx/](https://cloud.r-project.org/bin/macosx/)
+
+#### Linux
+
+[https://cloud.r-project.org/bin/linux/](https://cloud.r-project.org/bin/linux/)
+
+### RStudio
+
+[https://posit.co/download/rstudio-desktop/#download](https://posit.co/download/rstudio-desktop/#download)
+
+### git
+
+[Quarto installation page](https://quarto.org/docs/get-started/)
+
+## Checking you are up to date
+
+To ensure you are up to date, run the following script to install the packages.
+
+```{r}
+#| label: install-rmd
+#| eval: false
+install.packages("devtools")
+install.packages("here")
+install.packages("tidyverse")
+```
+
+
+## Test Script
+
+You should be able to run the following code on your machine
+
+```{r}
+#| label: library-test
+#| eval: false
+library(quarto)
+library(knitr)
+library(here)
+library(tidyverse)
+library(broom)
+library(fs)
+library(usethis)
+```

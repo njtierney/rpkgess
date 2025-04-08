@@ -2,6 +2,7 @@
 # R Package Essentials
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/njtierney/rpkgess/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/njtierney/rpkgess/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 R packages allow you to share your code.

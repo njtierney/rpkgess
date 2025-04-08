@@ -1,0 +1,69 @@
+# About this {-}
+
+This is a book on the essential components of creating an R package. It is aimed at those who want to learn how to make R packages. You probably have written some functions, but if you haven't, we discuss how to do that. I care a lot about writing functions, and have a lot of thoughts and ideas on how to do it.
+
+It was initially developed as a full-day hour workshop, ["R package essentials"](https://rpkgess.njtierney.com/). It is a developed into a resource that will grow and change over time as a **living book**.
+
+This book aims to teach the following:
+
+- Installation and setup of dependencies
+  - git + github
+  - R, RStudio
+  - package dependencies
+- Function essentials
+  - DRY;DRY (Don't Repeat Yourself; Don't Reread Yourself)
+  - Expression
+  - Finding the inputs
+- Moving a script to a series of functions
+- Create package barebones with `create_package()`
+- How to add dependencies with `use_package()` - DESCRIPTION file
+- How to add documentation with `roxygen2`
+- Why you should use R CMD Check
+- How to add data to a package
+- How to add a README
+- How to put your package on github
+- How to add vignettes
+- Writing tests
+- Using a NEWS file
+- Adding a website
+- Using Continuous Integration to check and test
+- Publishing your software on R universe
+
+## How to use this book
+
+This book was written to provide course materials for a 8 hour course on R Packages
+
+We worked through the following sections in the book in 8 hours:
+
+- [why R packages](why-rpkgs)
+- [why functions](why-rpkgs)
+- [installation](installation)
+- [what is RStudio?](rstudio)
+- [suggested workflow and hygiene](workflow)
+-
+
+With the remaining sections being used as extra material, or have since been written after the course:
+
+- 
+
+# Getting course materials
+
+Course materials can be downloaded by using the following command from the `usethis` package:
+
+```{r}
+#| label: use-course
+#| echo: true
+#| eval: false
+usethis::use_course("njtierney/rpkgess-materials")
+```
+
+<!-- ## Where has this course been taught? -->
+
+<!-- The Quarto for scientists for course has been taught at the following locations: -->
+
+<!-- - 2024 -->
+<!--   - Online -->
+
+## Licence
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
