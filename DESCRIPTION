@@ -14,7 +14,6 @@ Imports:
     broom,
     here,
     knitr,
-    naniar
     palmerpenguins,
     readr,
     remotes,
