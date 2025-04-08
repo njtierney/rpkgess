@@ -14,11 +14,22 @@ In this section, the aim is to have everyone setup with R, RStudio, the tools yo
 * How do I install git?
 * How do I install RTools?
 
+# You can skip this if the following code runs
+
+```{r}
+
+```
+
+Otherwise, proceed to the sections that are relevant:
+
+
 ## Software Setup
 
-### R
+### Installing R
 
-#### Windows
+::: {.panel-tabset}
+
+#### Windows 
 
 [https://cloud.r-project.org/bin/windows/](https://cloud.r-project.org/bin/windows/)
 
@@ -30,26 +41,185 @@ In this section, the aim is to have everyone setup with R, RStudio, the tools yo
 
 [https://cloud.r-project.org/bin/linux/](https://cloud.r-project.org/bin/linux/)
 
-### RStudio
+:::
+
+### Installing RStudio
 
 [https://posit.co/download/rstudio-desktop/#download](https://posit.co/download/rstudio-desktop/#download)
 
-### git
-
-[Quarto installation page](https://quarto.org/docs/get-started/)
-
-## Checking you are up to date
+### Installing R packages for development
 
 To ensure you are up to date, run the following script to install the packages.
 
 ```{r}
-#| label: install-rmd
+#| label: install-pkgs
 #| eval: false
-install.packages("devtools")
-install.packages("here")
-install.packages("tidyverse")
+install.packages(c("devtools", "roxygen2", "testthat", "knitr", "pak"))
 ```
 
+#### Personalising your R Profile
+
+This is really neat, and I think it's actually worthwhile doing, but it does take up some time, and there are some warnings.
+
+As you develop R packages, you'll need to go through a cycle of restarting R, and loading things up to be ready. One of the issues with this is that you'll find yourself writing code like:
+
+```{r}
+#| eval: false
+library(devtools)
+```
+
+A lot. To save you time, we can edit a very special file called "The R profile", which is saved as `.RProfile`. This code is special, and awesome, because it is run _every time you start R_. It is also dangerous, for exactly the same reason.
+
+I recommend running the following code from devtools to help set this up:
+
+```{r}
+use_devtools()
+```
+
+Which will bring up the following message:
+
+```
+☐ Include this code in .Rprofile to make devtools
+  available in all interactive sessions:
+  if (interactive()) {
+    suppressMessages(require(devtools))
+  }
+  [Copied to clipboard]
+☐ Modify /Users/nick/.Rprofile.
+☐ Restart R for changes to take effect.
+```
+
+So, copy and paste the above, which I will now explain. There are three parts to this that I will break down:
+
+```r
+require(devtools)
+```
+
+we usually recommend writing `library(devtools)`, but in this instance, `require` is what we want, because if the package is not installed, `require` will throw a warning, rather than an error:
+
+```{r}
+#| error: true
+
+# warn
+require(whatevenisthis)
+# error
+library(whatevenisthis)
+```
+
+We do not want an error when we start R, it is annoying.
+
+```r
+suppressMessages()
+```
+
+This code suppresses any messages that appear from running this code, which again, we want, because we don't (generally) want our R session to announce something upon startup.
+
+```r
+  if (interactive()) {
+    suppressMessages(require(devtools))
+  }
+```
+
+This means that this code is only run if the R session is interactive. This always felt a bit strange to me - because I had only ever run R interactively. But you don't want to run `require(devtools)` when we aren't using R interactively, because it means we are potentially changing the state of things. Essentially, it's good practice.
+
+Also, here are a couple of times that you might not realise you are using R non-interactively:
+
+- rendering a document using quarto or rmarkdown
+- building an R package (which you'll learn about later)
+
+You also use R non-interactively when you are running `Rscript` in the command line.
+
+Finally, another bit of useful code in your R profile is something like this:
+
+```r
+# usethis options
+options(
+  usethis.full_name = "Nicholas Tierney",
+  usethis.protocol = "https",
+  usethis.description = list(
+    `Authors@R` = '
+    c(
+      person(
+        given = "Nicholas",
+        family = "Tierney",
+        role = c("aut", "cre"),
+        email = "nicholas.tierney@gmail.com",
+        comment = c(ORCID = "https://orcid.org/0000-0003-1460-8722")
+      )
+    )',
+    License = "MIT + file LICENSE",
+    Language = "en-GB",
+    Version = "0.0.0.9000"
+  ),
+  # set SI to true
+  reprex.session_info = TRUE
+)
+```
+
+This helps when setting up your R package for the first time, to make sure you set up your DESCRIPTION file. It isn't required, but it is neat, and I think worthwhile.
+
+Because I need to set these things up on different laptops sometimes, I actually write all these files to github. They are typically called "dotfiles" - you can see mine at http://github.com/njtierney/dotfiles.
+
+### git and github
+
+Very briefly, `git` is essentially a way of managing versions and changes. You can think of it like a product such as dropbox, but with super powers. You can go back in time, you can make copies for changing, and delicately and precisely mege them back in, or leave them where they are.
+
+Your software needs a home. You'll typically start with your project on your laptop or computer. GitHub is where you can store it online. The benefits to sharing your work on github are many, but my personal top reasons are:
+
+- Build trust in your software. If the community can see your code, they can trust it better.
+- Provides a way to log ideas and bugs via issues.
+- Provides a way for the community to contribute to your code.
+
+My favourite book on using git and github with R is the book ["happy git with R"]() By Jenny Bryan, Jim Hester, and the Stat 545 TAs. Honestly, it's hard to recommend better installation instructions than their battle tested ones, so I'll point you to this resource in case you run into troubles here:
+
+#### installing git
+
+Installing git can sometimes be a challenge. This is largely because there are different ways to install it on windows vs mac vs linux.
+
+#### setting up github
+
+Getting set up on github you need an account. It's easy enough to set up - go to https://github.com/ . When picking a username, I recommend the following:
+
+1. Keep it short. `jsmith` is better than `jonathansmith`.
+2. Avoid numbers and jokes. `jsmith` is better than `jsmith123`
+
+#### The "git handshake"
+
+In order for your computer to talk to git and github properly, there are a few things they need to know.
+
+```{r}
+usethis::git_vaccinate()
+```
+
+
+git needs to know your name and email, give it like so:
+
+```{r}
+#| eval: false
+library(gert)
+git_config_global_set(
+  name = ,
+  value = 
+)
+```
+
+And verify with:
+
+```{r}
+usethis::git_sitrep()
+```
+
+
+github needs a personal developer token - this is so you can talk to github from R. This becomes really handy, and dare I say it, nearly magical later on. To get this, run:
+
+```{r}
+credentials::
+```
+
+
+### Installing RTools
+
+This is actually something that you only need to do if you want to use C or C++ with your R package, which isn't something you need to do for this course. To read more on this, see ["The R build toolchain"](https://r-pkgs.org/setup.html#setup-tools) from the R Packages book.
 
 ## Test Script
 
@@ -66,3 +236,10 @@ library(broom)
 library(fs)
 library(usethis)
 ```
+
+As well as:
+
+```{r}
+# various sitrep code
+```
+

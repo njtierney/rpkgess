@@ -1,0 +1,3 @@
+# Motivation
+
+We've gone through a lot of setup, and now we're going to start building an R package. Soon. But we need to have some motivation, first. It involves a bit of a story, and a bit of imagination.

@@ -1,0 +1,21 @@
+# Why functions?
+
+At their core, an R package is a way to share code. The way we share that code is primarily through R functions. There is a lot about the mechanics, and the tools to create and write R packages, but what I want to communicate here is the __why, when, and how__ of using functions.
+
+## Overview
+
+* **Teaching** 20 minutes
+* **Exercises** 15 minutes
+
+## Questions
+
+* Why should I use a function?
+* When should I use a function?
+* How do I create a function?
+
+## Objectives
+
+* Understand why functions should be used
+* Understand when do use functions
+* Understand how to write functions
+
