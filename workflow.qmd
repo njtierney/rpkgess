@@ -1,6 +1,6 @@
 # Workflow
 
-(Note that this section is borrowed from my book, Quarto for Scientists: ["workflow"]())
+(Note that this section is borrowed from my book, Quarto for Scientists: ["workflow"](https://qmd4sci.njtierney.com/workflow))
 
 > Before we start with Quarto, we need to make sure that you understand _file storage hygiene_. 
 
