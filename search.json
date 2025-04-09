@@ -534,9 +534,29 @@
     "href": "create-the-pkg.html#buildinstall-the-package",
     "title": "7  Create the package!",
     "section": "7.3 Build/install the package",
-    "text": "7.3 Build/install the package\nNow, we have a package! This will actually build, and install! Although we still need to do a few things to make it useable, it’s worthwhile celebrating the small steps!\n\nBuild the package by navigating to the “build” pane in the top right:\n\nClick this, and see some text like the following appear!\n==&gt; R CMD INSTALL --preclean --no-multiarch --with-keep.source learned\n\n* installing to library ‘/Users/nick/Library/R/arm64/4.4/library/_build’\n* installing *source* package ‘learned’ ...\n** using staged installation\n** R\n** byte-compile and prepare package for lazy loading\nNo man pages found in package  ‘learned’ \n** help\n*** installing help indices\n** building package indices\n** installing vignettes\n** testing if installed package can be loaded from temporary location\n** testing if installed package can be loaded from final location\n** testing if installed package keeps a record of temporary installation path\n* DONE (learned)\n\n\n\n\n\n\n\nThis is a non-standard way of making an R package\n\n\n\n\n\nThis whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.",
+    "text": "7.3 Build/install the package\nNow, we have a package! This will actually build, and install! Although we still need to do a few things to make it useable, it’s worthwhile celebrating the small steps!\n\nBuild the package by navigating to the “build” pane in the top right:\n\nClick this, and see some text like the following appear!\n==&gt; R CMD INSTALL --preclean --no-multiarch --with-keep.source learned\n\n* installing to library ‘/Users/nick/Library/R/arm64/4.4/library/_build’\n* installing *source* package ‘learned’ ...\n** using staged installation\n** R\n** byte-compile and prepare package for lazy loading\nNo man pages found in package  ‘learned’ \n** help\n*** installing help indices\n** building package indices\n** installing vignettes\n** testing if installed package can be loaded from temporary location\n** testing if installed package can be loaded from final location\n** testing if installed package keeps a record of temporary installation path\n* DONE (learned)\n\nLet’s celebrate this win, and also wrap up this long section on a slight cliffhanger: let’s try using our package.",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Create the package!</span>"
+    ]
+  },
+  {
+    "objectID": "create-the-pkg.html#the-workflow-of-package-development.",
+    "href": "create-the-pkg.html#the-workflow-of-package-development.",
+    "title": "7  Create the package!",
+    "section": "7.4 The workflow of package development.",
+    "text": "7.4 The workflow of package development.\nOne of the major workflows during R package development is this:\n\nEdit R functions\nload_all() (or keyboard shortcut Ctrl/Cmd+Shift+L)\nEdit R functions.\n\n\n\n\n\n\n\nThis is a non-standard way of making an R package\n\n\n\n\n\nThere is a great cheatsheet for package development that I had stapled to my cubicle wall during my PhD.\n\n\n\nLet’s try out our R package. To do this, I’m going to recommend you create a special R file, sometimes called a “scratch file”. It lives inside a folder called inst, which is typically not touched by R package building. This is a useful trick if you want to have a way to play around with some R code, keeping it inside your R package.\n\nCreate a scratch file:\n\nCreate a directory inst\nInside that directory, create an R file called scratch.R (note that this can actually be called anything, but scratch.R is what I use)\nWrite library(learned) inside scratch.R\nRead in the raw education 2014 data from data-raw, and use one of the functions from the R package, like clean_education_data(). What happens when you use this?\n\n\nSee the commit for this at:\nhttps://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c\nIf you’re like me, I got this error:\n&gt; clean_education_data(raw_education_2014)\nError in mutate(data, age_group = clean_age_groups(age_group), prop_studying = na_if(prop_studying,  : \n  could not find function \"mutate\"\nLet’s pick this up in the next section, “How to use extra packages”\n\n\n\n\n\n\nThis is a non-standard way of making an R package\n\n\n\n\n\nThis whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Create the package!</span>"
+    ]
+  },
+  {
+    "objectID": "add-vignette.html",
+    "href": "add-vignette.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "Open up “analysis-2014.qmd”\nRemove “Your Tasks”\nRemove “Functions”\nUpdate the Data cleaning so you can it interactively to read in the “raw_education_2014.csv” data (NB: we will eventually move this data into the R package itself)",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>add-vignette.html</span>"
     ]
   }
 ]

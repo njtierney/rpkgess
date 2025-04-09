@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./add-documentation.html" rel="next">
+<link href="./how-to-use-extra-pkgs.html" rel="next">
 <link href="./motivation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -200,44 +200,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./add-documentation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">add-documentation.html</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./how-to-use-extra-pkgs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">how-to-use-extra-pkgs.html</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./using-checks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">using-checks.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">How to use extra packages</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">add-data.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">add-data.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./add-readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">add-readme.html</span></span></a>
+  <a href="./add-documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">add-documentation.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./push-to-github.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">push-to-github.html</span></span></a>
+  <a href="./using-checks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">using-checks.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-vignette.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">add-vignette.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">add-vignette.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./add-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">add-readme.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./push-to-github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">push-to-github.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -333,6 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#delete-old-quarto-files-move-one-into-vignettes" id="toc-delete-old-quarto-files-move-one-into-vignettes" class="nav-link" data-scroll-target="#delete-old-quarto-files-move-one-into-vignettes"><span class="header-section-number">7.2.2</span> Delete old quarto files, move one into vignettes</a></li>
   </ul></li>
   <li><a href="#buildinstall-the-package" id="toc-buildinstall-the-package" class="nav-link" data-scroll-target="#buildinstall-the-package"><span class="header-section-number">7.3</span> Build/install the package</a></li>
+  <li><a href="#the-workflow-of-package-development." id="toc-the-workflow-of-package-development." class="nav-link" data-scroll-target="#the-workflow-of-package-development."><span class="header-section-number">7.4</span> The workflow of package development.</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/create-the-pkg.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -534,7 +535,17 @@ No man pages found in package  ‘learned’
 ** testing if installed package keeps a record of temporary installation path
 * DONE (learned)</code></pre>
 </div>
-<div class="callout callout-style-default callout-caution callout-titled" title="This is a non-standard way of making an R package">
+<p>Let’s celebrate this win, and also wrap up this long section on a slight cliffhanger: let’s try using our package.</p>
+</section>
+<section id="the-workflow-of-package-development." class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="the-workflow-of-package-development."><span class="header-section-number">7.4</span> The workflow of package development.</h2>
+<p>One of the major workflows during R package development is this:</p>
+<ol type="1">
+<li>Edit R functions</li>
+<li><code>load_all()</code> (or keyboard shortcut Ctrl/Cmd+Shift+L)</li>
+<li>Edit R functions.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="This is a non-standard way of making an R package">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -545,6 +556,39 @@ This is a non-standard way of making an R package
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There is a great <a href="https://rstudio.github.io/cheatsheets/html/package-development.html">cheatsheet for package development</a> that I had stapled to my cubicle wall during my PhD.</p>
+</div>
+</div>
+</div>
+<p>Let’s try out our R package. To do this, I’m going to recommend you create a special R file, sometimes called a “scratch file”. It lives inside a folder called <code>inst</code>, which is typically not touched by R package building. This is a useful trick if you want to have a way to play around with some R code, keeping it inside your R package.</p>
+<div class="callout-info" title="Your turn" data-collapse="true">
+<p>Create a scratch file:</p>
+<ol type="1">
+<li>Create a directory <code>inst</code></li>
+<li>Inside that directory, create an R file called <code>scratch.R</code> (note that this can actually be called anything, but <code>scratch.R</code> is what I use)</li>
+<li>Write <code>library(learned)</code> inside <code>scratch.R</code></li>
+<li>Read in the raw education 2014 data from data-raw, and use one of the functions from the R package, like <code>clean_education_data()</code>. What happens when you use this?</li>
+</ol>
+</div>
+<p>See the commit for this at:</p>
+<p>https://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c</p>
+<p>If you’re like me, I got this error:</p>
+<pre><code>&gt; clean_education_data(raw_education_2014)
+Error in mutate(data, age_group = clean_age_groups(age_group), prop_studying = na_if(prop_studying,  : 
+  could not find function "mutate"</code></pre>
+<p>Let’s pick this up in the next section, “How to use extra packages”</p>
+<div class="callout callout-style-default callout-caution callout-titled" title="This is a non-standard way of making an R package">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+This is a non-standard way of making an R package
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.</p>
 </div>
@@ -979,8 +1023,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./add-documentation.html" class="pagination-link" aria-label="add-documentation.html">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">add-documentation.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./how-to-use-extra-pkgs.html" class="pagination-link" aria-label="How to use extra packages">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">How to use extra packages</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
