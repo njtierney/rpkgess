@@ -25,10 +25,9 @@ book:
     - "workflow.qmd"
     - "why-functions.qmd"
     - "motivation.qmd"
-    - "keyboard-shortcuts.qmd"
     - "create-the-pkg.qmd"
-    - "how-to-use-extra-pkgs.qmd"
     - "add-documentation.qmd"
+    - "how-to-use-extra-pkgs.qmd"
     - "using-checks.qmd"
     - "add-data.qmd"
     - "add-readme.qmd"
@@ -44,6 +43,7 @@ book:
   appendices:
     - "appendix-faq.qmd"
     - "common-problems.qmd"
+    - "keyboard-shortcuts.qmd"
 bibliography:
   - book.bib
   - packages.bib

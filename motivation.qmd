@@ -102,32 +102,71 @@ However, the main problem that we encountered was that there was actually a bit 
 
 :::
 
+## Discussion of data cleaning function implementations
 
-## Plot of **proportion of people educated** in each age group in each state
+- Discuss "solutions-alpha-analysis2014.qmd"
 
-The key code here is this:
+## Applying functions to give the outputs
 
-```{r}
-#| eval: false
-ggplot(
-  fixed_age_group_education_2014,
-  aes(
-    x = prop_studying,
-    y = age_group
-  )
-) +
-  geom_col() +
-  facet_wrap(~state_territory, ncol = 2)
-```
+We've got some data cleaning functions! Now let's see if we can capture the intention of the plots, and wrap these up into functions, too. 
 
-However, in order to write this, we need to identify the steps that happened earlier to the `fixed_age_group_education_2014` data. 
+The overall idea here is that we can capture the overall intention of what we are doing in a concise way, that is **easy to reason with**. That is **not** to say that it is **just smaller**, but being **easy to reason with** is key here.
 
 :::{.callout-note title="Your turn"}
 
-What were the fixes that were required for this data?
+1. Open, "bravo-analysis2014.qmd"
+2. Write a function for each of the following:
+  1. Bar plot of proportion of people educated by state and age
+  2. Boxplot of **proportion of people educated** for each state
+  3. Table of 5 number summary of **proportion of people educated** for each state
+3. Move all these functions to the top of the document into a single code chunk labelled "functions"
+4. Move the "data checks" to the end of the document. We will come back to this later
+5. Make a "libraries" code chunk and put the library call in there
+
 
 :::
 
-## box plot of **proportion of people educated** for each state.
+## Discussion of plot and table, rearranging functions
 
-## Table of The 5 number summary of **proportion of people educated** for each state.
+- What do we notice now?
+
+## Moving towards a quasi-package.
+
+We're slowly isolating the parts of the code that we care about, and now we're going to make an incremental change again - to move all of the functions out to an R folder, with one function per R file.
+
+For those who are more familiar with R Packages, this might start to look a lot more like an R package - while this isn't the "standard" process, the intention here is to demonstrate the key changes:
+
+- Functions: Identifying points of expression / abstraction
+- Clearly expressing functions
+- Using functions to clearly articulate your work
+
+
+:::{.callout-tip title="'ergonomic' / interactive helper packages"}
+
+To do package development, we're going to be using packages like `devtools` and `usethis`. These packages are things we use in the console - we use them interactively. They help us automate a lot of things, so we can focus on the task at hand.
+
+You can be almost guaranteed that we will use any functions from `devtools` and `usethis` in the console. It's OK for that to feel strange! It will feel better soon.
+
+:::
+
+
+:::{.callout-note title="Your turn"}
+
+1. Open "charlie-analysis2014.qmd"
+2. Use `use_r()` from `devtools`/`usethis` to create a separate R file for each of the R functions:
+  1. clean_age_groups
+  2. clean_education_data
+  3. plot_study_age_state
+  4. boxplot_study_state
+  5. summarise_prop_study
+3. load all of these R functions, by calling `source` at the top of the quarto document
+
+:::
+
+## Discussion
+
+- Thoughts on this process?
+- Shall we just get to the making the R package?
+- See https://github.com/njtierney/learned/pull/1 for solution
+
+Now, let's move to making the R package!
