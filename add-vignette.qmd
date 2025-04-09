@@ -1,0 +1,10 @@
+
+:::{.callout-info title="Your turn" collapse="true"}
+
+1. Open up "analysis-2014.qmd"
+2. Remove "Your Tasks"
+3. Remove "Functions"
+4. Update the Data cleaning so you can it interactively to read in the "raw_education_2014.csv" data (NB: we will eventually move this data into the R package itself)
+
+
+:::
