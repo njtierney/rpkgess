@@ -1,0 +1,7 @@
+
+We can pretty much achieve this with:
+
+`use_git()`
+`use_github()`
+
+Discuss the benefits and tools of issues, releases, milestones, etc

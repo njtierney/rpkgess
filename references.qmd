@@ -1,0 +1,4 @@
+
+- R packages book
+- Hilary Parker's blog post
+- rOpenSci dev guide

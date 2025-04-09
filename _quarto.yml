@@ -37,7 +37,7 @@ book:
     - "add-website.qmd"
     - "add-ci.qmd"
     - "publish.qmd" # on R universe
-    - "next-steps.qmd" # R-Packages book, rOpenSci
+    - "next-steps.qmd" # R-Packages book, rOpenSci, AI tools
     - "references.qmd"
     - "acknowledgements.qmd"
   appendices:

@@ -1,1 +1,24 @@
 # How to use extra packages
+
+One of the major shifts from writing R code and analyses to writing R packges is how you interact with other R packages you want to use.
+
+- previously use library
+- cannot use library in pkg
+- idea of overloading namespace
+- using pkg::fun
+
+introduce workflow:
+
+- `use_package(pkg)`
+- `pkg::fun()`
+
+- show commits
+- show how DESCRIPTION changes
+
+- note about using Tidyverse - instead we must call packages directly
+- note about Imports vs Depends. We only really use Imports.
+- note about package versions - usually a good idea.
+- note/philosophy about dependencies. Greedy approach is (in my opinion) best, because you don't waste human cycles. Best approach is greedy, then prune back
+
+- wrap up by using the package successfully in scratch.R
+- which leads us to consider making the data accessible

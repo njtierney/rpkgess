@@ -1,0 +1,5 @@
+
+- pkgdown
+- use_pkgdown_github_pages()
+- look at other packages for inspiration on structure
+- try to use a different default theme

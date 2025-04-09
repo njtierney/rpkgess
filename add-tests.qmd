@@ -1,0 +1,8 @@
+- initially these tests will make sure that they run on the example data
+- demonstrate testing dimensions/names
+- demonstrate snapshot tests
+- demonstrate vdiffr tests
+- circle back to the data quality checks
+  - maybe these can become our tests?
+- touch on the idea that R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?
+- reference Miles's https://milesmcbain.xyz/posts/an-okay-idea/

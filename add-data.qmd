@@ -1,0 +1,15 @@
+# Adding data to an R package
+
+overall goals
+- add raw 2014 data
+- add tidy 2014 data
+
+- demonstrate using data-raw/dataset.R
+  - briefly discuss compression = "xz"
+- show using set.seed(yyyy-mm-dd) / providing a date
+
+- demo now by having the data be used without read_csv in scratch.R
+
+But now just use library, not load all - see that there's no functions!
+
+So now go on to having documentation and @export

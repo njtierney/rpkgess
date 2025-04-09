@@ -1,0 +1,5 @@
+# Passing Checks
+
+- explain this isn't something to run all the time, but as the quote goes, frequency reduces difficulty
+
+- unpack the process of R CMD Check

@@ -249,8 +249,8 @@ One of the major workflows during R package development is this:
 2. `load_all()` (or keyboard shortcut Ctrl/Cmd+Shift+L)
 3. Edit R functions.
 
-:::{.callout-tip title="This is a non-standard way of making an R package" collapse="true"}
-There is a great [cheatsheet for package development](https://rstudio.github.io/cheatsheets/html/package-development.html) that I had stapled to my cubicle wall during my PhD.
+:::{.callout-tip title="Cheatsheets" collapse="true"}
+There is a great [cheatsheet for package development](https://rstudio.github.io/cheatsheets/html/package-development.html) that I had stapled to my cubicle wall during my PhD. The website now is very useful, but make sure to check out [the PDF](https://rstudio.github.io/cheatsheets/package-development.pdf).
 :::
 
 Let's try out our R package. To do this, I'm going to recommend you create a special R file, sometimes called a "scratch file". It lives inside a folder called `inst`, which is typically not touched by R package building. This is a useful trick if you want to have a way to play around with some R code, keeping it inside your R package.

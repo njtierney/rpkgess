@@ -1,0 +1,6 @@
+
+- `use_github_actions()`
+  - follow prompts
+- This is all much easier than it used to be
+- Explain that there is a game of "watching the green lights"
+- Explain test coverage

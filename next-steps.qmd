@@ -1,0 +1,10 @@
+
+- R packages book
+- official R docs
+- rOpenSci docs
+
+Submitting to CRAN
+
+Submitting to JOSS
+
+Submitting to rOpenSci

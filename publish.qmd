@@ -1,0 +1,9 @@
+
+- Places to publish packages
+  - github
+  - CRAN
+  - R Universe
+  
+- pros and cons
+- work through getting it on R Universe
+- Discuss risks of building/installing from github

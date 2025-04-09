@@ -1,0 +1,8 @@
+# Add documentation
+
+- explain NAMESPACE
+- use roxygen skeleton
+- use @export
+- use @examples
+- wrap up by using `library(learned)` effectively
+- now show what happens when we run check
