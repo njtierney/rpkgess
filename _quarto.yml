@@ -38,12 +38,12 @@ book:
     - "add-website.qmd"
     - "add-ci.qmd"
     - "publish.qmd"
-    - "common-problems.qmd"
     - "next-steps.qmd"
     - "references.qmd"
     - "acknowledgements.qmd"
   appendices:
     - "appendix-faq.qmd"
+    - "common-problems.qmd"
 bibliography:
   - book.bib
   - packages.bib
