@@ -1,6 +1,6 @@
 # Why functions?
 
-At their core, an R package is a way to share code. The way we share that code is primarily through R functions. There is a lot about the mechanics, and the tools to create and write R packages, but what I want to communicate here is the __why, when, and how__ of using functions.
+At their core, an R package is a way to share code. The way we share that code is primarily through R functions. There is a lot about the mechanics, and the tools to create and write R packages, but what I want to communicate here is the __what, why, when, and how__ of using functions.
 
 ## Overview
 
@@ -9,6 +9,7 @@ At their core, an R package is a way to share code. The way we share that code i
 
 ## Questions
 
+* What is a function?
 * Why should I use a function?
 * When should I use a function?
 * How do I create a function?
@@ -18,4 +19,561 @@ At their core, an R package is a way to share code. The way we share that code i
 * Understand why functions should be used
 * Understand when do use functions
 * Understand how to write functions
+
+## Prior Art
+
+There's a lot of work and thought that's gone into writing functions. A lot of my own understanding of this has been informed by others, and I want to make sure I properly acknowledge them:
+
+-   [**Joe Cheng: You have to be able to reason about it**](https://www.youtube.com/watch?v=J8qbRYa4430)
+-   [**Hadley Wickham's 'Many Models' talk**](https://www.youtube.com/watch?v=rz3_FDVt9eg)
+-   [**Hadley Wickham's 'The design of everyday functions'**](https://www.youtube.com/watch?v=Qne86lxjgtg)
+-   [**Miles Mcbain's 'Our colour of magic'**](https://www.youtube.com/watch?v=ywK4qs5dJsg)
+-   [**Jenny Bryan's 'Code Smells and Feels'**](https://www.youtube.com/watch?v=7oyiPBjLAWY)
+-   [**Roger Peng's 'From tapply to Tidyverse'**](https://www.youtube.com/watch?v=5033jBHFiHE&t=1s)
+-   [**Advanced R: Functions**](https://r4ds.had.co.nz/functions.html)
+-   [**Tidy Design Principles**](https://design.tidyverse.org/)
+-   [**Lexical Scope and Statistical Computing**](https://www.stat.auckland.ac.nz/~ihaka/downloads/lexical.pdf)
+-   [**stat545 chapter on functions**](https://stat545.com/functions-part1.html)
+
+These are all well worth the time reading, but if I had to pick two, I would say that Hadley Wickham's "Many Models" talk, and Jenny Bryan's "Code Smells and Feels" have been two of the most influential on me.
+
+## Code is for people
+
+If I could have you walk away with one key idea, it would be this:
+
+> Functions are tools to manage complexity that allow us to reason with and understand our code.
+
+In essence, **code is for people**. This stems from a famous (well, I think it's famous), quote:
+
+> \[W\]e want to establish the idea that a computer language is not just a way of getting a computer to perform operations but rather that it is a novel formal medium for expressing ideas about methodology. Thus, **programs must be written for people to read, and only incidentally for machines to execute**.
+
+— [**Structure and Interpretation of Computer Programs**](https://mitpress.mit.edu/9780262510875/). Abelson, Sussman, and Sussman, 1984.
+
+## OK, but **what** actually is a function?
+
+Going back to my quote:
+
+> Functions are tools to manage complexity that allow us to reason with and understand our code.
+
+I actually think before we talk about the anatomy, the **what**. We first must discuss **why** functions.
+
+A function is something that helps us manage complexity. You can think about this as something that allows us to repeat certain tasks. Kind of like how a robot, or a manufacturing line can repeat manual tasks.
+
+Let's say we had some data on age groups - the number of contacts these people record on a given day.
+
+```{r}
+library(tidyverse)
+contact <- tibble(
+  location = rep(c("QLD", "NSW"), 3),
+  age_groups = c("15-19", "15--19", "20--24", "20-24", "25---29", "25-29"),
+  n_contacts = c(100, 125, 150, 200, 225, 250)
+)
+
+contact
+
+```
+
+We want to produce a plot of age groups and the number of contacts, but we can't do this, because there are all these different ways of representing "age_group".
+
+```{r}
+ggplot(
+  contact,
+  aes(x = age_groups,
+      y = n_contacts)) + 
+  geom_col()
+```
+
+Well rather, we CAN do this, but we want to get the totals of each age group.
+
+What we want out of this is them all to be separated out by an underscore "_", and turned into a factor:
+
+```{r}
+library(stringr)
+tidy_contact <- contact |> 
+  mutate(
+    age_groups = str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      ),
+    age_groups = as.factor(age_groups)
+  )
+
+tidy_contact
+```
+
+And then we can plot this:
+
+```{r}
+ggplot(
+  tidy_contact,
+  aes(x = age_groups,
+      y = n_contacts)) + 
+  geom_col()
+```
+
+Sure, job done.
+
+But now we have some new data, this one contains similar information, but it has population data that we need to join onto it so we can get proportion information.
+
+```{r}
+population <- tibble(
+  location = rep(c("QLD", "NSW"), 3),
+  age_groups = c("15--19", "15-19", "20---24", "20-24", "25-29", "25--29"),
+  population = c(319014, 468550, 338824, 540233, 370468, 607891)
+)
+
+population
+```
+
+And this is why I think you should write a function. We want to _encapsulate the idea_ of cleaning up age group. That is: "clean age groups". So let's write a function that captures this idea. 
+
+```{r}
+clean_age_groups <- function(age_groups){
+  
+  age_underscore <- str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      )
+  as.factor(age_underscore)
+  
+}
+```
+
+And this is the difference in the worflow, for each of these tidying up processes:
+
+::: {.panel-tabset}
+
+## script
+
+```{r}
+tidy_contact <- contact |> 
+  mutate(
+    age_groups = str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      ),
+    age_groups = as.factor(age_groups)
+  )
+
+tidy_population <- population |> 
+  mutate(
+    age_groups = str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      ),
+    age_groups = as.factor(age_groups)
+  )
+
+tidy_proportion <- tidy_contact |> 
+  left_join(tidy_population,
+             by = c("location", "age_groups")) |> 
+  mutate(proportion = n_contacts / population)
+  
+
+tidy_proportion
+```
+
+
+## function
+
+```{r}
+clean_age_groups <- function(age_groups){
+  
+  age_underscore <- str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      )
+  as.factor(age_underscore)
+  
+}
+
+tidy_contact <- contact |> 
+  mutate(
+    age_groups = clean_age_groups(age_groups)
+  )
+
+tidy_population <- population |> 
+  mutate(
+    age_groups = clean_age_groups(age_groups)
+  )
+
+tidy_proportion <- tidy_contact |> 
+  left_join(tidy_population,
+             by = c("location", "age_groups")) |> 
+  mutate(proportion = n_contacts / population)
+
+```
+
+
+:::
+
+### Functions give ideas a home
+
+Functions provide a way to __express__ the idea of what we want to do. They also provide your ideas a home. What if the data changes? Do you want to go back and change each line of code? No! You can update the function in one place, and then repeat it again. 
+
+Once you start writing functions to do things, they will start to be little repositories of knowledge. Little shortcuts that you can use to just remember the most important part.
+
+Now, on to the anatomy of functions
+
+## Anatomy of a function
+
+Now, to speak about the mechanics of writing functions: a function is composed of three parts:
+
+1. Name
+2. Arguments
+3. Body
+
+To look at our `clean_age_groups` function again, we can see the following:
+
+```{r}
+# The name of the function
+clean_age_groups <- function(age_groups){ # The argument - age_groups
+  
+  # The body of the function
+  age_underscore <- str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      )
+  
+  # The last thing you do with the function is what it returns
+  as.factor(age_underscore)
+  
+}
+
+```
+
+
+:::{.callout-warning title="The last thing you do shouldn't be assignment `<-`" collapse="false"}
+
+The last thing that a function does is what it returns. If we take our example above and change the last line to assign to some variable, then the function will not return anything!
+
+```{r}
+# The name of the function
+clean_age_groups <- function(age_groups){ # The argument - age_groups
+  
+  # The body of the function
+  age_underscore <- str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      )
+  
+  # The last thing you do with the function is what it returns
+  factored <- as.factor(age_underscore)
+  
+}
+
+clean_age_groups("10--11")
+
+```
+
+This is a pretty common mistake, one I still make. Just something to be aware of! The way to fix this is to make sure that the last thing you do isn't assigned. So, our example above should look like so:
+
+```{r}
+# The name of the function
+clean_age_groups <- function(age_groups){ # The argument - age_groups
+  
+  # The body of the function
+  age_underscore <- str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      )
+  
+  # The last thing you do with the function is what it returns
+  # NOT THIS
+  # factored <- as.factor(age_underscore)
+  # THIS
+  as.factor(age_underscore)
+  
+}
+
+clean_age_groups("10--11")
+```
+
+:::
+
+
+## How to think about writing functions
+
+There are many ways to start writing functions. Fundamentally, it is about identifying inputs and outputs. One useful approach, I think, is to identify the outputs before the inputs:
+
+1. The output. What __one thing__ do you want this function to return?
+2. The input. What (potentially __many things__) goes in to this.
+
+This "gestalt", or top-down approach isn't how it always needs to be done. But I think it helps you identify __the thing you need__ first, which can help guide you.
+
+### Identifying the output - what do we need?
+
+It might feel a bit like putting the cart before the horse, but I think there is a nice advantage to thinking about the output first: you focus on what you want the function to do.
+
+In the case of our `clean_age_groups` function, we want to get values like "15_19" that are factors.
+
+### Identifying the input
+
+So now we have a clear idea of what we need - we can now clarify what we have, which in our case earlier, was some contact data
+
+```{r}
+contact
+```
+
+Where we want to focus on age groups, and take inputs like
+
+```{r}
+c("15-19", "15--19")
+```
+
+And then turn them into:
+
+```{r}
+c("15_19", "15_19")
+```
+
+Breaking things down like this means we can focus on a really small example of the thing we want, which makes the problem easier to solve.
+
+There are many ways to manage turning strings into other strings, and I like to use the `stringr` package to do this. We can use the `str_replace_all` function. So I'll start by scratching up some inputs like so, and seeing if this works
+
+```{r}
+ages <- c("15-19", "15--19")
+str_replace_all(
+  string = ages,
+  pattern = "-",
+  replacement = "_"
+)
+```
+
+#### Iteration: Writing functions is writing
+
+I didn't get this right the first time - and I rarely do! The point I want to make here is:
+
+> Writing functions is just like writing. It takes iteration.
+
+We have incidentally replaced every "-" with "_", which means "--" becomes "__".
+
+Let's change that by using `|` in the "pattern" argument, which allows us to specify "-|--", which means, "-" OR "--":
+
+```{r}
+ages <- c("15-19", "15--19")
+str_replace_all(
+  string = ages,
+  pattern = "-|--",
+  replacement = "_"
+)
+```
+
+OK, the same problem. We actually need to flip the order here, so we change "--" first:
+
+```{r}
+ages <- c("15-19", "15--19")
+str_replace_all(
+  string = ages,
+  pattern = "--|-",
+  replacement = "_"
+)
+```
+
+Great! Now let's put that into the body of the function, and __give the function a good name__.
+
+```{r}
+clean_age_groups <- function(age_groups){
+  str_replace_all(
+  string = ages,
+  pattern = "--|-",
+  replacement = "_"
+)
+}
+
+clean_age_groups(ages)
+```
+
+
+It's a useful process to scratch out a function like this. As you get more confident with this, you will start to be able to write the code as a function first, and then iterate in that way.
+
+:::{.callout-warning title="beware copying and pasting into functions" collapse="false"}
+
+The process of writing a function out in scratchings as we've done, is that we can leave some scraps in the code. In this case, I've actually left the `ages` object in the function, but the `argument` is `age_groups`:
+
+```{r}
+clean_age_groups <- function(age_groups){
+  str_replace_all(
+  string = ages,
+  pattern = "--|-",
+  replacement = "_"
+)
+}
+
+clean_age_groups(ages)
+```
+
+Notice that this still works! This is because the `ages` object still exists as a variable I've created. But if we try another input, we'll get some strange output:
+
+```{r}
+clean_age_groups(c("10-12", "10--12"))
+```
+
+
+So, make sure to clean up after you've copied and pasted - remember to check the arguments match how they are used in the function
+
+:::
+
+
+### Managing scope - functions are best (generally) when they do __one thing__.
+
+Also, note that we wrote `clean_age_groups` to just focus on converting input like "10--12" into "10_12". We could have instead focussed on cleaning up the data frame, like so:
+
+```{r}
+contact
+
+clean_age_groups_data <- function(data){
+  
+  tidy_contact <- data |> 
+  mutate(
+    age_groups = str_replace_all(
+      string = age_groups, 
+      pattern = "---|--|-",
+      replacement = "_"
+      ),
+    age_groups = as.factor(age_groups)
+  )
+  
+  tidy_contact
+
+}
+
+clean_age_groups_data(contact)
+
+```
+
+I think there are a couple of issues with this:
+
+1. We assume the age groups column is always `age_groups`
+2. The scope is now larger - we are always working with data and returning data
+3. We haven't necessarily made the expression easier. 
+
+It is fine to wrap up the existing function into another function that cleans the data - to me this better encapsulates and expresses the ideas:
+
+```{r}
+contact
+
+clean_contacts <- function(data){
+  
+  data |> 
+  mutate(
+    age_groups = clean_age_groups(age_groups)
+  )
+
+}
+
+clean_contacts(contact)
+
+```
+
+Some of the improvements I notice
+
+- We are just focussing on cleaning up the age group column. 
+- We have given it a name that refers to cleaning up the data, which might also give us some space and room to add more cleaning function here. 
+
+## When to function
+
+One of my overall points with functions is:
+
+> functions help you express your intention. 
+
+However, there are some generally good heuristics to follow to help guide you towards writing a function. Here are some of these.
+
+Generally, it is time to write a function if:
+
+1. You've copied and pasted the code 3 or more times.
+2. You've re-read your code more than 3 times.
+
+## Naming things is **hard**
+
+> There are only two hard things in Computer Science: cache invalidation and **naming things**.
+
+-- Phil Karlton
+
+What does this function **do**?
+
+```{r}
+myfun <- function(x){
+  (x * 9/5) + 32
+}
+```
+
+Converting temperature?
+
+```{r}
+temperature_conversion <- function(x){
+  (x * 9/5) + 32
+}
+```
+
+Clearly state `input_to_output()`
+
+```{r}
+celcius_to_fahrenheit <- function(x){
+  (x * 9/5) + 32
+}
+```
+
+Name argument and intermediate variables
+
+```{r}
+celcius_to_fahrenheit <- function(celcius){
+  fahrenheit <- (celcius * 9/5) + 32
+  fahrenheit
+}
+```
+
+What, what does make functions **hard**?
+
+```{r}
+celcius_to_fahrenheit <- function(celcius){
+  (celcius * 9/5) + 32
+}
+```
+
+Identifying inputs and outputs is hard.
+
+But what **is** hard it taking code, (like the code in a data analysis) and **finding the parts that need to change**
+
+> There's a level of "I got it to work" and there's a level of "It works, and I can reason about it"
+
+-- Joe Cheng [**You have to be able to reason about it \| Data Science Hangout**](https://youtu.be/J8qbRYa4430?si=GnCpXk_Go7_PzOJa&t=2380)
+
+I can **reason** about it
+
+> ...how do you take all this complexity and break it down into smaller pieces...each of which you can **reason about**...each of which you can **hold in your head**...each of which you can look at and be like "yup, I can fully ingest this entire function definition, I can read it line by line and prove to myself this is definitely correct...So software engineering... is a lot about this: How do you **break up inherently complicated things** that we are trying to do into small **pieces that are individually easy to reason about**. That's half the battle...The other half of the battle is how do we combine them in ways that can be reliable and also easy to reason about
+
+## The other hard part of writing functions
+
+
+:::{.callout-note title="Practice naming things" collapse="false"}
+
+Practice naming these functions, going through
+
+:::
+
+## Conclusion
+
+The process of writing a function is:
+
+- Identify outputs and inputs
+- Identify the complexity to abstract away
+- Writing functions is **iterative**, Just like **regular writing**
+- Naming things is hard
+
+On a final note, I think it's worthwhile thinking about the iteration - and the idea of moving from a skateboard to a car, rather than building the car:
+
+![](figs/spotify-howtobuildmvp.jpg){fig-align="center" fig-height=500}
+
+(heard via [**Stat545 functions chapter**](https://stat545.com/functions-part1.html))
+
+
 
