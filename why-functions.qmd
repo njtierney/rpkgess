@@ -62,6 +62,7 @@ A function is something that helps us manage complexity. You can think about thi
 Let's say we had some data on age groups - the number of contacts these people record on a given day.
 
 ```{r}
+#| label: build-contact
 library(tidyverse)
 contact <- tibble(
   location = rep(c("QLD", "NSW"), 3),
@@ -76,6 +77,7 @@ contact
 We want to produce a plot of age groups and the number of contacts, but we can't do this, because there are all these different ways of representing "age_group".
 
 ```{r}
+#| label: plot-contact-false
 ggplot(
   contact,
   aes(x = age_groups,
@@ -88,6 +90,7 @@ Well rather, we CAN do this, but we want to get the totals of each age group.
 What we want out of this is them all to be separated out by an underscore "_", and turned into a factor:
 
 ```{r}
+#| label: fix-contacts
 library(stringr)
 tidy_contact <- contact |> 
   mutate(
@@ -105,6 +108,7 @@ tidy_contact
 And then we can plot this:
 
 ```{r}
+#| label: plot-contact
 ggplot(
   tidy_contact,
   aes(x = age_groups,
@@ -117,6 +121,7 @@ Sure, job done.
 But now we have some new data, this one contains similar information, but it has population data that we need to join onto it so we can get proportion information.
 
 ```{r}
+#| label: build-population
 population <- tibble(
   location = rep(c("QLD", "NSW"), 3),
   age_groups = c("15--19", "15-19", "20---24", "20-24", "25-29", "25--29"),
@@ -129,6 +134,7 @@ population
 And this is why I think you should write a function. We want to _encapsulate the idea_ of cleaning up age group. That is: "clean age groups". So let's write a function that captures this idea. 
 
 ```{r}
+#| label: clean-age-groups
 clean_age_groups <- function(age_groups){
   
   age_underscore <- str_replace_all(
@@ -148,6 +154,7 @@ And this is the difference in the worflow, for each of these tidying up processe
 ## script
 
 ```{r}
+#| label: demo-script
 tidy_contact <- contact |> 
   mutate(
     age_groups = str_replace_all(
@@ -181,6 +188,7 @@ tidy_proportion
 ## function
 
 ```{r}
+#| label: demo-functions
 clean_age_groups <- function(age_groups){
   
   age_underscore <- str_replace_all(
@@ -231,6 +239,7 @@ Now, to speak about the mechanics of writing functions: a function is composed o
 To look at our `clean_age_groups` function again, we can see the following:
 
 ```{r}
+#| label: function-anatomy
 # The name of the function
 clean_age_groups <- function(age_groups){ # The argument - age_groups
   
@@ -254,6 +263,7 @@ clean_age_groups <- function(age_groups){ # The argument - age_groups
 The last thing that a function does is what it returns. If we take our example above and change the last line to assign to some variable, then the function will not return anything!
 
 ```{r}
+#| label: what-it-returns
 # The name of the function
 clean_age_groups <- function(age_groups){ # The argument - age_groups
   
@@ -276,6 +286,7 @@ clean_age_groups("10--11")
 This is a pretty common mistake, one I still make. Just something to be aware of! The way to fix this is to make sure that the last thing you do isn't assigned. So, our example above should look like so:
 
 ```{r}
+#| label: this-not-this
 # The name of the function
 clean_age_groups <- function(age_groups){ # The argument - age_groups
   
@@ -320,18 +331,21 @@ In the case of our `clean_age_groups` function, we want to get values like "15_1
 So now we have a clear idea of what we need - we can now clarify what we have, which in our case earlier, was some contact data
 
 ```{r}
+#| label: print-contact
 contact
 ```
 
 Where we want to focus on age groups, and take inputs like
 
 ```{r}
+#| label: inputs
 c("15-19", "15--19")
 ```
 
 And then turn them into:
 
 ```{r}
+#| label: outputs
 c("15_19", "15_19")
 ```
 
@@ -340,6 +354,7 @@ Breaking things down like this means we can focus on a really small example of t
 There are many ways to manage turning strings into other strings, and I like to use the `stringr` package to do this. We can use the `str_replace_all` function. So I'll start by scratching up some inputs like so, and seeing if this works
 
 ```{r}
+#| label: demo-input-output
 ages <- c("15-19", "15--19")
 str_replace_all(
   string = ages,
@@ -359,6 +374,7 @@ We have incidentally replaced every "-" with "_", which means "--" becomes "__".
 Let's change that by using `|` in the "pattern" argument, which allows us to specify "-|--", which means, "-" OR "--":
 
 ```{r}
+#| label: iterate-1
 ages <- c("15-19", "15--19")
 str_replace_all(
   string = ages,
@@ -370,6 +386,7 @@ str_replace_all(
 OK, the same problem. We actually need to flip the order here, so we change "--" first:
 
 ```{r}
+#| label: iterate-2
 ages <- c("15-19", "15--19")
 str_replace_all(
   string = ages,
@@ -381,6 +398,7 @@ str_replace_all(
 Great! Now let's put that into the body of the function, and __give the function a good name__.
 
 ```{r}
+#| label: clean-age-groups-final
 clean_age_groups <- function(age_groups){
   str_replace_all(
   string = ages,
@@ -400,6 +418,7 @@ It's a useful process to scratch out a function like this. As you get more confi
 The process of writing a function out in scratchings as we've done, is that we can leave some scraps in the code. In this case, I've actually left the `ages` object in the function, but the `argument` is `age_groups`:
 
 ```{r}
+#| label: show-ages-left
 clean_age_groups <- function(age_groups){
   str_replace_all(
   string = ages,
@@ -414,11 +433,28 @@ clean_age_groups(ages)
 Notice that this still works! This is because the `ages` object still exists as a variable I've created. But if we try another input, we'll get some strange output:
 
 ```{r}
+#| label: show-mistake
 clean_age_groups(c("10-12", "10--12"))
 ```
 
 
-So, make sure to clean up after you've copied and pasted - remember to check the arguments match how they are used in the function
+So, make sure to clean up after you've copied and pasted - remember to check the arguments match how they are used in the function.
+
+And on that note, let's redefine `clean_age_groups` correctly so we don't get an error later on (which happened during the development of the book)
+
+```{r}
+#| label: fix-clean-age-groups
+clean_age_groups <- function(age_groups){
+  str_replace_all(
+  string = age_groups,
+  pattern = "--|-",
+  replacement = "_"
+)
+}
+
+clean_age_groups(ages)
+```
+
 
 :::
 
@@ -428,6 +464,7 @@ So, make sure to clean up after you've copied and pasted - remember to check the
 Also, note that we wrote `clean_age_groups` to just focus on converting input like "10--12" into "10_12". We could have instead focussed on cleaning up the data frame, like so:
 
 ```{r}
+#| label: fun-clean-age-groups
 contact
 
 clean_age_groups_data <- function(data){
@@ -459,6 +496,7 @@ I think there are a couple of issues with this:
 It is fine to wrap up the existing function into another function that cleans the data - to me this better encapsulates and expresses the ideas:
 
 ```{r}
+#| label: tidy-clean-age-groups
 contact
 
 clean_contacts <- function(data){
@@ -501,6 +539,7 @@ Generally, it is time to write a function if:
 What does this function **do**?
 
 ```{r}
+#| label: myfun
 myfun <- function(x){
   (x * 9/5) + 32
 }
@@ -509,6 +548,7 @@ myfun <- function(x){
 Converting temperature?
 
 ```{r}
+#| label: temp-conv
 temperature_conversion <- function(x){
   (x * 9/5) + 32
 }
@@ -517,6 +557,7 @@ temperature_conversion <- function(x){
 Clearly state `input_to_output()`
 
 ```{r}
+#| label: c-to-f
 celcius_to_fahrenheit <- function(x){
   (x * 9/5) + 32
 }
@@ -525,6 +566,7 @@ celcius_to_fahrenheit <- function(x){
 Name argument and intermediate variables
 
 ```{r}
+#| label: c-to-f-better
 celcius_to_fahrenheit <- function(celcius){
   fahrenheit <- (celcius * 9/5) + 32
   fahrenheit
@@ -534,6 +576,7 @@ celcius_to_fahrenheit <- function(celcius){
 What, what does make functions **hard**?
 
 ```{r}
+#| label: c-to-f-best
 celcius_to_fahrenheit <- function(celcius){
   (celcius * 9/5) + 32
 }
