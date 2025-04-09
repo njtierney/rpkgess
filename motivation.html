@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -238,26 +272,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./common-problems.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">common-problems.html</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">references.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">references.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">acknowledgements.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">acknowledgements.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -275,6 +303,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">appendix-faq.html</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./common-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">common-problems.html</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -282,8 +316,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">6.1</span> Overview</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">6.2</span> Questions</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">6.3</span> Objectives</a></li>
+  <li><a href="#how-this-works" id="toc-how-this-works" class="nav-link" data-scroll-target="#how-this-works"><span class="header-section-number">6.4</span> How this works</a></li>
+  <li><a href="#the-example-learned" id="toc-the-example-learned" class="nav-link" data-scroll-target="#the-example-learned"><span class="header-section-number">6.5</span> The example: “learned”</a></li>
+  <li><a href="#discussion-of-potential-problems" id="toc-discussion-of-potential-problems" class="nav-link" data-scroll-target="#discussion-of-potential-problems"><span class="header-section-number">6.6</span> Discussion of potential problems</a></li>
+  <li><a href="#identifying-the-report-outputs" id="toc-identifying-the-report-outputs" class="nav-link" data-scroll-target="#identifying-the-report-outputs"><span class="header-section-number">6.7</span> Identifying the report outputs</a></li>
+  <li><a href="#plot-of-proportion-of-people-educated-in-each-age-group-in-each-state" id="toc-plot-of-proportion-of-people-educated-in-each-age-group-in-each-state" class="nav-link" data-scroll-target="#plot-of-proportion-of-people-educated-in-each-age-group-in-each-state"><span class="header-section-number">6.8</span> Plot of <strong>proportion of people educated</strong> in each age group in each state</a></li>
+  <li><a href="#box-plot-of-proportion-of-people-educated-for-each-state." id="toc-box-plot-of-proportion-of-people-educated-for-each-state." class="nav-link" data-scroll-target="#box-plot-of-proportion-of-people-educated-for-each-state."><span class="header-section-number">6.9</span> box plot of <strong>proportion of people educated</strong> for each state.</a></li>
+  <li><a href="#table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state." id="toc-table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state." class="nav-link" data-scroll-target="#table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state."><span class="header-section-number">6.10</span> Table of The 5 number summary of <strong>proportion of people educated</strong> for each state.</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/motivation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -308,8 +357,191 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>We’ve gone through a lot of setup, and now we’re going to start building an R package. Soon. But we need to have some motivation, first. It involves a bit of a story, and a bit of imagination.</p>
+<section id="overview" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">6.1</span> Overview</h2>
+<ul>
+<li><strong>Teaching</strong> 30 minutes</li>
+<li><strong>Exercises</strong> 10 minutes</li>
+</ul>
+</section>
+<section id="questions" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="questions"><span class="header-section-number">6.2</span> Questions</h2>
+<ul>
+<li></li>
+</ul>
+</section>
+<section id="objectives" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="objectives"><span class="header-section-number">6.3</span> Objectives</h2>
+<ul>
+<li>Start to wrangle with a script to turn it into functions</li>
+</ul>
+</section>
+<section id="how-this-works" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="how-this-works"><span class="header-section-number">6.4</span> How this works</h2>
+<p>One of my big goals with teaching functions, and with teaching R packages, is that I want the examples to be somewhat rooted in the familiar and the real. There are really useful toy examples of writing packages that deliver praise (e.g., ones I’ve used to teach R packages in the past: https://github.com/njtierney/praiseme), or do simple conversions between units (celcius to farenheit being a very common example).</p>
+<p>These examples are useful because they teach you the tools, and the process. However in this course, I want to focus on a bit more than this and incorporate the process of turning code into functions. I think this is important, because it more closely represents other examples we come across in using R, and presents a bit of a richer learning journey, because in addition to learning about the tools and the process of R package building, you will also learn:</p>
+<ul>
+<li>How to think about converting scripts to functions</li>
+<li>How to write better functions</li>
+</ul>
+<p>I have written up some example code, which starts as a quarto document. We are going to take this document, and then eventually turn it into an R package.</p>
+<p>The structure of this exercise has taken inspiration from <a href="https://r-pkgs.org/package-within.html">“The package within” chapter from R Packages</a>.</p>
+</section>
+<section id="the-example-learned" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="the-example-learned"><span class="header-section-number">6.5</span> The example: “learned”</h2>
+<p>We are going to be looking at a role-play situation where we imagine we are at some fictional workplace, where part of our job is to look at education data that we have acquired from some source. The overall goal of our job here is to produce some <strong>key outputs</strong> from some data.</p>
+<p>You can see this example at: https://github.com/njtierney/learned</p>
+<p>To download it, run the following code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_course</span>(<span class="st">"njtierney/learned"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Download the repository using the code above</li>
+<li>Render the document</li>
+<li>Read over the document, thinking about what we discussed in <a href="why-functions">Why functions</a>.</li>
+<li>Identify some potential problems with the code</li>
+<li>Think about what might happen if we want to read in data from 2015 (or later years), how would you like to do this?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="discussion-of-potential-problems" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="discussion-of-potential-problems"><span class="header-section-number">6.6</span> Discussion of potential problems</h2>
+<p>After you’ve taken from time to think about some of the potential problems, open the box below</p>
+<div class="callout callout-style-default callout-caution callout-titled" title="Some of the potential problems">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Some of the potential problems
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Copying and pasting a document could lead to errors</li>
+<li>What if the data changes?</li>
+<li>What if other people collaborate on this project? How do they have the source of truth?</li>
+<li>Is there a way to formalise this all?</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="identifying-the-report-outputs" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="identifying-the-report-outputs"><span class="header-section-number">6.7</span> Identifying the report outputs</h2>
+<p>To get us started with some key things, let’s think about what the key outputs of this report are.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Identify the <strong>key outputs</strong> of the report</li>
+<li>Pick one of those key outputs and start to write out a function for it</li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled" title="Key outputs">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key outputs
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>They key outputs are related to the “Produce a …” steps of the document:</p>
+<ol type="1">
+<li>Produce a plot of the <strong>proportion of people educated</strong> in each age group in each state</li>
+<li>Produce a box plot of <strong>proportion of people educated</strong> for each state.</li>
+<li>Produce a table of The 5 number summary (min, 1st quantile, median, 3rd quantile, max) of <strong>proportion of people educated</strong> for each state.</li>
+</ol>
+</div>
+</div>
+</div>
+<p>So now we know where we are headed - we want to write some functions that produce these plots and tables.</p>
+<p>However, the main problem that we encountered was that there was actually a bit of data cleaning that needed to happen before we did this. Let’s focus on cleaning up and rearranging the quarto document first to identify the data cleaning steps required.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Open, “alpha-analysis2014.qmd”</li>
+<li>Move all the “data quality” checks into a new section called “data quality”</li>
+<li>Move all of the data cleaning code up to the top, so we just work with one data set, named <code>tidy_age_state_education_2014</code></li>
+<li>Create two functions to clean the data:</li>
+<li>tidy the age groups</li>
+<li>remove the missing values</li>
+<li>Put these two functions into another function that does the data cleaning</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="plot-of-proportion-of-people-educated-in-each-age-group-in-each-state" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="plot-of-proportion-of-people-educated-in-each-age-group-in-each-state"><span class="header-section-number">6.8</span> Plot of <strong>proportion of people educated</strong> in each age group in each state</h2>
+<p>The key code here is this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  fixed_age_group_education_2014,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> prop_studying,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> age_group</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state_territory, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>However, in order to write this, we need to identify the steps that happened earlier to the <code>fixed_age_group_education_2014</code> data.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What were the fixes that were required for this data?</p>
+</div>
+</div>
+</section>
+<section id="box-plot-of-proportion-of-people-educated-for-each-state." class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="box-plot-of-proportion-of-people-educated-for-each-state."><span class="header-section-number">6.9</span> box plot of <strong>proportion of people educated</strong> for each state.</h2>
+</section>
+<section id="table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state." class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state."><span class="header-section-number">6.10</span> Table of The 5 number summary of <strong>proportion of people educated</strong> for each state.</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -749,7 +981,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2025, Nicholas Tierney</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/motivation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/motivation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

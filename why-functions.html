@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -238,26 +272,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./common-problems.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">common-problems.html</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">references.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">references.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">acknowledgements.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">acknowledgements.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -275,6 +303,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">appendix-faq.html</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./common-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">common-problems.html</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -290,6 +324,23 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">5.1</span> Overview</a></li>
   <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">5.2</span> Questions</a></li>
   <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">5.3</span> Objectives</a></li>
+  <li><a href="#prior-art" id="toc-prior-art" class="nav-link" data-scroll-target="#prior-art"><span class="header-section-number">5.4</span> Prior Art</a></li>
+  <li><a href="#code-is-for-people" id="toc-code-is-for-people" class="nav-link" data-scroll-target="#code-is-for-people"><span class="header-section-number">5.5</span> Code is for people</a></li>
+  <li><a href="#ok-but-what-actually-is-a-function" id="toc-ok-but-what-actually-is-a-function" class="nav-link" data-scroll-target="#ok-but-what-actually-is-a-function"><span class="header-section-number">5.6</span> OK, but <strong>what</strong> actually is a function?</a>
+  <ul class="collapse">
+  <li><a href="#functions-give-ideas-a-home" id="toc-functions-give-ideas-a-home" class="nav-link" data-scroll-target="#functions-give-ideas-a-home"><span class="header-section-number">5.6.1</span> Functions give ideas a home</a></li>
+  </ul></li>
+  <li><a href="#anatomy-of-a-function" id="toc-anatomy-of-a-function" class="nav-link" data-scroll-target="#anatomy-of-a-function"><span class="header-section-number">5.7</span> Anatomy of a function</a></li>
+  <li><a href="#how-to-think-about-writing-functions" id="toc-how-to-think-about-writing-functions" class="nav-link" data-scroll-target="#how-to-think-about-writing-functions"><span class="header-section-number">5.8</span> How to think about writing functions</a>
+  <ul class="collapse">
+  <li><a href="#identifying-the-output---what-do-we-need" id="toc-identifying-the-output---what-do-we-need" class="nav-link" data-scroll-target="#identifying-the-output---what-do-we-need"><span class="header-section-number">5.8.1</span> Identifying the output - what do we need?</a></li>
+  <li><a href="#identifying-the-input" id="toc-identifying-the-input" class="nav-link" data-scroll-target="#identifying-the-input"><span class="header-section-number">5.8.2</span> Identifying the input</a></li>
+  <li><a href="#managing-scope---functions-are-best-generally-when-they-do-one-thing." id="toc-managing-scope---functions-are-best-generally-when-they-do-one-thing." class="nav-link" data-scroll-target="#managing-scope---functions-are-best-generally-when-they-do-one-thing."><span class="header-section-number">5.8.3</span> Managing scope - functions are best (generally) when they do <strong>one thing</strong>.</a></li>
+  </ul></li>
+  <li><a href="#when-to-function" id="toc-when-to-function" class="nav-link" data-scroll-target="#when-to-function"><span class="header-section-number">5.9</span> When to function</a></li>
+  <li><a href="#naming-things-is-hard" id="toc-naming-things-is-hard" class="nav-link" data-scroll-target="#naming-things-is-hard"><span class="header-section-number">5.10</span> Naming things is <strong>hard</strong></a></li>
+  <li><a href="#the-other-hard-part-of-writing-functions" id="toc-the-other-hard-part-of-writing-functions" class="nav-link" data-scroll-target="#the-other-hard-part-of-writing-functions"><span class="header-section-number">5.11</span> The other hard part of writing functions</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.12</span> Conclusion</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/why-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -315,7 +366,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>At their core, an R package is a way to share code. The way we share that code is primarily through R functions. There is a lot about the mechanics, and the tools to create and write R packages, but what I want to communicate here is the <strong>why, when, and how</strong> of using functions.</p>
+<p>At their core, an R package is a way to share code. The way we share that code is primarily through R functions. There is a lot about the mechanics, and the tools to create and write R packages, but what I want to communicate here is the <strong>what, why, when, and how</strong> of using functions.</p>
 <section id="overview" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">5.1</span> Overview</h2>
 <ul>
@@ -326,6 +377,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="questions" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="questions"><span class="header-section-number">5.2</span> Questions</h2>
 <ul>
+<li>What is a function?</li>
 <li>Why should I use a function?</li>
 <li>When should I use a function?</li>
 <li>How do I create a function?</li>
@@ -338,6 +390,689 @@ ul.task-list li input[type="checkbox"] {
 <li>Understand when do use functions</li>
 <li>Understand how to write functions</li>
 </ul>
+</section>
+<section id="prior-art" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="prior-art"><span class="header-section-number">5.4</span> Prior Art</h2>
+<p>There’s a lot of work and thought that’s gone into writing functions. A lot of my own understanding of this has been informed by others, and I want to make sure I properly acknowledge them:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=J8qbRYa4430"><strong>Joe Cheng: You have to be able to reason about it</strong></a></li>
+<li><a href="https://www.youtube.com/watch?v=rz3_FDVt9eg"><strong>Hadley Wickham’s ‘Many Models’ talk</strong></a></li>
+<li><a href="https://www.youtube.com/watch?v=Qne86lxjgtg"><strong>Hadley Wickham’s ‘The design of everyday functions’</strong></a></li>
+<li><a href="https://www.youtube.com/watch?v=ywK4qs5dJsg"><strong>Miles Mcbain’s ‘Our colour of magic’</strong></a></li>
+<li><a href="https://www.youtube.com/watch?v=7oyiPBjLAWY"><strong>Jenny Bryan’s ‘Code Smells and Feels’</strong></a></li>
+<li><a href="https://www.youtube.com/watch?v=5033jBHFiHE&amp;t=1s"><strong>Roger Peng’s ‘From tapply to Tidyverse’</strong></a></li>
+<li><a href="https://r4ds.had.co.nz/functions.html"><strong>Advanced R: Functions</strong></a></li>
+<li><a href="https://design.tidyverse.org/"><strong>Tidy Design Principles</strong></a></li>
+<li><a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/lexical.pdf"><strong>Lexical Scope and Statistical Computing</strong></a></li>
+<li><a href="https://stat545.com/functions-part1.html"><strong>stat545 chapter on functions</strong></a></li>
+</ul>
+<p>These are all well worth the time reading, but if I had to pick two, I would say that Hadley Wickham’s “Many Models” talk, and Jenny Bryan’s “Code Smells and Feels” have been two of the most influential on me.</p>
+</section>
+<section id="code-is-for-people" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="code-is-for-people"><span class="header-section-number">5.5</span> Code is for people</h2>
+<p>If I could have you walk away with one key idea, it would be this:</p>
+<blockquote class="blockquote">
+<p>Functions are tools to manage complexity that allow us to reason with and understand our code.</p>
+</blockquote>
+<p>In essence, <strong>code is for people</strong>. This stems from a famous (well, I think it’s famous), quote:</p>
+<blockquote class="blockquote">
+<p>[W]e want to establish the idea that a computer language is not just a way of getting a computer to perform operations but rather that it is a novel formal medium for expressing ideas about methodology. Thus, <strong>programs must be written for people to read, and only incidentally for machines to execute</strong>.</p>
+</blockquote>
+<p>— <a href="https://mitpress.mit.edu/9780262510875/"><strong>Structure and Interpretation of Computer Programs</strong></a>. Abelson, Sussman, and Sussman, 1984.</p>
+</section>
+<section id="ok-but-what-actually-is-a-function" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="ok-but-what-actually-is-a-function"><span class="header-section-number">5.6</span> OK, but <strong>what</strong> actually is a function?</h2>
+<p>Going back to my quote:</p>
+<blockquote class="blockquote">
+<p>Functions are tools to manage complexity that allow us to reason with and understand our code.</p>
+</blockquote>
+<p>I actually think before we talk about the anatomy, the <strong>what</strong>. We first must discuss <strong>why</strong> functions.</p>
+<p>A function is something that helps us manage complexity. You can think about this as something that allows us to repeat certain tasks. Kind of like how a robot, or a manufacturing line can repeat manual tasks.</p>
+<p>Let’s say we had some data on age groups - the number of contacts these people record on a given day.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>contact <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">location =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"QLD"</span>, <span class="st">"NSW"</span>), <span class="dv">3</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age_groups =</span> <span class="fu">c</span>(<span class="st">"15-19"</span>, <span class="st">"15--19"</span>, <span class="st">"20--24"</span>, <span class="st">"20-24"</span>, <span class="st">"25---29"</span>, <span class="st">"25-29"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_contacts =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">125</span>, <span class="dv">150</span>, <span class="dv">200</span>, <span class="dv">225</span>, <span class="dv">250</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>contact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups n_contacts
+  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+1 QLD      15-19             100
+2 NSW      15--19            125
+3 QLD      20--24            150
+4 NSW      20-24             200
+5 QLD      25---29           225
+6 NSW      25-29             250</code></pre>
+</div>
+</div>
+<p>We want to produce a plot of age groups and the number of contacts, but we can’t do this, because there are all these different ways of representing “age_group”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  contact,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> age_groups,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> n_contacts)) <span class="sc">+</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="why-functions_files/figure-html/plot-contact-false-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Well rather, we CAN do this, but we want to get the totals of each age group.</p>
+<p>What we want out of this is them all to be separated out by an underscore “_“, and turned into a factor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tidy_contact <span class="ot">&lt;-</span> contact <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">as.factor</span>(age_groups)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>tidy_contact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups n_contacts
+  &lt;chr&gt;    &lt;fct&gt;           &lt;dbl&gt;
+1 QLD      15_19             100
+2 NSW      15_19             125
+3 QLD      20_24             150
+4 NSW      20_24             200
+5 QLD      25_29             225
+6 NSW      25_29             250</code></pre>
+</div>
+</div>
+<p>And then we can plot this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  tidy_contact,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> age_groups,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> n_contacts)) <span class="sc">+</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="why-functions_files/figure-html/plot-contact-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sure, job done.</p>
+<p>But now we have some new data, this one contains similar information, but it has population data that we need to join onto it so we can get proportion information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">location =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"QLD"</span>, <span class="st">"NSW"</span>), <span class="dv">3</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age_groups =</span> <span class="fu">c</span>(<span class="st">"15--19"</span>, <span class="st">"15-19"</span>, <span class="st">"20---24"</span>, <span class="st">"20-24"</span>, <span class="st">"25-29"</span>, <span class="st">"25--29"</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">c</span>(<span class="dv">319014</span>, <span class="dv">468550</span>, <span class="dv">338824</span>, <span class="dv">540233</span>, <span class="dv">370468</span>, <span class="dv">607891</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>population</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups population
+  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+1 QLD      15--19         319014
+2 NSW      15-19          468550
+3 QLD      20---24        338824
+4 NSW      20-24          540233
+5 QLD      25-29          370468
+6 NSW      25--29         607891</code></pre>
+</div>
+</div>
+<p>And this is why I think you should write a function. We want to <em>encapsulate the idea</em> of cleaning up age group. That is: “clean age groups”. So let’s write a function that captures this idea.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  age_underscore <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>(age_underscore)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And this is the difference in the worflow, for each of these tidying up processes:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">script</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">function</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tidy_contact <span class="ot">&lt;-</span> contact <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">as.factor</span>(age_groups)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>tidy_population <span class="ot">&lt;-</span> population <span class="sc">|&gt;</span> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">as.factor</span>(age_groups)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>tidy_proportion <span class="ot">&lt;-</span> tidy_contact <span class="sc">|&gt;</span> </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tidy_population,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"location"</span>, <span class="st">"age_groups"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n_contacts <span class="sc">/</span> population)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>tidy_proportion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  location age_groups n_contacts population proportion
+  &lt;chr&gt;    &lt;fct&gt;           &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 QLD      15_19             100     319014   0.000313
+2 NSW      15_19             125     468550   0.000267
+3 QLD      20_24             150     338824   0.000443
+4 NSW      20_24             200     540233   0.000370
+5 QLD      25_29             225     370468   0.000607
+6 NSW      25_29             250     607891   0.000411</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  age_underscore <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>(age_underscore)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>tidy_contact <span class="ot">&lt;-</span> contact <span class="sc">|&gt;</span> </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">clean_age_groups</span>(age_groups)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>tidy_population <span class="ot">&lt;-</span> population <span class="sc">|&gt;</span> </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">clean_age_groups</span>(age_groups)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>tidy_proportion <span class="ot">&lt;-</span> tidy_contact <span class="sc">|&gt;</span> </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tidy_population,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"location"</span>, <span class="st">"age_groups"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n_contacts <span class="sc">/</span> population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<section id="functions-give-ideas-a-home" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="functions-give-ideas-a-home"><span class="header-section-number">5.6.1</span> Functions give ideas a home</h3>
+<p>Functions provide a way to <strong>express</strong> the idea of what we want to do. They also provide your ideas a home. What if the data changes? Do you want to go back and change each line of code? No! You can update the function in one place, and then repeat it again.</p>
+<p>Once you start writing functions to do things, they will start to be little repositories of knowledge. Little shortcuts that you can use to just remember the most important part.</p>
+<p>Now, on to the anatomy of functions</p>
+</section>
+</section>
+<section id="anatomy-of-a-function" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="anatomy-of-a-function"><span class="header-section-number">5.7</span> Anatomy of a function</h2>
+<p>Now, to speak about the mechanics of writing functions: a function is composed of three parts:</p>
+<ol type="1">
+<li>Name</li>
+<li>Arguments</li>
+<li>Body</li>
+</ol>
+<p>To look at our <code>clean_age_groups</code> function again, we can see the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The name of the function</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){ <span class="co"># The argument - age_groups</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The body of the function</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  age_underscore <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The last thing you do with the function is what it returns</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>(age_underscore)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="The last thing you do shouldn't be assignment `<-`">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The last thing you do shouldn’t be assignment <code>&lt;-</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The last thing that a function does is what it returns. If we take our example above and change the last line to assign to some variable, then the function will not return anything!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The name of the function</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){ <span class="co"># The argument - age_groups</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The body of the function</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  age_underscore <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The last thing you do with the function is what it returns</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  factored <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(age_underscore)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_age_groups</span>(<span class="st">"10--11"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is a pretty common mistake, one I still make. Just something to be aware of! The way to fix this is to make sure that the last thing you do isn’t assigned. So, our example above should look like so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The name of the function</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){ <span class="co"># The argument - age_groups</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The body of the function</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  age_underscore <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The last thing you do with the function is what it returns</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># NOT THIS</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># factored &lt;- as.factor(age_underscore)</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># THIS</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.factor</span>(age_underscore)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_age_groups</span>(<span class="st">"10--11"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10_11
+Levels: 10_11</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="how-to-think-about-writing-functions" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="how-to-think-about-writing-functions"><span class="header-section-number">5.8</span> How to think about writing functions</h2>
+<p>There are many ways to start writing functions. Fundamentally, it is about identifying inputs and outputs. One useful approach, I think, is to identify the outputs before the inputs:</p>
+<ol type="1">
+<li>The output. What <strong>one thing</strong> do you want this function to return?</li>
+<li>The input. What (potentially <strong>many things</strong>) goes in to this.</li>
+</ol>
+<p>This “gestalt”, or top-down approach isn’t how it always needs to be done. But I think it helps you identify <strong>the thing you need</strong> first, which can help guide you.</p>
+<section id="identifying-the-output---what-do-we-need" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="identifying-the-output---what-do-we-need"><span class="header-section-number">5.8.1</span> Identifying the output - what do we need?</h3>
+<p>It might feel a bit like putting the cart before the horse, but I think there is a nice advantage to thinking about the output first: you focus on what you want the function to do.</p>
+<p>In the case of our <code>clean_age_groups</code> function, we want to get values like “15_19” that are factors.</p>
+</section>
+<section id="identifying-the-input" class="level3" data-number="5.8.2">
+<h3 data-number="5.8.2" class="anchored" data-anchor-id="identifying-the-input"><span class="header-section-number">5.8.2</span> Identifying the input</h3>
+<p>So now we have a clear idea of what we need - we can now clarify what we have, which in our case earlier, was some contact data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>contact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups n_contacts
+  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+1 QLD      15-19             100
+2 NSW      15--19            125
+3 QLD      20--24            150
+4 NSW      20-24             200
+5 QLD      25---29           225
+6 NSW      25-29             250</code></pre>
+</div>
+</div>
+<p>Where we want to focus on age groups, and take inputs like</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"15-19"</span>, <span class="st">"15--19"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15-19"  "15--19"</code></pre>
+</div>
+</div>
+<p>And then turn them into:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"15_19"</span>, <span class="st">"15_19"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19" "15_19"</code></pre>
+</div>
+</div>
+<p>Breaking things down like this means we can focus on a really small example of the thing we want, which makes the problem easier to solve.</p>
+<p>There are many ways to manage turning strings into other strings, and I like to use the <code>stringr</code> package to do this. We can use the <code>str_replace_all</code> function. So I’ll start by scratching up some inputs like so, and seeing if this works</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"15-19"</span>, <span class="st">"15--19"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> ages,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"-"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19"  "15__19"</code></pre>
+</div>
+</div>
+<section id="iteration-writing-functions-is-writing" class="level4" data-number="5.8.2.1">
+<h4 data-number="5.8.2.1" class="anchored" data-anchor-id="iteration-writing-functions-is-writing"><span class="header-section-number">5.8.2.1</span> Iteration: Writing functions is writing</h4>
+<p>I didn’t get this right the first time - and I rarely do! The point I want to make here is:</p>
+<blockquote class="blockquote">
+<p>Writing functions is just like writing. It takes iteration.</p>
+</blockquote>
+<p>We have incidentally replaced every “-” with “_“, which means”–” becomes “__“.</p>
+<p>Let’s change that by using <code>|</code> in the “pattern” argument, which allows us to specify “-|–”, which means, “-” OR “–”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"15-19"</span>, <span class="st">"15--19"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> ages,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"-|--"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19"  "15__19"</code></pre>
+</div>
+</div>
+<p>OK, the same problem. We actually need to flip the order here, so we change “–” first:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"15-19"</span>, <span class="st">"15--19"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> ages,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"--|-"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19" "15_19"</code></pre>
+</div>
+</div>
+<p>Great! Now let’s put that into the body of the function, and <strong>give the function a good name</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> ages,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"--|-"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_age_groups</span>(ages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19" "15_19"</code></pre>
+</div>
+</div>
+<p>It’s a useful process to scratch out a function like this. As you get more confident with this, you will start to be able to write the code as a function first, and then iterate in that way.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="beware copying and pasting into functions">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+beware copying and pasting into functions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The process of writing a function out in scratchings as we’ve done, is that we can leave some scraps in the code. In this case, I’ve actually left the <code>ages</code> object in the function, but the <code>argument</code> is <code>age_groups</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> ages,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"--|-"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_age_groups</span>(ages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19" "15_19"</code></pre>
+</div>
+</div>
+<p>Notice that this still works! This is because the <code>ages</code> object still exists as a variable I’ve created. But if we try another input, we’ll get some strange output:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_age_groups</span>(<span class="fu">c</span>(<span class="st">"10-12"</span>, <span class="st">"10--12"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19" "15_19"</code></pre>
+</div>
+</div>
+<p>So, make sure to clean up after you’ve copied and pasted - remember to check the arguments match how they are used in the function.</p>
+<p>And on that note, let’s redefine <code>clean_age_groups</code> correctly so we don’t get an error later on (which happened during the development of the book)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>clean_age_groups <span class="ot">&lt;-</span> <span class="cf">function</span>(age_groups){</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">string =</span> age_groups,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"--|-"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_age_groups</span>(ages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "15_19" "15_19"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="managing-scope---functions-are-best-generally-when-they-do-one-thing." class="level3" data-number="5.8.3">
+<h3 data-number="5.8.3" class="anchored" data-anchor-id="managing-scope---functions-are-best-generally-when-they-do-one-thing."><span class="header-section-number">5.8.3</span> Managing scope - functions are best (generally) when they do <strong>one thing</strong>.</h3>
+<p>Also, note that we wrote <code>clean_age_groups</code> to just focus on converting input like “10–12” into “10_12”. We could have instead focussed on cleaning up the data frame, like so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>contact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups n_contacts
+  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+1 QLD      15-19             100
+2 NSW      15--19            125
+3 QLD      20--24            150
+4 NSW      20-24             200
+5 QLD      25---29           225
+6 NSW      25-29             250</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>clean_age_groups_data <span class="ot">&lt;-</span> <span class="cf">function</span>(data){</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  tidy_contact <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">string =</span> age_groups, </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern =</span> <span class="st">"---|--|-"</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">replacement =</span> <span class="st">"_"</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">as.factor</span>(age_groups)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  tidy_contact</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_age_groups_data</span>(contact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups n_contacts
+  &lt;chr&gt;    &lt;fct&gt;           &lt;dbl&gt;
+1 QLD      15_19             100
+2 NSW      15_19             125
+3 QLD      20_24             150
+4 NSW      20_24             200
+5 QLD      25_29             225
+6 NSW      25_29             250</code></pre>
+</div>
+</div>
+<p>I think there are a couple of issues with this:</p>
+<ol type="1">
+<li>We assume the age groups column is always <code>age_groups</code></li>
+<li>The scope is now larger - we are always working with data and returning data</li>
+<li>We haven’t necessarily made the expression easier.</li>
+</ol>
+<p>It is fine to wrap up the existing function into another function that cleans the data - to me this better encapsulates and expresses the ideas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>contact</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups n_contacts
+  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+1 QLD      15-19             100
+2 NSW      15--19            125
+3 QLD      20--24            150
+4 NSW      20-24             200
+5 QLD      25---29           225
+6 NSW      25-29             250</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>clean_contacts <span class="ot">&lt;-</span> <span class="cf">function</span>(data){</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span> </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_groups =</span> <span class="fu">clean_age_groups</span>(age_groups)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_contacts</span>(contact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  location age_groups n_contacts
+  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+1 QLD      15_19             100
+2 NSW      15_19             125
+3 QLD      20_24             150
+4 NSW      20_24             200
+5 QLD      25__29            225
+6 NSW      25_29             250</code></pre>
+</div>
+</div>
+<p>Some of the improvements I notice</p>
+<ul>
+<li>We are just focussing on cleaning up the age group column.</li>
+<li>We have given it a name that refers to cleaning up the data, which might also give us some space and room to add more cleaning function here.</li>
+</ul>
+</section>
+</section>
+<section id="when-to-function" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="when-to-function"><span class="header-section-number">5.9</span> When to function</h2>
+<p>One of my overall points with functions is:</p>
+<blockquote class="blockquote">
+<p>functions help you express your intention.</p>
+</blockquote>
+<p>However, there are some generally good heuristics to follow to help guide you towards writing a function. Here are some of these.</p>
+<p>Generally, it is time to write a function if:</p>
+<ol type="1">
+<li>You’ve copied and pasted the code 3 or more times.</li>
+<li>You’ve re-read your code more than 3 times.</li>
+</ol>
+</section>
+<section id="naming-things-is-hard" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="naming-things-is-hard"><span class="header-section-number">5.10</span> Naming things is <strong>hard</strong></h2>
+<blockquote class="blockquote">
+<p>There are only two hard things in Computer Science: cache invalidation and <strong>naming things</strong>.</p>
+</blockquote>
+<p>– Phil Karlton</p>
+<p>What does this function <strong>do</strong>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Converting temperature?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>temperature_conversion <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Clearly state <code>input_to_output()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>celcius_to_fahrenheit <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Name argument and intermediate variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>celcius_to_fahrenheit <span class="ot">&lt;-</span> <span class="cf">function</span>(celcius){</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  fahrenheit <span class="ot">&lt;-</span> (celcius <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  fahrenheit</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What, what does make functions <strong>hard</strong>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>celcius_to_fahrenheit <span class="ot">&lt;-</span> <span class="cf">function</span>(celcius){</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  (celcius <span class="sc">*</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">+</span> <span class="dv">32</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Identifying inputs and outputs is hard.</p>
+<p>But what <strong>is</strong> hard it taking code, (like the code in a data analysis) and <strong>finding the parts that need to change</strong></p>
+<blockquote class="blockquote">
+<p>There’s a level of “I got it to work” and there’s a level of “It works, and I can reason about it”</p>
+</blockquote>
+<p>– Joe Cheng <a href="https://youtu.be/J8qbRYa4430?si=GnCpXk_Go7_PzOJa&amp;t=2380"><strong>You have to be able to reason about it | Data Science Hangout</strong></a></p>
+<p>I can <strong>reason</strong> about it</p>
+<blockquote class="blockquote">
+<p>…how do you take all this complexity and break it down into smaller pieces…each of which you can <strong>reason about</strong>…each of which you can <strong>hold in your head</strong>…each of which you can look at and be like “yup, I can fully ingest this entire function definition, I can read it line by line and prove to myself this is definitely correct…So software engineering… is a lot about this: How do you <strong>break up inherently complicated things</strong> that we are trying to do into small <strong>pieces that are individually easy to reason about</strong>. That’s half the battle…The other half of the battle is how do we combine them in ways that can be reliable and also easy to reason about</p>
+</blockquote>
+</section>
+<section id="the-other-hard-part-of-writing-functions" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="the-other-hard-part-of-writing-functions"><span class="header-section-number">5.11</span> The other hard part of writing functions</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Practice naming things">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Practice naming things
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Practice naming these functions, going through</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level2" data-number="5.12">
+<h2 data-number="5.12" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.12</span> Conclusion</h2>
+<p>The process of writing a function is:</p>
+<ul>
+<li>Identify outputs and inputs</li>
+<li>Identify the complexity to abstract away</li>
+<li>Writing functions is <strong>iterative</strong>, Just like <strong>regular writing</strong></li>
+<li>Naming things is hard</li>
+</ul>
+<p>On a final note, I think it’s worthwhile thinking about the iteration - and the idea of moving from a skateboard to a car, rather than building the car:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/spotify-howtobuildmvp.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-height="500"></p>
+</figure>
+</div>
+<p>(heard via <a href="https://stat545.com/functions-part1.html"><strong>Stat545 functions chapter</strong></a>)</p>
 
 
 </section>

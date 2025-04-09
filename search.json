@@ -244,7 +244,7 @@
     "href": "why-functions.html",
     "title": "5  Why functions?",
     "section": "",
-    "text": "5.1 Overview\nAt their core, an R package is a way to share code. The way we share that code is primarily through R functions. There is a lot about the mechanics, and the tools to create and write R packages, but what I want to communicate here is the why, when, and how of using functions.",
+    "text": "5.1 Overview\nAt their core, an R package is a way to share code. The way we share that code is primarily through R functions. There is a lot about the mechanics, and the tools to create and write R packages, but what I want to communicate here is the what, why, when, and how of using functions.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
     ]
@@ -264,7 +264,7 @@
     "href": "why-functions.html#questions",
     "title": "5  Why functions?",
     "section": "5.2 Questions",
-    "text": "5.2 Questions\n\nWhy should I use a function?\nWhen should I use a function?\nHow do I create a function?",
+    "text": "5.2 Questions\n\nWhat is a function?\nWhy should I use a function?\nWhen should I use a function?\nHow do I create a function?",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
     ]
@@ -280,11 +280,201 @@
     ]
   },
   {
+    "objectID": "why-functions.html#prior-art",
+    "href": "why-functions.html#prior-art",
+    "title": "5  Why functions?",
+    "section": "5.4 Prior Art",
+    "text": "5.4 Prior Art\nThere’s a lot of work and thought that’s gone into writing functions. A lot of my own understanding of this has been informed by others, and I want to make sure I properly acknowledge them:\n\nJoe Cheng: You have to be able to reason about it\nHadley Wickham’s ‘Many Models’ talk\nHadley Wickham’s ‘The design of everyday functions’\nMiles Mcbain’s ‘Our colour of magic’\nJenny Bryan’s ‘Code Smells and Feels’\nRoger Peng’s ‘From tapply to Tidyverse’\nAdvanced R: Functions\nTidy Design Principles\nLexical Scope and Statistical Computing\nstat545 chapter on functions\n\nThese are all well worth the time reading, but if I had to pick two, I would say that Hadley Wickham’s “Many Models” talk, and Jenny Bryan’s “Code Smells and Feels” have been two of the most influential on me.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#code-is-for-people",
+    "href": "why-functions.html#code-is-for-people",
+    "title": "5  Why functions?",
+    "section": "5.5 Code is for people",
+    "text": "5.5 Code is for people\nIf I could have you walk away with one key idea, it would be this:\n\nFunctions are tools to manage complexity that allow us to reason with and understand our code.\n\nIn essence, code is for people. This stems from a famous (well, I think it’s famous), quote:\n\n[W]e want to establish the idea that a computer language is not just a way of getting a computer to perform operations but rather that it is a novel formal medium for expressing ideas about methodology. Thus, programs must be written for people to read, and only incidentally for machines to execute.\n\n— Structure and Interpretation of Computer Programs. Abelson, Sussman, and Sussman, 1984.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#ok-but-what-actually-is-a-function",
+    "href": "why-functions.html#ok-but-what-actually-is-a-function",
+    "title": "5  Why functions?",
+    "section": "5.6 OK, but what actually is a function?",
+    "text": "5.6 OK, but what actually is a function?\nGoing back to my quote:\n\nFunctions are tools to manage complexity that allow us to reason with and understand our code.\n\nI actually think before we talk about the anatomy, the what. We first must discuss why functions.\nA function is something that helps us manage complexity. You can think about this as something that allows us to repeat certain tasks. Kind of like how a robot, or a manufacturing line can repeat manual tasks.\nLet’s say we had some data on age groups - the number of contacts these people record on a given day.\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.4     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\ncontact &lt;- tibble(\n  location = rep(c(\"QLD\", \"NSW\"), 3),\n  age_groups = c(\"15-19\", \"15--19\", \"20--24\", \"20-24\", \"25---29\", \"25-29\"),\n  n_contacts = c(100, 125, 150, 200, 225, 250)\n)\n\ncontact\n\n# A tibble: 6 × 3\n  location age_groups n_contacts\n  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;\n1 QLD      15-19             100\n2 NSW      15--19            125\n3 QLD      20--24            150\n4 NSW      20-24             200\n5 QLD      25---29           225\n6 NSW      25-29             250\n\n\nWe want to produce a plot of age groups and the number of contacts, but we can’t do this, because there are all these different ways of representing “age_group”.\n\nggplot(\n  contact,\n  aes(x = age_groups,\n      y = n_contacts)) + \n  geom_col()\n\n\n\n\n\n\n\n\nWell rather, we CAN do this, but we want to get the totals of each age group.\nWhat we want out of this is them all to be separated out by an underscore “_“, and turned into a factor:\n\nlibrary(stringr)\ntidy_contact &lt;- contact |&gt; \n  mutate(\n    age_groups = str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      ),\n    age_groups = as.factor(age_groups)\n  )\n\ntidy_contact\n\n# A tibble: 6 × 3\n  location age_groups n_contacts\n  &lt;chr&gt;    &lt;fct&gt;           &lt;dbl&gt;\n1 QLD      15_19             100\n2 NSW      15_19             125\n3 QLD      20_24             150\n4 NSW      20_24             200\n5 QLD      25_29             225\n6 NSW      25_29             250\n\n\nAnd then we can plot this:\n\nggplot(\n  tidy_contact,\n  aes(x = age_groups,\n      y = n_contacts)) + \n  geom_col()\n\n\n\n\n\n\n\n\nSure, job done.\nBut now we have some new data, this one contains similar information, but it has population data that we need to join onto it so we can get proportion information.\n\npopulation &lt;- tibble(\n  location = rep(c(\"QLD\", \"NSW\"), 3),\n  age_groups = c(\"15--19\", \"15-19\", \"20---24\", \"20-24\", \"25-29\", \"25--29\"),\n  population = c(319014, 468550, 338824, 540233, 370468, 607891)\n)\n\npopulation\n\n# A tibble: 6 × 3\n  location age_groups population\n  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;\n1 QLD      15--19         319014\n2 NSW      15-19          468550\n3 QLD      20---24        338824\n4 NSW      20-24          540233\n5 QLD      25-29          370468\n6 NSW      25--29         607891\n\n\nAnd this is why I think you should write a function. We want to encapsulate the idea of cleaning up age group. That is: “clean age groups”. So let’s write a function that captures this idea.\n\nclean_age_groups &lt;- function(age_groups){\n  \n  age_underscore &lt;- str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      )\n  as.factor(age_underscore)\n  \n}\n\nAnd this is the difference in the worflow, for each of these tidying up processes:\n\nscriptfunction\n\n\n\ntidy_contact &lt;- contact |&gt; \n  mutate(\n    age_groups = str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      ),\n    age_groups = as.factor(age_groups)\n  )\n\ntidy_population &lt;- population |&gt; \n  mutate(\n    age_groups = str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      ),\n    age_groups = as.factor(age_groups)\n  )\n\ntidy_proportion &lt;- tidy_contact |&gt; \n  left_join(tidy_population,\n             by = c(\"location\", \"age_groups\")) |&gt; \n  mutate(proportion = n_contacts / population)\n  \n\ntidy_proportion\n\n# A tibble: 6 × 5\n  location age_groups n_contacts population proportion\n  &lt;chr&gt;    &lt;fct&gt;           &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n1 QLD      15_19             100     319014   0.000313\n2 NSW      15_19             125     468550   0.000267\n3 QLD      20_24             150     338824   0.000443\n4 NSW      20_24             200     540233   0.000370\n5 QLD      25_29             225     370468   0.000607\n6 NSW      25_29             250     607891   0.000411\n\n\n\n\n\nclean_age_groups &lt;- function(age_groups){\n  \n  age_underscore &lt;- str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      )\n  as.factor(age_underscore)\n  \n}\n\ntidy_contact &lt;- contact |&gt; \n  mutate(\n    age_groups = clean_age_groups(age_groups)\n  )\n\ntidy_population &lt;- population |&gt; \n  mutate(\n    age_groups = clean_age_groups(age_groups)\n  )\n\ntidy_proportion &lt;- tidy_contact |&gt; \n  left_join(tidy_population,\n             by = c(\"location\", \"age_groups\")) |&gt; \n  mutate(proportion = n_contacts / population)\n\n\n\n\n\n5.6.1 Functions give ideas a home\nFunctions provide a way to express the idea of what we want to do. They also provide your ideas a home. What if the data changes? Do you want to go back and change each line of code? No! You can update the function in one place, and then repeat it again.\nOnce you start writing functions to do things, they will start to be little repositories of knowledge. Little shortcuts that you can use to just remember the most important part.\nNow, on to the anatomy of functions",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#anatomy-of-a-function",
+    "href": "why-functions.html#anatomy-of-a-function",
+    "title": "5  Why functions?",
+    "section": "5.7 Anatomy of a function",
+    "text": "5.7 Anatomy of a function\nNow, to speak about the mechanics of writing functions: a function is composed of three parts:\n\nName\nArguments\nBody\n\nTo look at our clean_age_groups function again, we can see the following:\n\n# The name of the function\nclean_age_groups &lt;- function(age_groups){ # The argument - age_groups\n  \n  # The body of the function\n  age_underscore &lt;- str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      )\n  \n  # The last thing you do with the function is what it returns\n  as.factor(age_underscore)\n  \n}\n\n\n\n\n\n\n\nThe last thing you do shouldn’t be assignment &lt;-\n\n\n\n\n\nThe last thing that a function does is what it returns. If we take our example above and change the last line to assign to some variable, then the function will not return anything!\n\n# The name of the function\nclean_age_groups &lt;- function(age_groups){ # The argument - age_groups\n  \n  # The body of the function\n  age_underscore &lt;- str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      )\n  \n  # The last thing you do with the function is what it returns\n  factored &lt;- as.factor(age_underscore)\n  \n}\n\nclean_age_groups(\"10--11\")\n\nThis is a pretty common mistake, one I still make. Just something to be aware of! The way to fix this is to make sure that the last thing you do isn’t assigned. So, our example above should look like so:\n\n# The name of the function\nclean_age_groups &lt;- function(age_groups){ # The argument - age_groups\n  \n  # The body of the function\n  age_underscore &lt;- str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      )\n  \n  # The last thing you do with the function is what it returns\n  # NOT THIS\n  # factored &lt;- as.factor(age_underscore)\n  # THIS\n  as.factor(age_underscore)\n  \n}\n\nclean_age_groups(\"10--11\")\n\n[1] 10_11\nLevels: 10_11",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#how-to-think-about-writing-functions",
+    "href": "why-functions.html#how-to-think-about-writing-functions",
+    "title": "5  Why functions?",
+    "section": "5.8 How to think about writing functions",
+    "text": "5.8 How to think about writing functions\nThere are many ways to start writing functions. Fundamentally, it is about identifying inputs and outputs. One useful approach, I think, is to identify the outputs before the inputs:\n\nThe output. What one thing do you want this function to return?\nThe input. What (potentially many things) goes in to this.\n\nThis “gestalt”, or top-down approach isn’t how it always needs to be done. But I think it helps you identify the thing you need first, which can help guide you.\n\n5.8.1 Identifying the output - what do we need?\nIt might feel a bit like putting the cart before the horse, but I think there is a nice advantage to thinking about the output first: you focus on what you want the function to do.\nIn the case of our clean_age_groups function, we want to get values like “15_19” that are factors.\n\n\n5.8.2 Identifying the input\nSo now we have a clear idea of what we need - we can now clarify what we have, which in our case earlier, was some contact data\n\ncontact\n\n# A tibble: 6 × 3\n  location age_groups n_contacts\n  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;\n1 QLD      15-19             100\n2 NSW      15--19            125\n3 QLD      20--24            150\n4 NSW      20-24             200\n5 QLD      25---29           225\n6 NSW      25-29             250\n\n\nWhere we want to focus on age groups, and take inputs like\n\nc(\"15-19\", \"15--19\")\n\n[1] \"15-19\"  \"15--19\"\n\n\nAnd then turn them into:\n\nc(\"15_19\", \"15_19\")\n\n[1] \"15_19\" \"15_19\"\n\n\nBreaking things down like this means we can focus on a really small example of the thing we want, which makes the problem easier to solve.\nThere are many ways to manage turning strings into other strings, and I like to use the stringr package to do this. We can use the str_replace_all function. So I’ll start by scratching up some inputs like so, and seeing if this works\n\nages &lt;- c(\"15-19\", \"15--19\")\nstr_replace_all(\n  string = ages,\n  pattern = \"-\",\n  replacement = \"_\"\n)\n\n[1] \"15_19\"  \"15__19\"\n\n\n\n5.8.2.1 Iteration: Writing functions is writing\nI didn’t get this right the first time - and I rarely do! The point I want to make here is:\n\nWriting functions is just like writing. It takes iteration.\n\nWe have incidentally replaced every “-” with “_“, which means”–” becomes “__“.\nLet’s change that by using | in the “pattern” argument, which allows us to specify “-|–”, which means, “-” OR “–”:\n\nages &lt;- c(\"15-19\", \"15--19\")\nstr_replace_all(\n  string = ages,\n  pattern = \"-|--\",\n  replacement = \"_\"\n)\n\n[1] \"15_19\"  \"15__19\"\n\n\nOK, the same problem. We actually need to flip the order here, so we change “–” first:\n\nages &lt;- c(\"15-19\", \"15--19\")\nstr_replace_all(\n  string = ages,\n  pattern = \"--|-\",\n  replacement = \"_\"\n)\n\n[1] \"15_19\" \"15_19\"\n\n\nGreat! Now let’s put that into the body of the function, and give the function a good name.\n\nclean_age_groups &lt;- function(age_groups){\n  str_replace_all(\n  string = ages,\n  pattern = \"--|-\",\n  replacement = \"_\"\n)\n}\n\nclean_age_groups(ages)\n\n[1] \"15_19\" \"15_19\"\n\n\nIt’s a useful process to scratch out a function like this. As you get more confident with this, you will start to be able to write the code as a function first, and then iterate in that way.\n\n\n\n\n\n\nbeware copying and pasting into functions\n\n\n\n\n\nThe process of writing a function out in scratchings as we’ve done, is that we can leave some scraps in the code. In this case, I’ve actually left the ages object in the function, but the argument is age_groups:\n\nclean_age_groups &lt;- function(age_groups){\n  str_replace_all(\n  string = ages,\n  pattern = \"--|-\",\n  replacement = \"_\"\n)\n}\n\nclean_age_groups(ages)\n\n[1] \"15_19\" \"15_19\"\n\n\nNotice that this still works! This is because the ages object still exists as a variable I’ve created. But if we try another input, we’ll get some strange output:\n\nclean_age_groups(c(\"10-12\", \"10--12\"))\n\n[1] \"15_19\" \"15_19\"\n\n\nSo, make sure to clean up after you’ve copied and pasted - remember to check the arguments match how they are used in the function.\nAnd on that note, let’s redefine clean_age_groups correctly so we don’t get an error later on (which happened during the development of the book)\n\nclean_age_groups &lt;- function(age_groups){\n  str_replace_all(\n  string = age_groups,\n  pattern = \"--|-\",\n  replacement = \"_\"\n)\n}\n\nclean_age_groups(ages)\n\n[1] \"15_19\" \"15_19\"\n\n\n\n\n\n\n\n\n5.8.3 Managing scope - functions are best (generally) when they do one thing.\nAlso, note that we wrote clean_age_groups to just focus on converting input like “10–12” into “10_12”. We could have instead focussed on cleaning up the data frame, like so:\n\ncontact\n\n# A tibble: 6 × 3\n  location age_groups n_contacts\n  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;\n1 QLD      15-19             100\n2 NSW      15--19            125\n3 QLD      20--24            150\n4 NSW      20-24             200\n5 QLD      25---29           225\n6 NSW      25-29             250\n\nclean_age_groups_data &lt;- function(data){\n  \n  tidy_contact &lt;- data |&gt; \n  mutate(\n    age_groups = str_replace_all(\n      string = age_groups, \n      pattern = \"---|--|-\",\n      replacement = \"_\"\n      ),\n    age_groups = as.factor(age_groups)\n  )\n  \n  tidy_contact\n\n}\n\nclean_age_groups_data(contact)\n\n# A tibble: 6 × 3\n  location age_groups n_contacts\n  &lt;chr&gt;    &lt;fct&gt;           &lt;dbl&gt;\n1 QLD      15_19             100\n2 NSW      15_19             125\n3 QLD      20_24             150\n4 NSW      20_24             200\n5 QLD      25_29             225\n6 NSW      25_29             250\n\n\nI think there are a couple of issues with this:\n\nWe assume the age groups column is always age_groups\nThe scope is now larger - we are always working with data and returning data\nWe haven’t necessarily made the expression easier.\n\nIt is fine to wrap up the existing function into another function that cleans the data - to me this better encapsulates and expresses the ideas:\n\ncontact\n\n# A tibble: 6 × 3\n  location age_groups n_contacts\n  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;\n1 QLD      15-19             100\n2 NSW      15--19            125\n3 QLD      20--24            150\n4 NSW      20-24             200\n5 QLD      25---29           225\n6 NSW      25-29             250\n\nclean_contacts &lt;- function(data){\n  \n  data |&gt; \n  mutate(\n    age_groups = clean_age_groups(age_groups)\n  )\n\n}\n\nclean_contacts(contact)\n\n# A tibble: 6 × 3\n  location age_groups n_contacts\n  &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;\n1 QLD      15_19             100\n2 NSW      15_19             125\n3 QLD      20_24             150\n4 NSW      20_24             200\n5 QLD      25__29            225\n6 NSW      25_29             250\n\n\nSome of the improvements I notice\n\nWe are just focussing on cleaning up the age group column.\nWe have given it a name that refers to cleaning up the data, which might also give us some space and room to add more cleaning function here.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#when-to-function",
+    "href": "why-functions.html#when-to-function",
+    "title": "5  Why functions?",
+    "section": "5.9 When to function",
+    "text": "5.9 When to function\nOne of my overall points with functions is:\n\nfunctions help you express your intention.\n\nHowever, there are some generally good heuristics to follow to help guide you towards writing a function. Here are some of these.\nGenerally, it is time to write a function if:\n\nYou’ve copied and pasted the code 3 or more times.\nYou’ve re-read your code more than 3 times.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#naming-things-is-hard",
+    "href": "why-functions.html#naming-things-is-hard",
+    "title": "5  Why functions?",
+    "section": "5.10 Naming things is hard",
+    "text": "5.10 Naming things is hard\n\nThere are only two hard things in Computer Science: cache invalidation and naming things.\n\n– Phil Karlton\nWhat does this function do?\n\nmyfun &lt;- function(x){\n  (x * 9/5) + 32\n}\n\nConverting temperature?\n\ntemperature_conversion &lt;- function(x){\n  (x * 9/5) + 32\n}\n\nClearly state input_to_output()\n\ncelcius_to_fahrenheit &lt;- function(x){\n  (x * 9/5) + 32\n}\n\nName argument and intermediate variables\n\ncelcius_to_fahrenheit &lt;- function(celcius){\n  fahrenheit &lt;- (celcius * 9/5) + 32\n  fahrenheit\n}\n\nWhat, what does make functions hard?\n\ncelcius_to_fahrenheit &lt;- function(celcius){\n  (celcius * 9/5) + 32\n}\n\nIdentifying inputs and outputs is hard.\nBut what is hard it taking code, (like the code in a data analysis) and finding the parts that need to change\n\nThere’s a level of “I got it to work” and there’s a level of “It works, and I can reason about it”\n\n– Joe Cheng You have to be able to reason about it | Data Science Hangout\nI can reason about it\n\n…how do you take all this complexity and break it down into smaller pieces…each of which you can reason about…each of which you can hold in your head…each of which you can look at and be like “yup, I can fully ingest this entire function definition, I can read it line by line and prove to myself this is definitely correct…So software engineering… is a lot about this: How do you break up inherently complicated things that we are trying to do into small pieces that are individually easy to reason about. That’s half the battle…The other half of the battle is how do we combine them in ways that can be reliable and also easy to reason about",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#the-other-hard-part-of-writing-functions",
+    "href": "why-functions.html#the-other-hard-part-of-writing-functions",
+    "title": "5  Why functions?",
+    "section": "5.11 The other hard part of writing functions",
+    "text": "5.11 The other hard part of writing functions\n\n\n\n\n\n\nPractice naming things\n\n\n\n\n\nPractice naming these functions, going through",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
+    "objectID": "why-functions.html#conclusion",
+    "href": "why-functions.html#conclusion",
+    "title": "5  Why functions?",
+    "section": "5.12 Conclusion",
+    "text": "5.12 Conclusion\nThe process of writing a function is:\n\nIdentify outputs and inputs\nIdentify the complexity to abstract away\nWriting functions is iterative, Just like regular writing\nNaming things is hard\n\nOn a final note, I think it’s worthwhile thinking about the iteration - and the idea of moving from a skateboard to a car, rather than building the car:\n\n\n\n\n\n(heard via Stat545 functions chapter)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Why functions?</span>"
+    ]
+  },
+  {
     "objectID": "motivation.html",
     "href": "motivation.html",
     "title": "6  Motivation",
     "section": "",
-    "text": "We’ve gone through a lot of setup, and now we’re going to start building an R package. Soon. But we need to have some motivation, first. It involves a bit of a story, and a bit of imagination.",
+    "text": "6.1 Overview\nWe’ve gone through a lot of setup, and now we’re going to start building an R package. Soon. But we need to have some motivation, first. It involves a bit of a story, and a bit of imagination.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#overview",
+    "href": "motivation.html#overview",
+    "title": "6  Motivation",
+    "section": "",
+    "text": "Teaching 30 minutes\nExercises 10 minutes",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#questions",
+    "href": "motivation.html#questions",
+    "title": "6  Motivation",
+    "section": "6.2 Questions",
+    "text": "6.2 Questions",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#objectives",
+    "href": "motivation.html#objectives",
+    "title": "6  Motivation",
+    "section": "6.3 Objectives",
+    "text": "6.3 Objectives\n\nStart to wrangle with a script to turn it into functions",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#how-this-works",
+    "href": "motivation.html#how-this-works",
+    "title": "6  Motivation",
+    "section": "6.4 How this works",
+    "text": "6.4 How this works\nOne of my big goals with teaching functions, and with teaching R packages, is that I want the examples to be somewhat rooted in the familiar and the real. There are really useful toy examples of writing packages that deliver praise (e.g., ones I’ve used to teach R packages in the past: https://github.com/njtierney/praiseme), or do simple conversions between units (celcius to farenheit being a very common example).\nThese examples are useful because they teach you the tools, and the process. However in this course, I want to focus on a bit more than this and incorporate the process of turning code into functions. I think this is important, because it more closely represents other examples we come across in using R, and presents a bit of a richer learning journey, because in addition to learning about the tools and the process of R package building, you will also learn:\n\nHow to think about converting scripts to functions\nHow to write better functions\n\nI have written up some example code, which starts as a quarto document. We are going to take this document, and then eventually turn it into an R package.\nThe structure of this exercise has taken inspiration from “The package within” chapter from R Packages.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#the-example-learned",
+    "href": "motivation.html#the-example-learned",
+    "title": "6  Motivation",
+    "section": "6.5 The example: “learned”",
+    "text": "6.5 The example: “learned”\nWe are going to be looking at a role-play situation where we imagine we are at some fictional workplace, where part of our job is to look at education data that we have acquired from some source. The overall goal of our job here is to produce some key outputs from some data.\nYou can see this example at: https://github.com/njtierney/learned\nTo download it, run the following code\n\nlibrary(usethis)\nuse_course(\"njtierney/learned\")\n\n\n\n\n\n\n\nYour turn\n\n\n\n\nDownload the repository using the code above\nRender the document\nRead over the document, thinking about what we discussed in Why functions.\nIdentify some potential problems with the code\nThink about what might happen if we want to read in data from 2015 (or later years), how would you like to do this?",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#discussion-of-potential-problems",
+    "href": "motivation.html#discussion-of-potential-problems",
+    "title": "6  Motivation",
+    "section": "6.6 Discussion of potential problems",
+    "text": "6.6 Discussion of potential problems\nAfter you’ve taken from time to think about some of the potential problems, open the box below\n\n\n\n\n\n\nSome of the potential problems\n\n\n\n\n\n\nCopying and pasting a document could lead to errors\nWhat if the data changes?\nWhat if other people collaborate on this project? How do they have the source of truth?\nIs there a way to formalise this all?",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#identifying-the-report-outputs",
+    "href": "motivation.html#identifying-the-report-outputs",
+    "title": "6  Motivation",
+    "section": "6.7 Identifying the report outputs",
+    "text": "6.7 Identifying the report outputs\nTo get us started with some key things, let’s think about what the key outputs of this report are.\n\n\n\n\n\n\nYour turn\n\n\n\n\nIdentify the key outputs of the report\nPick one of those key outputs and start to write out a function for it\n\n\n\n\n\n\n\n\n\nKey outputs\n\n\n\n\n\nThey key outputs are related to the “Produce a …” steps of the document:\n\nProduce a plot of the proportion of people educated in each age group in each state\nProduce a box plot of proportion of people educated for each state.\nProduce a table of The 5 number summary (min, 1st quantile, median, 3rd quantile, max) of proportion of people educated for each state.\n\n\n\n\nSo now we know where we are headed - we want to write some functions that produce these plots and tables.\nHowever, the main problem that we encountered was that there was actually a bit of data cleaning that needed to happen before we did this. Let’s focus on cleaning up and rearranging the quarto document first to identify the data cleaning steps required.\n\n\n\n\n\n\nYour turn\n\n\n\n\nOpen, “alpha-analysis2014.qmd”\nMove all the “data quality” checks into a new section called “data quality”\nMove all of the data cleaning code up to the top, so we just work with one data set, named tidy_age_state_education_2014\nCreate two functions to clean the data:\ntidy the age groups\nremove the missing values\nPut these two functions into another function that does the data cleaning",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#plot-of-proportion-of-people-educated-in-each-age-group-in-each-state",
+    "href": "motivation.html#plot-of-proportion-of-people-educated-in-each-age-group-in-each-state",
+    "title": "6  Motivation",
+    "section": "6.8 Plot of proportion of people educated in each age group in each state",
+    "text": "6.8 Plot of proportion of people educated in each age group in each state\nThe key code here is this:\n\nggplot(\n  fixed_age_group_education_2014,\n  aes(\n    x = prop_studying,\n    y = age_group\n  )\n) +\n  geom_col() +\n  facet_wrap(~state_territory, ncol = 2)\n\nHowever, in order to write this, we need to identify the steps that happened earlier to the fixed_age_group_education_2014 data.\n\n\n\n\n\n\nYour turn\n\n\n\nWhat were the fixes that were required for this data?",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#box-plot-of-proportion-of-people-educated-for-each-state.",
+    "href": "motivation.html#box-plot-of-proportion-of-people-educated-for-each-state.",
+    "title": "6  Motivation",
+    "section": "6.9 box plot of proportion of people educated for each state.",
+    "text": "6.9 box plot of proportion of people educated for each state.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state.",
+    "href": "motivation.html#table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state.",
+    "title": "6  Motivation",
+    "section": "6.10 Table of The 5 number summary of proportion of people educated for each state.",
+    "text": "6.10 Table of The 5 number summary of proportion of people educated for each state.",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
     ]
