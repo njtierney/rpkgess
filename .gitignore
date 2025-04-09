@@ -4,3 +4,17 @@
 .Ruserdata
 
 /.quarto/
+
+*.rds
+*_files
+*_cache
+*.pdf
+docs
+notes
+*.log
+_freeze
+*.tex
+site_libs/
+*.ipynb
+*.html
+docs/*
