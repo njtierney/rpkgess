@@ -544,19 +544,149 @@
     "href": "create-the-pkg.html#the-workflow-of-package-development.",
     "title": "7  Create the package!",
     "section": "7.4 The workflow of package development.",
-    "text": "7.4 The workflow of package development.\nOne of the major workflows during R package development is this:\n\nEdit R functions\nload_all() (or keyboard shortcut Ctrl/Cmd+Shift+L)\nEdit R functions.\n\n\n\n\n\n\n\nThis is a non-standard way of making an R package\n\n\n\n\n\nThere is a great cheatsheet for package development that I had stapled to my cubicle wall during my PhD.\n\n\n\nLet’s try out our R package. To do this, I’m going to recommend you create a special R file, sometimes called a “scratch file”. It lives inside a folder called inst, which is typically not touched by R package building. This is a useful trick if you want to have a way to play around with some R code, keeping it inside your R package.\n\nCreate a scratch file:\n\nCreate a directory inst\nInside that directory, create an R file called scratch.R (note that this can actually be called anything, but scratch.R is what I use)\nWrite library(learned) inside scratch.R\nRead in the raw education 2014 data from data-raw, and use one of the functions from the R package, like clean_education_data(). What happens when you use this?\n\n\nSee the commit for this at:\nhttps://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c\nIf you’re like me, I got this error:\n&gt; clean_education_data(raw_education_2014)\nError in mutate(data, age_group = clean_age_groups(age_group), prop_studying = na_if(prop_studying,  : \n  could not find function \"mutate\"\nLet’s pick this up in the next section, “How to use extra packages”\n\n\n\n\n\n\nThis is a non-standard way of making an R package\n\n\n\n\n\nThis whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.",
+    "text": "7.4 The workflow of package development.\nOne of the major workflows during R package development is this:\n\nEdit R functions\nload_all() (or keyboard shortcut Ctrl/Cmd+Shift+L)\nEdit R functions.\n\n\n\n\n\n\n\nCheatsheets\n\n\n\n\n\nThere is a great cheatsheet for package development that I had stapled to my cubicle wall during my PhD. The website now is very useful, but make sure to check out the PDF.\n\n\n\nLet’s try out our R package. To do this, I’m going to recommend you create a special R file, sometimes called a “scratch file”. It lives inside a folder called inst, which is typically not touched by R package building. This is a useful trick if you want to have a way to play around with some R code, keeping it inside your R package.\n\nCreate a scratch file:\n\nCreate a directory inst\nInside that directory, create an R file called scratch.R (note that this can actually be called anything, but scratch.R is what I use)\nWrite library(learned) inside scratch.R\nRead in the raw education 2014 data from data-raw, and use one of the functions from the R package, like clean_education_data(). What happens when you use this?\n\n\nSee the commit for this at:\nhttps://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c\nIf you’re like me, I got this error:\n&gt; clean_education_data(raw_education_2014)\nError in mutate(data, age_group = clean_age_groups(age_group), prop_studying = na_if(prop_studying,  : \n  could not find function \"mutate\"\nLet’s pick this up in the next section, “How to use extra packages”\n\n\n\n\n\n\nThis is a non-standard way of making an R package\n\n\n\n\n\nThis whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Create the package!</span>"
     ]
   },
   {
+    "objectID": "how-to-use-extra-pkgs.html",
+    "href": "how-to-use-extra-pkgs.html",
+    "title": "8  How to use extra packages",
+    "section": "",
+    "text": "One of the major shifts from writing R code and analyses to writing R packges is how you interact with other R packages you want to use.\n\npreviously use library\ncannot use library in pkg\nidea of overloading namespace\nusing pkg::fun\n\nintroduce workflow:\n\nuse_package(pkg)\npkg::fun()\nshow commits\nshow how DESCRIPTION changes\nnote about using Tidyverse - instead we must call packages directly\nnote about Imports vs Depends. We only really use Imports.\nnote about package versions - usually a good idea.\nnote/philosophy about dependencies. Greedy approach is (in my opinion) best, because you don’t waste human cycles. Best approach is greedy, then prune back\nwrap up by using the package successfully in scratch.R\nwhich leads us to consider making the data accessible",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>How to use extra packages</span>"
+    ]
+  },
+  {
+    "objectID": "add-data.html",
+    "href": "add-data.html",
+    "title": "9  Adding data to an R package",
+    "section": "",
+    "text": "overall goals - add raw 2014 data - add tidy 2014 data\n\ndemonstrate using data-raw/dataset.R\n\nbriefly discuss compression = “xz”\n\nshow using set.seed(yyyy-mm-dd) / providing a date\ndemo now by having the data be used without read_csv in scratch.R\n\nBut now just use library, not load all - see that there’s no functions!\nSo now go on to having documentation and (export?)",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Adding data to an R package</span>"
+    ]
+  },
+  {
+    "objectID": "add-documentation.html",
+    "href": "add-documentation.html",
+    "title": "10  Add documentation",
+    "section": "",
+    "text": "explain NAMESPACE\nuse roxygen skeleton\nuse (export?)\nuse (examples?)\nwrap up by using library(learned) effectively\nnow show what happens when we run check",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Add documentation</span>"
+    ]
+  },
+  {
+    "objectID": "using-checks.html",
+    "href": "using-checks.html",
+    "title": "11  Passing Checks",
+    "section": "",
+    "text": "explain this isn’t something to run all the time, but as the quote goes, frequency reduces difficulty\nunpack the process of R CMD Check",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Passing Checks</span>"
+    ]
+  },
+  {
     "objectID": "add-vignette.html",
     "href": "add-vignette.html",
+    "title": "12  Adding a vignette",
+    "section": "",
+    "text": "We have already covered this earlier, but recap this, and also check that the vignette is now building properly\n\n\nOpen up “analysis-2014.qmd”\nRemove “Your Tasks”\nRemove “Functions”\nUpdate the Data cleaning so you can it interactively to read in the “raw_education_2014.csv” data (NB: we will eventually move this data into the R package itself)",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Adding a vignette</span>"
+    ]
+  },
+  {
+    "objectID": "add-readme.html",
+    "href": "add-readme.html",
     "title": "R Package Essentials",
     "section": "",
-    "text": "Open up “analysis-2014.qmd”\nRemove “Your Tasks”\nRemove “Functions”\nUpdate the Data cleaning so you can it interactively to read in the “raw_education_2014.csv” data (NB: we will eventually move this data into the R package itself)",
+    "text": "Take the vignette and make it small.\nThis is your README",
     "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>add-vignette.html</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>add-readme.html</span>"
+    ]
+  },
+  {
+    "objectID": "push-to-github.html",
+    "href": "push-to-github.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "We can pretty much achieve this with:\nuse_git() use_github()\nDiscuss the benefits and tools of issues, releases, milestones, etc",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>push-to-github.html</span>"
+    ]
+  },
+  {
+    "objectID": "add-tests.html",
+    "href": "add-tests.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "initially these tests will make sure that they run on the example data\ndemonstrate testing dimensions/names\ndemonstrate snapshot tests\ndemonstrate vdiffr tests\ncircle back to the data quality checks\n\nmaybe these can become our tests?\n\ntouch on the idea that R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?\nreference Miles’s https://milesmcbain.xyz/posts/an-okay-idea/",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>add-tests.html</span>"
+    ]
+  },
+  {
+    "objectID": "add-website.html",
+    "href": "add-website.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "pkgdown\nuse_pkgdown_github_pages()\nlook at other packages for inspiration on structure\ntry to use a different default theme",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>add-website.html</span>"
+    ]
+  },
+  {
+    "objectID": "add-ci.html",
+    "href": "add-ci.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "use_github_actions()\n\nfollow prompts\n\nThis is all much easier than it used to be\nExplain that there is a game of “watching the green lights”\nExplain test coverage",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>add-ci.html</span>"
+    ]
+  },
+  {
+    "objectID": "publish.html",
+    "href": "publish.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "Places to publish packages\n\ngithub\nCRAN\nR Universe\n\npros and cons\nwork through getting it on R Universe\nDiscuss risks of building/installing from github",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>publish.html</span>"
+    ]
+  },
+  {
+    "objectID": "next-steps.html",
+    "href": "next-steps.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "R packages book\nofficial R docs\nrOpenSci docs\n\nSubmitting to CRAN\nSubmitting to JOSS\nSubmitting to rOpenSci",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>next-steps.html</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "R packages book\nHilary Parker’s blog post\nrOpenSci dev guide",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>references.html</span>"
+    ]
+  },
+  {
+    "objectID": "acknowledgements.html",
+    "href": "acknowledgements.html",
+    "title": "R Package Essentials",
+    "section": "",
+    "text": "Hadley Wickham\nJenny Bryan\nMiles McBain\nJoe Cheng\nDi Cook\nRob Hyndman\nKerrie Mengersen\nDamjan Vukcevic\nMatt Moores",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>acknowledgements.html</span>"
     ]
   }
 ]

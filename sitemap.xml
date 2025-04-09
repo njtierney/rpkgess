@@ -2,110 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rpkgess.njtierney.com/index.html</loc>
-    <lastmod>2025-04-09T13:05:29.837Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.611Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/license.html</loc>
-    <lastmod>2025-04-09T13:05:29.838Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.612Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/philosophy.html</loc>
-    <lastmod>2025-04-09T13:05:29.839Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.612Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/installation.html</loc>
-    <lastmod>2025-04-09T13:05:29.838Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.611Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/rstudio.html</loc>
-    <lastmod>2025-04-09T13:05:29.839Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.613Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/workflow.html</loc>
-    <lastmod>2025-04-09T13:05:29.840Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.613Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/why-functions.html</loc>
-    <lastmod>2025-04-09T13:05:29.840Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.613Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/motivation.html</loc>
-    <lastmod>2025-04-09T13:05:29.838Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.612Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/create-the-pkg.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rpkgess.njtierney.com/add-documentation.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.591Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/how-to-use-extra-pkgs.html</loc>
-    <lastmod>2025-04-09T13:05:29.837Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rpkgess.njtierney.com/using-checks.html</loc>
-    <lastmod>2025-04-09T13:05:29.840Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.611Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/add-data.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.590Z</lastmod>
   </url>
   <url>
-    <loc>https://rpkgess.njtierney.com/add-readme.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <loc>https://rpkgess.njtierney.com/add-documentation.html</loc>
+    <lastmod>2025-04-09T13:49:28.590Z</lastmod>
   </url>
   <url>
-    <loc>https://rpkgess.njtierney.com/push-to-github.html</loc>
-    <lastmod>2025-04-09T13:05:29.839Z</lastmod>
+    <loc>https://rpkgess.njtierney.com/using-checks.html</loc>
+    <lastmod>2025-04-09T13:49:28.613Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/add-vignette.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.591Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rpkgess.njtierney.com/add-readme.html</loc>
+    <lastmod>2025-04-09T13:49:28.591Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rpkgess.njtierney.com/push-to-github.html</loc>
+    <lastmod>2025-04-09T13:49:28.612Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/add-tests.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.591Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/add-website.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.591Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/add-ci.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.590Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/publish.html</loc>
-    <lastmod>2025-04-09T13:05:29.839Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.612Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/next-steps.html</loc>
-    <lastmod>2025-04-09T13:05:29.838Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.612Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/references.html</loc>
-    <lastmod>2025-04-09T13:05:29.839Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.612Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/acknowledgements.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.590Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/appendix-faq.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.591Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/common-problems.html</loc>
-    <lastmod>2025-04-09T13:05:29.818Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.591Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/keyboard-shortcuts.html</loc>
-    <lastmod>2025-04-09T13:05:29.838Z</lastmod>
+    <lastmod>2025-04-09T13:49:28.611Z</lastmod>
   </url>
   <url>
     <loc>https://rpkgess.njtierney.com/R-Package-Essentials.pdf</loc>
-    <lastmod>2025-04-09T13:11:51.979Z</lastmod>
+    <lastmod>2025-04-09T13:54:51.104Z</lastmod>
   </url>
 </urlset>
