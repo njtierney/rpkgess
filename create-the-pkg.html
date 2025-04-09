@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="I first learnt to write an R package from Hilary Parker’s famous blog post, “Writing an R package from scratch”. Then I consulted Hadley Wickham’s “R packages” book (1st edition). I consider the “R packages” book (now in its second edition, by Hadley Wickham and Jenny Bryan), to be the authority on best practices for package development, alongside the rOpenSci guide, “rOpenSci Packages: Development, Maintenance, and Peer Review”, by Salmon et al.&nbsp;These are excellent pieces of reference test, however I think there is a need for a resource that sits somewhere between a blog post on making an R package, and resource. I want something that contains just enough information to get you started on the right path to making an R package. This is what that book represents to me. Along the way I’ll include breadcrumbs to other resources to look into when you want to learn more.">
 
-<title>create-the-pkg – R Package Essentials</title>
+<title>7&nbsp; Create the package! – R Package Essentials</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./how-to-use-extra-pkgs.html" rel="next">
-<link href="./keyboard-shortcuts.html" rel="prev">
+<link href="./add-documentation.html" rel="next">
+<link href="./motivation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./create-the-pkg.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">create-the-pkg.html</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./create-the-pkg.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Create the package!</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -159,14 +194,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./keyboard-shortcuts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">keyboard-shortcuts.html</span></span></a>
+  <a href="./create-the-pkg.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Create the package!</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./create-the-pkg.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">create-the-pkg.html</span></span></a>
+  <a href="./add-documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">add-documentation.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -177,80 +212,74 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./add-documentation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">add-documentation.html</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./using-checks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">using-checks.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">using-checks.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">add-data.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">add-data.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">add-readme.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">add-readme.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./push-to-github.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">push-to-github.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">push-to-github.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-vignette.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">add-vignette.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">add-vignette.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">add-tests.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">add-tests.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-website.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">add-website.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">add-website.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-ci.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">add-ci.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">add-ci.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./publish.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">publish.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">publish.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">references.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">references.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">acknowledgements.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">acknowledgements.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -274,6 +303,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">common-problems.html</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./keyboard-shortcuts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">keyboard-shortcuts.html</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -281,17 +316,243 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#create_packagehere" id="toc-create_packagehere" class="nav-link active" data-scroll-target="#create_packagehere"><span class="header-section-number">7.1</span> <code>create_package(here))</code></a>
+  <ul class="collapse">
+  <li><a href="#description-file" id="toc-description-file" class="nav-link" data-scroll-target="#description-file"><span class="header-section-number">7.1.1</span> DESCRIPTION file</a></li>
+  <li><a href="#rbuildignore" id="toc-rbuildignore" class="nav-link" data-scroll-target="#rbuildignore"><span class="header-section-number">7.1.2</span> .Rbuildignore</a></li>
+  <li><a href="#namespace" id="toc-namespace" class="nav-link" data-scroll-target="#namespace"><span class="header-section-number">7.1.3</span> NAMESPACE</a></li>
+  </ul></li>
+  <li><a href="#some-housekeeping" id="toc-some-housekeeping" class="nav-link" data-scroll-target="#some-housekeeping"><span class="header-section-number">7.2</span> Some housekeeping</a>
+  <ul class="collapse">
+  <li><a href="#move-the-data-to-data-raw" id="toc-move-the-data-to-data-raw" class="nav-link" data-scroll-target="#move-the-data-to-data-raw"><span class="header-section-number">7.2.1</span> move the data to data-raw</a></li>
+  <li><a href="#delete-old-quarto-files-move-one-into-vignettes" id="toc-delete-old-quarto-files-move-one-into-vignettes" class="nav-link" data-scroll-target="#delete-old-quarto-files-move-one-into-vignettes"><span class="header-section-number">7.2.2</span> Delete old quarto files, move one into vignettes</a></li>
+  </ul></li>
+  <li><a href="#buildinstall-the-package" id="toc-buildinstall-the-package" class="nav-link" data-scroll-target="#buildinstall-the-package"><span class="header-section-number">7.3</span> Build/install the package</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/create-the-pkg.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Create the package!</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
+
+<p>It’s happening! We’re nearly there!</p>
+<p>We’ve lined things up, now it’s time to start tearing down some walls, and getting things ready to be an R package.</p>
+<section id="create_packagehere" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="create_packagehere"><span class="header-section-number">7.1</span> <code>create_package(here))</code></h2>
+<p>Let’s run</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">create_package</span>(here<span class="sc">::</span><span class="fu">here</span>(), <span class="at">open =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This says:</p>
+<blockquote class="blockquote">
+<p>Create a package in this directory, and don’t open a new RStudio session, please</p>
+</blockquote>
+<p>You get a note that it does the following</p>
+<pre><code>✔ Setting active project to
+  "/Users/nick/github/njtierney/learned".
+✔ Writing DESCRIPTION.
+✔ Writing NAMESPACE.
+! Overwrite pre-existing file learned.Rproj?</code></pre>
+<p>Personally, I recommend No, there’s not really a point to this in this instance.</p>
+<pre><code>ℹ Leaving learned.Rproj unchanged.
+✔ Adding "^learned\\.Rproj$" to .Rbuildignore.
+✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
+✔ Setting active project to "&lt;no active project&gt;".</code></pre>
+<p>There’s a bit to unpack here, you can see these new things have been created!</p>
+<p>You can see where I’ve done this here: https://github.com/njtierney/learned/pull/2/commits/d143b0f877c1e875cef98474299e628f1f95e488</p>
+<p>There are three files added, which I’ll briefly discuss, and then we can move on to more substantial matters of <em>cleaning this directory up a little bit</em>.</p>
+<section id="description-file" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="description-file"><span class="header-section-number">7.1.1</span> DESCRIPTION file</h3>
+<p>My DESCRIPTION file looks like this, initially</p>
+<pre><code>Package: learned
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("Nicholas", "Tierney", , "nicholas.tierney@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "https://orcid.org/0000-0003-1460-8722"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Language: en-GB
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2</code></pre>
+<p>Essentially, this is a bunch of metadata about the package. It is a very critical file to an R package, and we’ll come back to it later. For the moment, I think there are two things worth noting</p>
+<ol type="1">
+<li>It’s a bunch of metadata that is really important and specifically formatted</li>
+<li>The DESCRIPTION details here have my name and a few other things set (like <code>Language: en-GB</code>), because of where we set this up in <a href="installation">installation</a>.</li>
+</ol>
+</section>
+<section id="rbuildignore" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="rbuildignore"><span class="header-section-number">7.1.2</span> .Rbuildignore</h3>
+<p>This lists files that we don’t want to package up when we eventually build our R package.</p>
+<p>This contains:</p>
+<pre><code>^learned\.Rproj$
+^\.Rproj\.user$</code></pre>
+<p>Which are specific RStudio files. As you get further along in the package building process, more files will be added to <code>.Rbuildignore</code>.</p>
+</section>
+<section id="namespace" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="namespace"><span class="header-section-number">7.1.3</span> NAMESPACE</h3>
+<p>Another super critical file. We don’t touch it by hand. It gets updated automatically via <code>devtools</code> and <code>usethis</code>. It looks like this currently:</p>
+<pre><code># Generated by roxygen2: do not edit by hand</code></pre>
+</section>
+</section>
+<section id="some-housekeeping" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="some-housekeeping"><span class="header-section-number">7.2</span> Some housekeeping</h2>
+<p>We need to really tidy up this repository to be an R package. Theres stuff <em>everywhere</em>.</p>
+<section id="move-the-data-to-data-raw" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="move-the-data-to-data-raw"><span class="header-section-number">7.2.1</span> move the data to data-raw</h3>
+<p>Let’s clean up all the existing data and move it into a special <code>data-raw</code> folder. The <code>data-raw</code> folder exists in R packages as a place to hold original copies of data that will eventually be cleaned up and shared in the <code>data</code> folder. For the time being, we can store our data sets in here, and we’ll come back to it later.</p>
+<div class="callout-info" title="Your turn">
+<ol type="1">
+<li>Run <code>use_data_raw()</code></li>
+<li>Move <code>raw_education_2014...2019.csv</code> into the newly created <code>data-raw</code> folder</li>
+</ol>
+</div>
+<section id="running-use_data_raw" class="level4" data-number="7.2.1.1">
+<h4 data-number="7.2.1.1" class="anchored" data-anchor-id="running-use_data_raw"><span class="header-section-number">7.2.1.1</span> Running <code>use_data_raw()</code></h4>
+<p>When we run <code>use_data_raw()</code>, we get a message like the following:</p>
+<pre><code>✔ Setting active project to
+  "/Users/nick/github/njtierney/learned".
+✔ Creating data-raw/.
+✔ Adding "^data-raw$" to .Rbuildignore.
+✔ Writing data-raw/DATASET.R.
+☐ Modify data-raw/DATASET.R.
+☐ Finish writing the data preparation script in
+  data-raw/DATASET.R.
+☐ Use `usethis::use_data()` to add prepared data
+  to package.</code></pre>
+<p>This is the <code>usethis</code> package’s way of telling us a couple of nifty things:</p>
+<ol type="1">
+<li>DATASET.R is a file it has created, this is where you document changes to the data before it gets saved into the <code>data</code> folder</li>
+<li>the <code>data</code> folder gets created with <code>usethis::use_data()</code> - we will come back to this.</li>
+</ol>
+<p>A takeaway point from this is that the <code>usethis</code> package is quite chatty, and quite helpful!</p>
+<p>You can see my initial commit of <code>use_data_raw()</code> here: https://github.com/njtierney/learned/pull/2/commits/c47b00349c922411e207598a567f85226bc6b1b4</p>
+</section>
+<section id="move-csvs-into-data-raw" class="level4" data-number="7.2.1.2">
+<h4 data-number="7.2.1.2" class="anchored" data-anchor-id="move-csvs-into-data-raw"><span class="header-section-number">7.2.1.2</span> Move CSVs into <code>data-raw/</code></h4>
+<p>There’s a few ways to do this, personally, I just use RStudio’s file interface and move the files around. Here’s what that looks like: https://github.com/njtierney/learned/pull/2/commits/05720d1bcedc177905f71ebbb4a994b83f6da9e0</p>
+<p>(note that this is effectively a renaming, so there’s not much going on in this commit)</p>
+</section>
+</section>
+<section id="delete-old-quarto-files-move-one-into-vignettes" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="delete-old-quarto-files-move-one-into-vignettes"><span class="header-section-number">7.2.2</span> Delete old quarto files, move one into vignettes</h3>
+<p>We don’t need the alpha-bravo-charlie of it all anymore, we can just stick with one. We’re going to move it to a special folder called a “vignette”. We’re going to shelve it there for a little bit.</p>
+<div class="callout-info" title="Your turn">
+<ol type="1">
+<li>Delete “analysis2014.qmd” and associated HTML/folders</li>
+<li>Delete “alpha-analysis2014.qmd” and associated HTML/folders</li>
+<li>Delete “bravo-analysis2014.qmd” and associated HTML/folders</li>
+<li>(potentially move “solution-charlie-analysis2014.qmd”) into root level and delete “charlie-analysis2014.qmd”)</li>
+<li>Delete “solutions” folder</li>
+<li>run <code>use_vignette("analysis-2014")</code></li>
+</ol>
+</div>
+<section id="deleting-old-files" class="level4" data-number="7.2.2.1">
+<h4 data-number="7.2.2.1" class="anchored" data-anchor-id="deleting-old-files"><span class="header-section-number">7.2.2.1</span> deleting old files</h4>
+<p>Here’s the commit of deleting and moving files, and deleting solutions folder</p>
+<ul>
+<li>https://github.com/njtierney/learned/pull/2/commits/fd74956d7fe7326b1e2c81f546b2a0086b65275e</li>
+<li>https://github.com/njtierney/learned/pull/2/commits/c1aac99ffdc7b1261116180bdd504b8236d4e660</li>
+</ul>
+</section>
+<section id="creating-quarto-vignettes" class="level4" data-number="7.2.2.2">
+<h4 data-number="7.2.2.2" class="anchored" data-anchor-id="creating-quarto-vignettes"><span class="header-section-number">7.2.2.2</span> Creating quarto vignettes</h4>
+<p>Once we run</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_vignette</span>(<span class="st">"analysis-2014"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We get another nice chatty message from <code>usethis</code>:</p>
+<pre><code>✔ Adding knitr to Suggests field in DESCRIPTION.
+✔ Adding "inst/doc" to .gitignore.
+✔ Adding rmarkdown to Suggests field in
+  DESCRIPTION.
+✔ Adding "knitr" to VignetteBuilder.
+✔ Creating vignettes/.
+✔ Adding "*.html" and "*.R" to
+  vignettes/.gitignore.
+✔ Writing vignettes/analysis-2014.Rmd.
+☐ Modify vignettes/analysis-2014.Rmd.</code></pre>
+<p>You can see the commit for this, here: https://github.com/njtierney/learned/pull/2/commits/4da0a62bb704591ae62d6104e38b6c6d24b6a088</p>
+<p>Note that although we started with a Quarto vignette, it opened an Rmarkdown vignette. It is actually possible to use a quarto vignette - as described in the <a href="https://cran.r-project.org/web/packages/quarto/vignettes/hello.html">Quarto R package</a>.</p>
+<p>And, just because I want this to be more on the side of bleeding-edge erring to timeless, we’re going to do that. There’s a few steps, so hold on.</p>
+<section id="update-vignettebuilder" class="level5" data-number="7.2.2.2.1">
+<h5 data-number="7.2.2.2.1" class="anchored" data-anchor-id="update-vignettebuilder"><span class="header-section-number">7.2.2.2.1</span> update VignetteBuilder</h5>
+<p>Open the DESCRIPTION file, and replace <code>knitr</code> with <code>quarto</code> in <code>VignetteBuilder</code>.</p>
+<p>https://github.com/njtierney/learned/pull/2/commits/e1b0f8b7fbc9a980e2f1bba692bdf1c79dd454ad</p>
+<p>Then, copy our “solution/charlie-analysis.qmd” file into vignette folder</p>
+<p>https://github.com/njtierney/learned/pull/2/commits/dcd99c067e1d8606a4771ef5afa8c4cef21f1511</p>
+<p>Then, add some of the appropriate metadata into the quarto YAML:</p>
+<p>https://github.com/njtierney/learned/pull/2/commits/fabf10bada36913c5a3045f0f754cc166820510e</p>
+<p>Finally, delete the other Rmd file, and rename ours “analysis-2014.qmd”</p>
+<p>https://github.com/njtierney/learned/pull/2/commits/ec15dcf145ac58492a781d4380ba738f1f40dfea</p>
+<p>It’s worthwhile noting that this vignette in its current state will not build properly, but we will get to it later.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="buildinstall-the-package" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="buildinstall-the-package"><span class="header-section-number">7.3</span> Build/install the package</h2>
+<p>Now, we have a package! This will actually build, and install! Although we still need to do a few things to make it useable, it’s worthwhile celebrating the small steps!</p>
+<div class="callout-info" title="Your turn">
+<p>Build the package by navigating to the “build” pane in the top right:</p>
+<p><img src="figs/build-pkg.png" class="img-fluid"></p>
+<p>Click this, and see some text like the following appear!</p>
+<pre><code>==&gt; R CMD INSTALL --preclean --no-multiarch --with-keep.source learned
+
+* installing to library ‘/Users/nick/Library/R/arm64/4.4/library/_build’
+* installing *source* package ‘learned’ ...
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+No man pages found in package  ‘learned’ 
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (learned)</code></pre>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled" title="This is a non-standard way of making an R package">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+This is a non-standard way of making an R package
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.</p>
+</div>
+</div>
+</div>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -713,13 +974,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./keyboard-shortcuts.html" class="pagination-link" aria-label="keyboard-shortcuts.html">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">keyboard-shortcuts.html</span></span>
+      <a href="./motivation.html" class="pagination-link" aria-label="Motivation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Motivation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./how-to-use-extra-pkgs.html" class="pagination-link" aria-label="how-to-use-extra-pkgs.html">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">how-to-use-extra-pkgs.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./add-documentation.html" class="pagination-link" aria-label="add-documentation.html">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">add-documentation.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -731,7 +992,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2025, Nicholas Tierney</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/create-the-pkg.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/create-the-pkg.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

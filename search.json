@@ -450,33 +450,93 @@
     ]
   },
   {
-    "objectID": "motivation.html#plot-of-proportion-of-people-educated-in-each-age-group-in-each-state",
-    "href": "motivation.html#plot-of-proportion-of-people-educated-in-each-age-group-in-each-state",
+    "objectID": "motivation.html#discussion-of-data-cleaning-function-implementations",
+    "href": "motivation.html#discussion-of-data-cleaning-function-implementations",
     "title": "6  Motivation",
-    "section": "6.8 Plot of proportion of people educated in each age group in each state",
-    "text": "6.8 Plot of proportion of people educated in each age group in each state\nThe key code here is this:\n\nggplot(\n  fixed_age_group_education_2014,\n  aes(\n    x = prop_studying,\n    y = age_group\n  )\n) +\n  geom_col() +\n  facet_wrap(~state_territory, ncol = 2)\n\nHowever, in order to write this, we need to identify the steps that happened earlier to the fixed_age_group_education_2014 data.\n\n\n\n\n\n\nYour turn\n\n\n\nWhat were the fixes that were required for this data?",
+    "section": "6.8 Discussion of data cleaning function implementations",
+    "text": "6.8 Discussion of data cleaning function implementations\n\nDiscuss “solutions-alpha-analysis2014.qmd”",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
     ]
   },
   {
-    "objectID": "motivation.html#box-plot-of-proportion-of-people-educated-for-each-state.",
-    "href": "motivation.html#box-plot-of-proportion-of-people-educated-for-each-state.",
+    "objectID": "motivation.html#applying-functions-to-give-the-outputs",
+    "href": "motivation.html#applying-functions-to-give-the-outputs",
     "title": "6  Motivation",
-    "section": "6.9 box plot of proportion of people educated for each state.",
-    "text": "6.9 box plot of proportion of people educated for each state.",
+    "section": "6.9 Applying functions to give the outputs",
+    "text": "6.9 Applying functions to give the outputs\nWe’ve got some data cleaning functions! Now let’s see if we can capture the intention of the plots, and wrap these up into functions, too.\nThe overall idea here is that we can capture the overall intention of what we are doing in a concise way, that is easy to reason with. That is not to say that it is just smaller, but being easy to reason with is key here.\n\n\n\n\n\n\nYour turn\n\n\n\n\nOpen, “bravo-analysis2014.qmd”\nWrite a function for each of the following:\nBar plot of proportion of people educated by state and age\nBoxplot of proportion of people educated for each state\nTable of 5 number summary of proportion of people educated for each state\nMove all these functions to the top of the document into a single code chunk labelled “functions”\nMove the “data checks” to the end of the document. We will come back to this later\nMake a “libraries” code chunk and put the library call in there",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
     ]
   },
   {
-    "objectID": "motivation.html#table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state.",
-    "href": "motivation.html#table-of-the-5-number-summary-of-proportion-of-people-educated-for-each-state.",
+    "objectID": "motivation.html#discussion-of-plot-and-table-rearranging-functions",
+    "href": "motivation.html#discussion-of-plot-and-table-rearranging-functions",
     "title": "6  Motivation",
-    "section": "6.10 Table of The 5 number summary of proportion of people educated for each state.",
-    "text": "6.10 Table of The 5 number summary of proportion of people educated for each state.",
+    "section": "6.10 Discussion of plot and table, rearranging functions",
+    "text": "6.10 Discussion of plot and table, rearranging functions\n\nWhat do we notice now?",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#moving-towards-a-quasi-package.",
+    "href": "motivation.html#moving-towards-a-quasi-package.",
+    "title": "6  Motivation",
+    "section": "6.11 Moving towards a quasi-package.",
+    "text": "6.11 Moving towards a quasi-package.\nWe’re slowly isolating the parts of the code that we care about, and now we’re going to make an incremental change again - to move all of the functions out to an R folder, with one function per R file.\nFor those who are more familiar with R Packages, this might start to look a lot more like an R package - while this isn’t the “standard” process, the intention here is to demonstrate the key changes:\n\nFunctions: Identifying points of expression / abstraction\nClearly expressing functions\nUsing functions to clearly articulate your work\n\n\n\n\n\n\n\n‘ergonomic’ / interactive helper packages\n\n\n\nTo do package development, we’re going to be using packages like devtools and usethis. These packages are things we use in the console - we use them interactively. They help us automate a lot of things, so we can focus on the task at hand.\nYou can be almost guaranteed that we will use any functions from devtools and usethis in the console. It’s OK for that to feel strange! It will feel better soon.\n\n\n\n\n\n\n\n\nYour turn\n\n\n\n\nOpen “charlie-analysis2014.qmd”\nUse use_r() from devtools/usethis to create a separate R file for each of the R functions:\nclean_age_groups\nclean_education_data\nplot_study_age_state\nboxplot_study_state\nsummarise_prop_study\nload all of these R functions, by calling source at the top of the quarto document",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "motivation.html#discussion",
+    "href": "motivation.html#discussion",
+    "title": "6  Motivation",
+    "section": "6.12 Discussion",
+    "text": "6.12 Discussion\n\nThoughts on this process?\nShall we just get to the making the R package?\nSee https://github.com/njtierney/learned/pull/1 for solution\n\nNow, let’s move to making the R package!",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Motivation</span>"
+    ]
+  },
+  {
+    "objectID": "create-the-pkg.html",
+    "href": "create-the-pkg.html",
+    "title": "7  Create the package!",
+    "section": "",
+    "text": "7.1 create_package(here))\nIt’s happening! We’re nearly there!\nWe’ve lined things up, now it’s time to start tearing down some walls, and getting things ready to be an R package.\nLet’s run\nThis says:\nYou get a note that it does the following\nPersonally, I recommend No, there’s not really a point to this in this instance.\nThere’s a bit to unpack here, you can see these new things have been created!\nYou can see where I’ve done this here: https://github.com/njtierney/learned/pull/2/commits/d143b0f877c1e875cef98474299e628f1f95e488\nThere are three files added, which I’ll briefly discuss, and then we can move on to more substantial matters of cleaning this directory up a little bit.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Create the package!</span>"
+    ]
+  },
+  {
+    "objectID": "create-the-pkg.html#create_packagehere",
+    "href": "create-the-pkg.html#create_packagehere",
+    "title": "7  Create the package!",
+    "section": "",
+    "text": "create_package(here::here(), open = FALSE)\n\n\nCreate a package in this directory, and don’t open a new RStudio session, please\n\n\n✔ Setting active project to\n  \"/Users/nick/github/njtierney/learned\".\n✔ Writing DESCRIPTION.\n✔ Writing NAMESPACE.\n! Overwrite pre-existing file learned.Rproj?\n\nℹ Leaving learned.Rproj unchanged.\n✔ Adding \"^learned\\\\.Rproj$\" to .Rbuildignore.\n✔ Adding \"^\\\\.Rproj\\\\.user$\" to .Rbuildignore.\n✔ Setting active project to \"&lt;no active project&gt;\".\n\n\n\n\n7.1.1 DESCRIPTION file\nMy DESCRIPTION file looks like this, initially\nPackage: learned\nTitle: What the Package Does (One Line, Title Case)\nVersion: 0.0.0.9000\nAuthors@R: \n    person(\"Nicholas\", \"Tierney\", , \"nicholas.tierney@gmail.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"https://orcid.org/0000-0003-1460-8722\"))\nDescription: What the package does (one paragraph).\nLicense: MIT + file LICENSE\nEncoding: UTF-8\nLanguage: en-GB\nRoxygen: list(markdown = TRUE)\nRoxygenNote: 7.3.2\nEssentially, this is a bunch of metadata about the package. It is a very critical file to an R package, and we’ll come back to it later. For the moment, I think there are two things worth noting\n\nIt’s a bunch of metadata that is really important and specifically formatted\nThe DESCRIPTION details here have my name and a few other things set (like Language: en-GB), because of where we set this up in installation.\n\n\n\n7.1.2 .Rbuildignore\nThis lists files that we don’t want to package up when we eventually build our R package.\nThis contains:\n^learned\\.Rproj$\n^\\.Rproj\\.user$\nWhich are specific RStudio files. As you get further along in the package building process, more files will be added to .Rbuildignore.\n\n\n7.1.3 NAMESPACE\nAnother super critical file. We don’t touch it by hand. It gets updated automatically via devtools and usethis. It looks like this currently:\n# Generated by roxygen2: do not edit by hand",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Create the package!</span>"
+    ]
+  },
+  {
+    "objectID": "create-the-pkg.html#some-housekeeping",
+    "href": "create-the-pkg.html#some-housekeeping",
+    "title": "7  Create the package!",
+    "section": "7.2 Some housekeeping",
+    "text": "7.2 Some housekeeping\nWe need to really tidy up this repository to be an R package. Theres stuff everywhere.\n\n7.2.1 move the data to data-raw\nLet’s clean up all the existing data and move it into a special data-raw folder. The data-raw folder exists in R packages as a place to hold original copies of data that will eventually be cleaned up and shared in the data folder. For the time being, we can store our data sets in here, and we’ll come back to it later.\n\n\nRun use_data_raw()\nMove raw_education_2014...2019.csv into the newly created data-raw folder\n\n\n\n7.2.1.1 Running use_data_raw()\nWhen we run use_data_raw(), we get a message like the following:\n✔ Setting active project to\n  \"/Users/nick/github/njtierney/learned\".\n✔ Creating data-raw/.\n✔ Adding \"^data-raw$\" to .Rbuildignore.\n✔ Writing data-raw/DATASET.R.\n☐ Modify data-raw/DATASET.R.\n☐ Finish writing the data preparation script in\n  data-raw/DATASET.R.\n☐ Use `usethis::use_data()` to add prepared data\n  to package.\nThis is the usethis package’s way of telling us a couple of nifty things:\n\nDATASET.R is a file it has created, this is where you document changes to the data before it gets saved into the data folder\nthe data folder gets created with usethis::use_data() - we will come back to this.\n\nA takeaway point from this is that the usethis package is quite chatty, and quite helpful!\nYou can see my initial commit of use_data_raw() here: https://github.com/njtierney/learned/pull/2/commits/c47b00349c922411e207598a567f85226bc6b1b4\n\n\n7.2.1.2 Move CSVs into data-raw/\nThere’s a few ways to do this, personally, I just use RStudio’s file interface and move the files around. Here’s what that looks like: https://github.com/njtierney/learned/pull/2/commits/05720d1bcedc177905f71ebbb4a994b83f6da9e0\n(note that this is effectively a renaming, so there’s not much going on in this commit)\n\n\n\n7.2.2 Delete old quarto files, move one into vignettes\nWe don’t need the alpha-bravo-charlie of it all anymore, we can just stick with one. We’re going to move it to a special folder called a “vignette”. We’re going to shelve it there for a little bit.\n\n\nDelete “analysis2014.qmd” and associated HTML/folders\nDelete “alpha-analysis2014.qmd” and associated HTML/folders\nDelete “bravo-analysis2014.qmd” and associated HTML/folders\n(potentially move “solution-charlie-analysis2014.qmd”) into root level and delete “charlie-analysis2014.qmd”)\nDelete “solutions” folder\nrun use_vignette(\"analysis-2014\")\n\n\n\n7.2.2.1 deleting old files\nHere’s the commit of deleting and moving files, and deleting solutions folder\n\nhttps://github.com/njtierney/learned/pull/2/commits/fd74956d7fe7326b1e2c81f546b2a0086b65275e\nhttps://github.com/njtierney/learned/pull/2/commits/c1aac99ffdc7b1261116180bdd504b8236d4e660\n\n\n\n7.2.2.2 Creating quarto vignettes\nOnce we run\nuse_vignette(\"analysis-2014\")\nWe get another nice chatty message from usethis:\n✔ Adding knitr to Suggests field in DESCRIPTION.\n✔ Adding \"inst/doc\" to .gitignore.\n✔ Adding rmarkdown to Suggests field in\n  DESCRIPTION.\n✔ Adding \"knitr\" to VignetteBuilder.\n✔ Creating vignettes/.\n✔ Adding \"*.html\" and \"*.R\" to\n  vignettes/.gitignore.\n✔ Writing vignettes/analysis-2014.Rmd.\n☐ Modify vignettes/analysis-2014.Rmd.\nYou can see the commit for this, here: https://github.com/njtierney/learned/pull/2/commits/4da0a62bb704591ae62d6104e38b6c6d24b6a088\nNote that although we started with a Quarto vignette, it opened an Rmarkdown vignette. It is actually possible to use a quarto vignette - as described in the Quarto R package.\nAnd, just because I want this to be more on the side of bleeding-edge erring to timeless, we’re going to do that. There’s a few steps, so hold on.\n\n7.2.2.2.1 update VignetteBuilder\nOpen the DESCRIPTION file, and replace knitr with quarto in VignetteBuilder.\nhttps://github.com/njtierney/learned/pull/2/commits/e1b0f8b7fbc9a980e2f1bba692bdf1c79dd454ad\nThen, copy our “solution/charlie-analysis.qmd” file into vignette folder\nhttps://github.com/njtierney/learned/pull/2/commits/dcd99c067e1d8606a4771ef5afa8c4cef21f1511\nThen, add some of the appropriate metadata into the quarto YAML:\nhttps://github.com/njtierney/learned/pull/2/commits/fabf10bada36913c5a3045f0f754cc166820510e\nFinally, delete the other Rmd file, and rename ours “analysis-2014.qmd”\nhttps://github.com/njtierney/learned/pull/2/commits/ec15dcf145ac58492a781d4380ba738f1f40dfea\nIt’s worthwhile noting that this vignette in its current state will not build properly, but we will get to it later.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Create the package!</span>"
+    ]
+  },
+  {
+    "objectID": "create-the-pkg.html#buildinstall-the-package",
+    "href": "create-the-pkg.html#buildinstall-the-package",
+    "title": "7  Create the package!",
+    "section": "7.3 Build/install the package",
+    "text": "7.3 Build/install the package\nNow, we have a package! This will actually build, and install! Although we still need to do a few things to make it useable, it’s worthwhile celebrating the small steps!\n\nBuild the package by navigating to the “build” pane in the top right:\n\nClick this, and see some text like the following appear!\n==&gt; R CMD INSTALL --preclean --no-multiarch --with-keep.source learned\n\n* installing to library ‘/Users/nick/Library/R/arm64/4.4/library/_build’\n* installing *source* package ‘learned’ ...\n** using staged installation\n** R\n** byte-compile and prepare package for lazy loading\nNo man pages found in package  ‘learned’ \n** help\n*** installing help indices\n** building package indices\n** installing vignettes\n** testing if installed package can be loaded from temporary location\n** testing if installed package can be loaded from final location\n** testing if installed package keeps a record of temporary installation path\n* DONE (learned)\n\n\n\n\n\n\n\nThis is a non-standard way of making an R package\n\n\n\n\n\nThis whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Create the package!</span>"
     ]
   }
 ]
