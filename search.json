@@ -556,7 +556,7 @@
     "section": "",
     "text": "Open up “analysis-2014.qmd”\nRemove “Your Tasks”\nRemove “Functions”\nUpdate the Data cleaning so you can it interactively to read in the “raw_education_2014.csv” data (NB: we will eventually move this data into the R package itself)",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>add-vignette.html</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>add-vignette.html</span>"
     ]
   }
 ]
