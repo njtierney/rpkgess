@@ -584,7 +584,27 @@
     "href": "add-data.html",
     "title": "10  Adding data to an R package",
     "section": "",
-    "text": "overall goals - add raw 2014 data - add tidy 2014 data\n\ndemonstrate using data-raw/dataset.R\n\nbriefly discuss compression = “xz”\n\nshow using set.seed(yyyy-mm-dd) / providing a date\ndemo now by having the data be used without read_csv in scratch.R\n\nBut now just use library, not load all - see that there’s no functions!\nSo now go on to having documentation and (export?)",
+    "text": "10.1 Reading and exporting the data\nWe want examples - and we want to show our data! So let’s add the raw education 2014 data to the package.\nTo do this, we’re going to navigate back to the data-raw/DATASET.R file.\nThis file is effectively a data cleaning script - in our case, we’re just going to read in the data, then use usethis::use_data() on it to export it. Then we will document the data.\nCurrently, our DATASET.R file looks like this:\nLet’s read in the data and then export it, so it will look like this:\n(compress = \"xz\" is a very efficient storage format)\nOnce again, usethis gives us a nice chatty response:\nWith a little note about documenting your data!\nTo finish this off, we need to document the data. This looks like us creating a new R file, that contains some information like this:\nI usually save this in R under something like data-&lt;NAME&gt;\nSee this commit for what this looks like.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Adding data to an R package</span>"
+    ]
+  },
+  {
+    "objectID": "add-data.html#reading-and-exporting-the-data",
+    "href": "add-data.html#reading-and-exporting-the-data",
+    "title": "10  Adding data to an R package",
+    "section": "",
+    "text": "## code to prepare `DATASET` dataset goes here\n\nusethis::use_data(DATASET, overwrite = TRUE)\n\n## 2015-04-10\nlibrary(readr)\nraw_education_2014 &lt;- read_csv(\"data-raw/raw_education_2014.csv\")\n\nusethis::use_data(raw_education_2014, overwrite = TRUE, compress = \"xz\")\n\n\n✔ Setting active project to\n  \"/Users/nick/github/njtierney/learned\".\n✔ Adding R to Depends field in DESCRIPTION.\n✔ Creating data/.\n✔ Setting LazyData to \"true\" in DESCRIPTION.\n✔ Saving \"raw_education_2014\" to\n  \"data/raw_education_2014.rda\".\n☐ Document your data (see\n  &lt;https://r-pkgs.org/data.html&gt;).\n\n\n\n\n\n\n\nYour turn\n\n\n\n\nExport the 2014 data, as described above\n\nSee this commit for a demonstration\n\n\n\n#' ABS Education data\n#'\n#' Some education data used for practicing building R packages.\n#'   Each row represents the number of people studying in a given age group in \n#'   a given state.\n#'\n#' @format ## `raw_education_2014`\n#' A data frame with 72 rows and 6 columns:\n#' \\describe{\n#'   \\item{year}{The year of data - 2014}\n#'   \\item{state_territory}{One of 8 states or territories}\n#'   \\item{age_group}{age groups from 15 to 44}\n#'   \\item{n_studying}{how many people are studying}\n#'   \\item{population}{population in that state in that}\n#'   \\item{prop_studying}{proportion studying}\n#' }\n#' @source &lt;https://www.who.int/teams/global-tuberculosis-programme/data&gt;\n\"raw_education_2014\"\n\n\n\n\n\n\n\nYour turn\n\n\n\n\nDocument your data\nRun document()",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Adding data to an R package</span>"
+    ]
+  },
+  {
+    "objectID": "add-data.html#improve-our-examples-with-our-data",
+    "href": "add-data.html#improve-our-examples-with-our-data",
+    "title": "10  Adding data to an R package",
+    "section": "10.2 Improve our examples with our data",
+    "text": "10.2 Improve our examples with our data\nNow that we have some data easily accessible, we can go back and fix our examples in documentation!\nFor example, in boxplot_study_state.R we can change\n#' @examples\n#' # no example data yet\nTo\n#' @examples\n#' boxplot_study_state(raw_education_2014)\nSee this commit\n\n\n\n\n\n\nYour turn\n\n\n\n\nAdd the example data to all functions in learned\nrun document()\n\n\n\nSee this commit to see what this looks like.\nWe’re getting close now - let’s see if we can pass checks!",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Adding data to an R package</span>"
     ]
@@ -594,19 +614,29 @@
     "href": "using-checks.html",
     "title": "11  Passing Checks",
     "section": "",
-    "text": "explain this isn’t something to run all the time, but as the quote goes, frequency reduces difficulty\nunpack the process of R CMD Check",
+    "text": "11.1 Check can sometimes open a can of worms\nOur package is really starting to grow up on us!\nBut it’s time to test it - we do this with devtools::check()\nThis function runs all the general tests to see if our package can go onto CRAN. There are usually a few more checks to run, but it’s mostly 95% of the way there.\nEssentially, devtools::check() does the following:\nIt does usually take a minute or so to do, so it’s not something we run all the time, but it’s a good idea to get into a habit of being somewhat regular about the checks.\nLet’s run devtools::check() on learned\nWe pretty quickly get an error!\nLet’s take a full look at the vignette error:\nOK, so the issue is that we are reading in the CSV in a non standard way. But, now that we have the data built in to the package, we don’t need to worry about this.\nIn fact, looking at the vignette now, there’s a few things going on!\nWe resolve this at this commit.\nEven as an experienced package developer, once I fixed the above, I still had quite a few things to fix. Let’s walk through these.\nWe also introduce a new error:\nWhich I believe is fixed by adding quarto to Suggests - done in this commit.\nDoing that, and running check() we now get a bit more of thata can of worms of errors, warnings, and notes:\nThis all looks a bit intense. It’s OK. We will get through.\nStart by tackling the ERRORs.",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Passing Checks</span>"
     ]
   },
   {
-    "objectID": "add-vignette.html",
-    "href": "add-vignette.html",
-    "title": "12  Adding a vignette",
+    "objectID": "using-checks.html#check-can-sometimes-open-a-can-of-worms",
+    "href": "using-checks.html#check-can-sometimes-open-a-can-of-worms",
+    "title": "11  Passing Checks",
     "section": "",
-    "text": "We have already covered this earlier, but recap this, and also check that the vignette is now building properly\n\n\n\n\n\n\nYour turn\n\n\n\n\n\n\nOpen up “analysis-2014.qmd”\nRemove “Your Tasks”\nRemove “Functions”\nUpdate the Data cleaning so you can it interactively to read in the “raw_education_2014.csv” data (NB: we will eventually move this data into the R package itself)",
+    "text": "❯ checking package dependencies ... ERROR\n  VignetteBuilder package not declared: ‘quarto’\n  \n  See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’\n  manual.\n\n\nSuggests is a place where you put packages that are used in your vignettes, but not your package.\n\n\n❯ checking re-building of vignette outputs ... ERROR\n  Error(s) in re-building vignettes:\n  --- re-building ‘analysis-2014.qmd’ using html\n  \n  \n  processing file: analysis-2014.qmd\n  Error in library(naniar) : there is no package called 'naniar'\n  Calls: .main ... withCallingHandlers -&gt; withVisible -&gt; eval -&gt; eval -&gt; library\n  \n  Quitting from analysis-2014.qmd:35-39 [libraries]\n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  &lt;error/rlang_error&gt;\n  Error in `library()`:\n  ! there is no package called 'naniar'\n  ---\n  Backtrace:\n      ▆\n   1. └─base::library(naniar)\n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  \n  Execution halted\n  Error: processing vignette 'analysis-2014.qmd' failed with diagnostics:\n  ✖ Error running quarto cli.\n  Caused by error:\n  ! System command 'quarto' failed\n  --- failed re-building ‘analysis-2014.qmd’\n  \n  SUMMARY: processing the following file failed:\n    ‘analysis-2014.qmd’\n  \n  Error: Vignette re-building failed.\n  Execution halted\n\n❯ checking DESCRIPTION meta-information ... WARNING\n  Invalid license file pointers: LICENSE\n\n❯ checking R code for possible problems ... NOTE\n  boxplot_study_state: no visible binding for global variable\n    ‘prop_studying’\n  boxplot_study_state: no visible binding for global variable\n    ‘state_territory’\n  clean_education_data: no visible binding for global variable\n    ‘age_group’\n  clean_education_data: no visible binding for global variable\n    ‘prop_studying’\n  plot_study_age_state: no visible binding for global variable\n    ‘prop_studying’\n  plot_study_age_state: no visible binding for global variable\n    ‘age_group’\n  summarise_prop_study: no visible binding for global variable\n    ‘state_territory’\n  summarise_prop_study: no visible binding for global variable\n    ‘prop_studying’\n  summarise_prop_study: no visible global function definition for\n    ‘quantile’\n  summarise_prop_study: no visible global function definition for\n    ‘median’\n  summarise_prop_study: no visible global function definition for ‘sd’\n  Undefined global functions or variables:\n    age_group median prop_studying quantile sd state_territory\n  Consider adding\n    importFrom(\"stats\", \"median\", \"quantile\", \"sd\")\n  to your NAMESPACE file.\n\n❯ checking for unstated dependencies in vignettes ... NOTE\n  'library' or 'require' call not declared from: ‘naniar’\n\n1 error ✖ | 1 warning ✖ | 2 notes ✖\n\n\n\n11.1.1 Packages used in vignettes have to be declared in Suggests\nThis error\n❯ checking re-building of vignette outputs ... ERROR\n  Error(s) in re-building vignettes:\n  --- re-building ‘analysis-2014.qmd’ using html\n  \n  \n  processing file: analysis-2014.qmd\n  Error in library(tidyverse) : there is no package called 'tidyverse'\n  Calls: .main ... withCallingHandlers -&gt; withVisible -&gt; eval -&gt; eval -&gt; library\n  \n  Quitting from analysis-2014.qmd:35-41 [libraries]\n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  &lt;error/rlang_error&gt;\n  Error in `library()`:\n  ! there is no package called 'tidyverse'\n  ---\n  Backtrace:\n      ▆\n   1. └─base::library(tidyverse)\n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  \n  Execution halted\n  Error: processing vignette 'analysis-2014.qmd' failed with diagnostics:\n  ✖ Error running quarto cli.\n  Caused by error:\n  ! System command 'quarto' failed\n  --- failed re-building ‘analysis-2014.qmd’\n  \n  SUMMARY: processing the following file failed:\n    ‘analysis-2014.qmd’\n  \n  Error: Vignette re-building failed.\n  Execution halted\nWe actually don’t need some of these packages anymore - so let’s remove tidyverse, and here.\nThen, doing that, we still get a similar error, but just for the “naniar” package.\nWe can resolve this by doing\nuse_package(\"naniar\", type = \"Suggests\")\nThis works!\nThat puts at at this commit\nWe now have this state\n❯ checking DESCRIPTION meta-information ... WARNING\n  Invalid license file pointers: LICENSE\n\n❯ checking R code for possible problems ... NOTE\n  boxplot_study_state: no visible binding for global variable\n    ‘prop_studying’\n  boxplot_study_state: no visible binding for global variable\n    ‘state_territory’\n  clean_education_data: no visible binding for global variable\n    ‘age_group’\n  clean_education_data: no visible binding for global variable\n    ‘prop_studying’\n  plot_study_age_state: no visible binding for global variable\n    ‘prop_studying’\n  plot_study_age_state: no visible binding for global variable\n    ‘age_group’\n  summarise_prop_study: no visible binding for global variable\n    ‘state_territory’\n  summarise_prop_study: no visible binding for global variable\n    ‘prop_studying’\n  summarise_prop_study: no visible global function definition for\n    ‘quantile’\n  summarise_prop_study: no visible global function definition for\n    ‘median’\n  summarise_prop_study: no visible global function definition for ‘sd’\n  Undefined global functions or variables:\n    age_group median prop_studying quantile sd state_territory\n  Consider adding\n    importFrom(\"stats\", \"median\", \"quantile\", \"sd\")\n  to your NAMESPACE file.\n\n0 errors ✔ | 1 warning ✖ | 1 note ✖\n\n\n\n11.1.2 Addressing the warning\n❯ checking DESCRIPTION meta-information ... WARNING\n  Invalid license file pointers: LICENSE\nLet’s look at the DESCRIPTION file, and at the License section\nIt says:\nLicense: MIT + file LICENSE\nWe didn’t initialise the License properly, so we run\nuse_mit_license()\nWhich gives us\n✔ Writing LICENSE.\n✔ Writing LICENSE.md.\n✔ Adding \"^LICENSE\\\\.md$\" to .Rbuildignore.\ncheckpoint this commit\n\n\n11.1.3 The NOTES\nRunning Check again, we are down to the NOTEs:\n❯ checking R code for possible problems ... NOTE\n  boxplot_study_state: no visible binding for global variable\n    ‘prop_studying’\n  boxplot_study_state: no visible binding for global variable\n    ‘state_territory’\n  clean_education_data: no visible binding for global variable\n    ‘age_group’\n  clean_education_data: no visible binding for global variable\n    ‘prop_studying’\n  plot_study_age_state: no visible binding for global variable\n    ‘prop_studying’\n  plot_study_age_state: no visible binding for global variable\n    ‘age_group’\n  summarise_prop_study: no visible binding for global variable\n    ‘state_territory’\n  summarise_prop_study: no visible binding for global variable\n    ‘prop_studying’\n  summarise_prop_study: no visible global function definition for\n    ‘quantile’\n  summarise_prop_study: no visible global function definition for\n    ‘median’\n  summarise_prop_study: no visible global function definition for ‘sd’\n  Undefined global functions or variables:\n    age_group median prop_studying quantile sd state_territory\n  Consider adding\n    importFrom(\"stats\", \"median\", \"quantile\", \"sd\")\n  to your NAMESPACE file.\n\nOK, so there’s two things here:\n\nwe forgot to namespace median, quantile, and sd\nWe need to deal with “Undefined global functions or variables: age_group median prop_studying quantile sd state_territory”\n\nThe latter one is more painful, let’s deal with this.\nEssentially, R is complaining because we use these variables inside dplyr code, and it doesn’t know where they come from. My preferred way of dealing with this is using a function called globalVariables. I usually do this inside a centralised R function in what is called a “package doc file”.\nWe can create this file with:\nuse_package_doc()\nWhich tells us:\n✔ Writing R/learned-package.R.\n☐ Modify R/learned-package.R.\n☐ Run devtools::document() to update package-level\n  documentation.\nAnd then inside that file I put age_group median prop_studying quantile sd state_territory. It ends up looking like this:\n#' @keywords internal\n\"_PACKAGE\"\n\n## usethis namespace: start\n## usethis namespace: end\nNULL\n\nglobalVariables(c(\n  \"age_group\",\n  \"median\",\n  \"prop_studying\",\n  \"quantile\",\n  \"sd\",\n  \"state_territory\"\n))\nSo now, let’s run document(), and then run check() again.\nAnd now we are clear! This actually solved the other problem…which is a bit mysterious, but that’s sometimes how it goes.\nHere is the commit of this.",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Adding a vignette</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Passing Checks</span>"
+    ]
+  },
+  {
+    "objectID": "push-to-github.html",
+    "href": "push-to-github.html",
+    "title": "12  Pushing it to GitHub",
+    "section": "",
+    "text": "We can pretty much achieve this with:\n\nuse_git()\nuse_github()\n\nDiscuss the benefits and tools of: - issues - releases - milestones - projects",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Pushing it to GitHub</span>"
     ]
   },
   {
@@ -614,69 +644,89 @@
     "href": "add-readme.html",
     "title": "13  Adding a README file",
     "section": "",
-    "text": "Take the vignette and make it small.\nThis is your README\nuse_readme_rmd()",
+    "text": "Take the vignette, make it small.\nThis is your README\nuse_readme_rmd()\nNow github looks a bit neater!",
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Adding a README file</span>"
     ]
   },
   {
-    "objectID": "push-to-github.html",
-    "href": "push-to-github.html",
-    "title": "14  Pushing it to GitHub",
-    "section": "",
-    "text": "We can pretty much achieve this with:\nuse_git() use_github()\nDiscuss the benefits and tools of issues, releases, milestones, etc",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Pushing it to GitHub</span>"
-    ]
-  },
-  {
     "objectID": "add-tests.html",
     "href": "add-tests.html",
-    "title": "15  Using tests",
+    "title": "14  Using tests",
     "section": "",
-    "text": "initially these tests will make sure that they run on the example data\ndemonstrate testing dimensions/names\ndemonstrate snapshot tests\ndemonstrate vdiffr tests\ncircle back to the data quality checks\n\nmaybe these can become our tests?\n\ntouch on the idea that R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?\nreference Miles’s https://milesmcbain.xyz/posts/an-okay-idea/",
+    "text": "use_testthat()\nre-examine data quality checks\nexplain moving from less-formal to more formalised approach\ndemonstrate testing dimensions/names\ndemonstrate snapshot tests\n\nexpect_snapshot(clean_data(raw_education_2014))\n\ndemonstrate vdiffr tests\n\nset.seed(2025-04-11)\nplot_name &lt;- plot_code(data)\n\ntest_that(\"plot works\", {\n  skip_on_cran()\n  skip_on_ci()\n  vdiffr::expect_doppelganger(\"plot_name\", plot_name)\n})\n\ncircle back to the data quality checks\ntouch on the idea that R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?\nreference Miles’s https://milesmcbain.xyz/posts/an-okay-idea/",
     "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Using tests</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Using tests</span>"
     ]
   },
   {
     "objectID": "add-website.html",
     "href": "add-website.html",
-    "title": "16  Adding a website",
+    "title": "15  Adding a website",
     "section": "",
     "text": "pkgdown\nuse_pkgdown_github_pages()\nlook at other packages for inspiration on structure\ntry to use a different default theme",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Adding a website</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Adding a website</span>"
     ]
   },
   {
     "objectID": "add-ci.html",
     "href": "add-ci.html",
-    "title": "17  Using Continuous Integration",
+    "title": "16  Using Continuous Integration",
     "section": "",
-    "text": "use_github_actions()\n\nfollow prompts\n\nThis is all much easier than it used to be\nExplain that there is a game of “watching the green lights”\nExplain test coverage",
+    "text": "use_github_action() (singular)\n\nfollow prompts\n\nThis is all much easier than it used to be\nExplain that there is a game of “watching the green lights”\nExplain test coverage\n\nsee covr::report()",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Using Continuous Integration</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Using Continuous Integration</span>"
     ]
   },
   {
     "objectID": "publish.html",
     "href": "publish.html",
-    "title": "18  Publishing your R package",
+    "title": "17  Publishing your R package",
     "section": "",
-    "text": "Places to publish packages\n\ngithub\nCRAN\nR Universe\n\npros and cons\nwork through getting it on R Universe\nDiscuss risks of building/installing from github",
+    "text": "17.1 github",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Publishing your R package</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Publishing your R package</span>"
+    ]
+  },
+  {
+    "objectID": "publish.html#github",
+    "href": "publish.html#github",
+    "title": "17  Publishing your R package",
+    "section": "",
+    "text": "Ease of use\nslow\nDiscuss risks of building/installing from github",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Publishing your R package</span>"
+    ]
+  },
+  {
+    "objectID": "publish.html#cran",
+    "href": "publish.html#cran",
+    "title": "17  Publishing your R package",
+    "section": "17.2 CRAN",
+    "text": "17.2 CRAN\n\nA few barriers\nvery stable, fast",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Publishing your R package</span>"
+    ]
+  },
+  {
+    "objectID": "publish.html#r-universe",
+    "href": "publish.html#r-universe",
+    "title": "17  Publishing your R package",
+    "section": "17.3 R Universe",
+    "text": "17.3 R Universe\n\nsimilar to CRAN speed wise\nlinked to github\nfewer barriers\nhttps://docs.r-universe.dev/publish/set-up.html",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Publishing your R package</span>"
     ]
   },
   {
     "objectID": "next-steps.html",
     "href": "next-steps.html",
-    "title": "19  Next Steps",
+    "title": "18  Next Steps",
     "section": "",
     "text": "R packages book\nofficial R docs\nrOpenSci docs\n\nSubmitting to CRAN\nSubmitting to JOSS\nSubmitting to rOpenSci",
     "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Next Steps</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Next Steps</span>"
     ]
   },
   {
@@ -686,7 +736,7 @@
     "section": "",
     "text": "R packages book\nHilary Parker’s blog post\nrOpenSci dev guide",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>references.html</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>references.html</span>"
     ]
   },
   {
@@ -696,7 +746,7 @@
     "section": "",
     "text": "Hadley Wickham\nJenny Bryan\nMiles McBain\nJoe Cheng\nDi Cook\nRob Hyndman\nKerrie Mengersen\nDamjan Vukcevic\nMatt Moores",
     "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>acknowledgements.html</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>acknowledgements.html</span>"
     ]
   }
 ]
