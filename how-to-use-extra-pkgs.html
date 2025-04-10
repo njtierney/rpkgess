@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./add-data.html" rel="next">
+<link href="./add-documentation.html" rel="next">
 <link href="./create-the-pkg.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -172,14 +206,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./add-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Adding data to an R package</span></span></a>
+  <a href="./add-documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Add documentation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./add-documentation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Add documentation</span></span></a>
+  <a href="./add-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Adding data to an R package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -282,8 +316,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#use_packagepkg-andpkgfun" id="toc-use_packagepkg-andpkgfun" class="nav-link active" data-scroll-target="#use_packagepkg-andpkgfun"><span class="header-section-number">8.1</span> <code>use_package(&lt;pkg&gt;) and</code>pkg::fun()`</a></li>
+  <li><a href="#demo-in-scratch" id="toc-demo-in-scratch" class="nav-link" data-scroll-target="#demo-in-scratch"><span class="header-section-number">8.2</span> Demo in <code>scratch</code></a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/how-to-use-extra-pkgs.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -307,28 +348,175 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>One of the major shifts from writing R code and analyses to writing R packges is how you interact with other R packages you want to use.</p>
+<p>One of the major shifts from writing R code and analyses to writing R packages is how you interact with other R packages you want to use.</p>
+<p>Normally, in an R script, when you want to use a function from, say, <code>dplyr</code>, you use <code>library(dplyr)</code>.</p>
+<p>However, we <strong>do not ever</strong> want to call <code>library(dplyr)</code> inside a function in an R package. The reason is to do with NAMESPACE conflicts. A popular usecase of this is in the <code>tidyverse</code> R package - where we get this message when we call <code>library(tidyverse)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>The conflict message at the bottom tells us that <code>dplyr::filter()</code> masks <code>stats::filter()</code>.</p>
+<p>This is a key issue with package development - masking. If all R packages called <code>library(&lt;package&gt;)</code> on every R package that they depended upon, then we’d have SO MUCH masking. It’s almost considered rude or overbearing.</p>
+<blockquote class="blockquote">
+<p>How do you NOT use library??</p>
+</blockquote>
+<p>You say? The solution is to use what is called the “namespaced” form: <code>pkg::fun()</code>.</p>
+<p>For example, if I want to use <code>filter</code> from <code>dplyr</code>, I do so with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(speed <span class="sc">&lt;=</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  speed dist
+1     4    2
+2     4   10</code></pre>
+</div>
+</div>
+<p>So for every package we want to use a function from in an R package, we use the “namespaced form”, e.g., <code>dplyr::filter()</code>. We also have to declare the dependencies formally, which I’ll discuss now.</p>
+<section id="use_packagepkg-andpkgfun" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="use_packagepkg-andpkgfun"><span class="header-section-number">8.1</span> <code>use_package(&lt;pkg&gt;) and</code>pkg::fun()`</h2>
+<p>So now we need to identify the packages that we use in our R package, and then namespace them. We then formally add the dependency with: <code>use_package(&lt;pkg&gt;)</code>.</p>
+<p>For example, looking at</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>boxplot_study_state <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> prop_studying,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> state_territory</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We turn it into its <strong>namespaced</strong> form like so:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>boxplot_study_state <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> prop_studying,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> state_territory</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_boxplot</span>()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And then call <code>use_package()</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_package</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Which gives us a nice chatty response from <code>usethis</code>:</p>
+<pre><code>✔ Setting active project to
+  "/Users/nick/github/njtierney/learned".
+✔ Adding ggplot2 to Imports field in DESCRIPTION.
+☐ Refer to functions with `ggplot2::fun()`.</code></pre>
+<p>You can see this at <a href="https://github.com/njtierney/learned/pull/2/commits/4b93e0f4754fa00f405a519be2abe8ba91214efe">this commit</a></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Identify all the R packages used in <code>learned</code></li>
+<li>call <code>use_package()</code> on each of these packages</li>
+<li>Namespace all the functions</li>
+</ol>
+</div>
+</div>
+<p>See <a href="https://github.com/njtierney/learned/pull/2/commits/2019478ac9a1e868aa173f316d2cc9eccacefbba">this commit</a> for what you should end up with.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="How many dependencies should you have?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How many dependencies should you have?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>My opinion is that you should depend on as many R packages as you like! It’s far faster, I think, to depend on packages that get the job done, and then maybe later trim back some dependencies and rewrite code.</p>
+<p>My reasoning is that it is (generally) really cheap to add dependencies, but more expensive (for my brain), to write them from scratch.</p>
+<p>So, be greedy, add dependencies, then prune back.</p>
+</div>
+</div>
+</section>
+<section id="demo-in-scratch" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="demo-in-scratch"><span class="header-section-number">8.2</span> Demo in <code>scratch</code></h2>
+<p>Now that we’ve done this, let’s install the package, and then go to <code>scratch.R</code></p>
+<p>I then get this error:</p>
+<pre><code>&gt; clean_education_data(raw_education_2014)
+Error in clean_education_data(raw_education_2014) : 
+  could not find function "clean_education_data"</code></pre>
+<p>However, if we do load all, with:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_all</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then it works!</p>
+<p>But what gives with the function not being available? Let’s have a look inside <code>learned</code> by using <code>::</code>:</p>
+<p>There’s nothing in there! Now let’s focus on getting that working, which will involve learning about <strong>documenting our code!</strong></p>
+<div class="callout callout-style-default callout-caution callout-titled" title="The `tidyverse` package is not a dependency in packages">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The <code>tidyverse</code> package is not a dependency in packages
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Because the purpose of the R package <code>tidyverse</code> is only really to load other R packages, it does not contain functions. Don’t put <code>tidyverse</code> in imports.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Managing conflicts in scripts with `conflicted`">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Managing conflicts in scripts with <code>conflicted</code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Outside of the R package development world, it’s a good idea to proactively manage function conflicts. Lest you use <code>stats::filter()</code> instead of <code>dplyr::filter()</code></p>
+<p>See the <a href="https://github.com/r-lib/conflicted"><code>conflicted</code> R package</a> for more on this idea.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Some other ideas">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Some other ideas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ul>
-<li>previously use library</li>
-<li>cannot use library in pkg</li>
-<li>idea of overloading namespace</li>
-<li>using pkg::fun</li>
+<li>Imports vs Depends. We only really use Imports. Don’t use Depends unless you’re building an extension package, e.g., something that works with ggplot2, where it doesn’t make sense to have the package without ggplot2. Depends is like having <code>library(pkg)</code>. Generally, don’t do it.</li>
+<li>It’s usually a good idea to state package versions after their name in Imports. Find out the package name with <code>packageVersion("pkg")</code>. Generally onlt do <code>&gt;=</code>, and not <code>==</code> and never <code>&lt;</code></li>
 </ul>
-<p>introduce workflow:</p>
-<ul>
-<li><p><code>use_package(pkg)</code></p></li>
-<li><p><code>pkg::fun()</code></p></li>
-<li><p>show commits</p></li>
-<li><p>show how DESCRIPTION changes</p></li>
-<li><p>note about using Tidyverse - instead we must call packages directly</p></li>
-<li><p>note about Imports vs Depends. We only really use Imports.</p></li>
-<li><p>note about package versions - usually a good idea.</p></li>
-<li><p>note/philosophy about dependencies. Greedy approach is (in my opinion) best, because you don’t waste human cycles. Best approach is greedy, then prune back</p></li>
-<li><p>wrap up by using the package successfully in scratch.R</p></li>
-<li><p>which leads us to consider making the data accessible</p></li>
-</ul>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -755,8 +943,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./add-data.html" class="pagination-link" aria-label="Adding data to an R package">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Adding data to an R package</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./add-documentation.html" class="pagination-link" aria-label="Add documentation">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Add documentation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -768,7 +956,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2025, Nicholas Tierney</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/how-to-use-extra-pkgs.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/how-to-use-extra-pkgs.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

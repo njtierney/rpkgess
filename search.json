@@ -544,29 +544,49 @@
     "href": "how-to-use-extra-pkgs.html",
     "title": "8  How to use extra packages",
     "section": "",
-    "text": "One of the major shifts from writing R code and analyses to writing R packges is how you interact with other R packages you want to use.\n\npreviously use library\ncannot use library in pkg\nidea of overloading namespace\nusing pkg::fun\n\nintroduce workflow:\n\nuse_package(pkg)\npkg::fun()\nshow commits\nshow how DESCRIPTION changes\nnote about using Tidyverse - instead we must call packages directly\nnote about Imports vs Depends. We only really use Imports.\nnote about package versions - usually a good idea.\nnote/philosophy about dependencies. Greedy approach is (in my opinion) best, because you don’t waste human cycles. Best approach is greedy, then prune back\nwrap up by using the package successfully in scratch.R\nwhich leads us to consider making the data accessible",
+    "text": "8.1 use_package(&lt;pkg&gt;) andpkg::fun()`\nOne of the major shifts from writing R code and analyses to writing R packages is how you interact with other R packages you want to use.\nNormally, in an R script, when you want to use a function from, say, dplyr, you use library(dplyr).\nHowever, we do not ever want to call library(dplyr) inside a function in an R package. The reason is to do with NAMESPACE conflicts. A popular usecase of this is in the tidyverse R package - where we get this message when we call library(tidyverse).\nThe conflict message at the bottom tells us that dplyr::filter() masks stats::filter().\nThis is a key issue with package development - masking. If all R packages called library(&lt;package&gt;) on every R package that they depended upon, then we’d have SO MUCH masking. It’s almost considered rude or overbearing.\nYou say? The solution is to use what is called the “namespaced” form: pkg::fun().\nFor example, if I want to use filter from dplyr, I do so with:\nSo for every package we want to use a function from in an R package, we use the “namespaced form”, e.g., dplyr::filter(). We also have to declare the dependencies formally, which I’ll discuss now.\nSo now we need to identify the packages that we use in our R package, and then namespace them. We then formally add the dependency with: use_package(&lt;pkg&gt;).\nFor example, looking at\nWe turn it into its namespaced form like so:\nAnd then call use_package():\nWhich gives us a nice chatty response from usethis:\nYou can see this at this commit\nSee this commit for what you should end up with.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>How to use extra packages</span>"
     ]
   },
   {
-    "objectID": "add-data.html",
-    "href": "add-data.html",
-    "title": "9  Adding data to an R package",
+    "objectID": "how-to-use-extra-pkgs.html#use_packagepkg-andpkgfun",
+    "href": "how-to-use-extra-pkgs.html#use_packagepkg-andpkgfun",
+    "title": "8  How to use extra packages",
     "section": "",
-    "text": "overall goals - add raw 2014 data - add tidy 2014 data\n\ndemonstrate using data-raw/dataset.R\n\nbriefly discuss compression = “xz”\n\nshow using set.seed(yyyy-mm-dd) / providing a date\ndemo now by having the data be used without read_csv in scratch.R\n\nBut now just use library, not load all - see that there’s no functions!\nSo now go on to having documentation and (export?)",
+    "text": "boxplot_study_state &lt;- function(data) {\n  ggplot(\n    data,\n    aes(\n      x = prop_studying,\n      y = state_territory\n    )\n  ) +\n    geom_boxplot()\n}\n\nboxplot_study_state &lt;- function(data) {\n  ggplot2::ggplot(\n    data,\n    ggplot2::aes(\n      x = prop_studying,\n      y = state_territory\n    )\n  ) +\n    ggplot2::geom_boxplot()\n}\n\nuse_package(\"ggplot2\")\n\n✔ Setting active project to\n  \"/Users/nick/github/njtierney/learned\".\n✔ Adding ggplot2 to Imports field in DESCRIPTION.\n☐ Refer to functions with `ggplot2::fun()`.\n\n\n\n\n\n\n\nYour turn\n\n\n\n\nIdentify all the R packages used in learned\ncall use_package() on each of these packages\nNamespace all the functions\n\n\n\n\n\n\n\n\n\n\nHow many dependencies should you have?\n\n\n\nMy opinion is that you should depend on as many R packages as you like! It’s far faster, I think, to depend on packages that get the job done, and then maybe later trim back some dependencies and rewrite code.\nMy reasoning is that it is (generally) really cheap to add dependencies, but more expensive (for my brain), to write them from scratch.\nSo, be greedy, add dependencies, then prune back.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Adding data to an R package</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>How to use extra packages</span>"
+    ]
+  },
+  {
+    "objectID": "how-to-use-extra-pkgs.html#demo-in-scratch",
+    "href": "how-to-use-extra-pkgs.html#demo-in-scratch",
+    "title": "8  How to use extra packages",
+    "section": "8.2 Demo in scratch",
+    "text": "8.2 Demo in scratch\nNow that we’ve done this, let’s install the package, and then go to scratch.R\nI then get this error:\n&gt; clean_education_data(raw_education_2014)\nError in clean_education_data(raw_education_2014) : \n  could not find function \"clean_education_data\"\nHowever, if we do load all, with:\nload_all(\".\")\nThen it works!\nBut what gives with the function not being available? Let’s have a look inside learned by using :::\nThere’s nothing in there! Now let’s focus on getting that working, which will involve learning about documenting our code!\n\n\n\n\n\n\nThe tidyverse package is not a dependency in packages\n\n\n\n\n\nBecause the purpose of the R package tidyverse is only really to load other R packages, it does not contain functions. Don’t put tidyverse in imports.\n\n\n\n\n\n\n\n\n\nManaging conflicts in scripts with conflicted\n\n\n\n\n\nOutside of the R package development world, it’s a good idea to proactively manage function conflicts. Lest you use stats::filter() instead of dplyr::filter()\nSee the conflicted R package for more on this idea.\n\n\n\n\n\n\n\n\n\nSome other ideas\n\n\n\n\n\n\nImports vs Depends. We only really use Imports. Don’t use Depends unless you’re building an extension package, e.g., something that works with ggplot2, where it doesn’t make sense to have the package without ggplot2. Depends is like having library(pkg). Generally, don’t do it.\nIt’s usually a good idea to state package versions after their name in Imports. Find out the package name with packageVersion(\"pkg\"). Generally onlt do &gt;=, and not == and never &lt;",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>How to use extra packages</span>"
     ]
   },
   {
     "objectID": "add-documentation.html",
     "href": "add-documentation.html",
-    "title": "10  Add documentation",
+    "title": "9  Add documentation",
     "section": "",
-    "text": "explain NAMESPACE\nuse roxygen skeleton\nuse @export\nuse @examples\nwrap up by using library(learned) effectively\nnow show what happens when we run check",
+    "text": "So we noticed that there was nothing in learned when we looked at it - the reason is that we need to export the functions. To do this, we need to document our functions using roxygen2.\nIn short, roxygen2 provides us with nifty syntax to give documentation to our functions, which also allows them to be exported.\nLet’s demonstrate with boxplot_study_state.R:\nIt starts like this:\nboxplot_study_state &lt;- function(data) {\n  ggplot2::ggplot(\n    data,\n    ggplot2::aes(\n      x = prop_studying,\n      y = state_territory\n    )\n  ) +\n    ggplot2::geom_boxplot()\n}\nAnd we can add a “roxygen skeleton” by going to code &gt; insert roxygen skeleton (or with Alt/Option + Ctrl/Cmd + Shift + R) whilst our cursor is in the function, and we get this:\n#' Title\n#'\n#' @param data \n#'\n#' @returns\n#' @export\n#'\n#' @examples\nboxplot_study_state &lt;- function(data) {\n  ggplot2::ggplot(\n    data,\n    ggplot2::aes(\n      x = prop_studying,\n      y = state_territory\n    )\n  ) +\n    ggplot2::geom_boxplot()\n}\nWhich we can then populate:\n#' Provide a boxplot of study data\n#'\n#' @param data data from education 2014\n#'\n#' @returns a ggplot object\n#' @export\n#'\n#' @examples\n#' # no example data yet\nboxplot_study_state &lt;- function(data) {\n  ggplot2::ggplot(\n    data,\n    ggplot2::aes(\n      x = prop_studying,\n      y = state_territory\n    )\n  ) +\n    ggplot2::geom_boxplot()\n}\nWe then call document(), which gives us the output:\nℹ Updating learned documentation\nℹ Loading learned\nWriting NAMESPACE\nWriting boxplot_study_state.Rd\nThis allows us to look at the documented function with ?boxplot_study_state.\nThis function also gets added to the NAMESPACE file.\nHere’s the commit of that\nNote three things:\n\nNAMESPACE now has boxplot_study_state.R in it\nWe have added some roxygen code\nThere’s some LaTeX looking code in man/boxplot_study_state.Rd\n\n\n\n\n\n\n\nYour Turn\n\n\n\n\nRepeat this process for all the remaining functions in learned\n\nadd the roxygen skeleton\npopulation the roxygen skeleton\nrun document()\n\n\n\n\nSee this commit to see what this looks like when done.\nSo now we have some functions in our package! Woo!\nFor fun, try looking at the documentation with ?clean_age_groups\nWhat’s missing from these functions? Examples! For examples, we need our data! Let’s add that to the package.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Add documentation</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Add documentation</span>"
+    ]
+  },
+  {
+    "objectID": "add-data.html",
+    "href": "add-data.html",
+    "title": "10  Adding data to an R package",
+    "section": "",
+    "text": "overall goals - add raw 2014 data - add tidy 2014 data\n\ndemonstrate using data-raw/dataset.R\n\nbriefly discuss compression = “xz”\n\nshow using set.seed(yyyy-mm-dd) / providing a date\ndemo now by having the data be used without read_csv in scratch.R\n\nBut now just use library, not load all - see that there’s no functions!\nSo now go on to having documentation and (export?)",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Adding data to an R package</span>"
     ]
   },
   {
