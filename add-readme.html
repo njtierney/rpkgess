@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -276,8 +310,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#how-to-write-the-readme-though" id="toc-how-to-write-the-readme-though" class="nav-link active" data-scroll-target="#how-to-write-the-readme-though"><span class="header-section-number">13.0.1</span> How to write the README, though?</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/add-readme.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -301,14 +341,67 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Now that we’ve got our package onto github, let’s add a nice landing page, in the form of a README file.</p>
+<p>A README for a package should aim to answer the following questions:</p>
 <ul>
-<li>Take the vignette, make it small.</li>
-<li>This is your README</li>
-<li><code>use_readme_rmd()</code></li>
-<li>Now github looks a bit neater!</li>
+<li>What is your package?</li>
+<li>Why should we use it?</li>
+<li>How do we use it?</li>
 </ul>
+<p>We can set up the README with the following command:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_readme_rmd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Which tells us the following:</p>
+<pre><code>✔ Writing README.Rmd.
+✔ Adding "^README\\.Rmd$" to .Rbuildignore.
+☐ Modify README.Rmd.
+✔ Writing .git/hooks/pre-commit.</code></pre>
+<p>Essentially this means:</p>
+<ul>
+<li>Don’t add the README.Rmd when building the package</li>
+<li>Remember to edit the .Rmd (not the md file it creates)</li>
+<li>Adds a little note that will not let you just commit the README.Rmd unless the README.md has been updated (this is called a pre-commit).</li>
+</ul>
+<p><a href="https://github.com/njtierney/learned/pull/2/commits/0ce4e30647d2ea86f010c49a21df196e9c374fb1">Here’s a commit of this</a></p>
+<p>Essentially, the README.Rmd file allows us to demonstrate our package - in a similar way to how we have a vignette.</p>
+<p>Some good examples of R package READMEs:</p>
+<ul>
+<li><a href="https://github.com/tidyverse/dplyr?tab=readme-ov-file#dplyr-"><code>dplyr</code></a></li>
+<li><a href="https://github.com/MilesMcBain/datapasta"><code>datapasta</code></a></li>
+<li><a href="https://github.com/ropensci/skimr?tab=readme-ov-file#skimr-"><code>skimr</code></a></li>
+<li><a href="https://github.com/ropensci/magick?tab=readme-ov-file#ropensci-the-magick-package"><code>magick</code></a></li>
+<li><a href="https://github.com/ropensci/visdat?tab=readme-ov-file#visdat-"><code>visdat</code></a></li>
+</ul>
+<section id="how-to-write-the-readme-though" class="level3" data-number="13.0.1">
+<h3 data-number="13.0.1" class="anchored" data-anchor-id="how-to-write-the-readme-though"><span class="header-section-number">13.0.1</span> How to write the README, though?</h3>
+<p>Writing documentation can be a bit hard, but here are some general tips:</p>
+<ul>
+<li>Take the vignette, make it smaller.</li>
+<li>Take the examples, put them in there.</li>
+<li>Remember that done is better than perfect.</li>
+</ul>
+<p>Here’s <a href="https://github.com/njtierney/learned/pull/2/commits/4be9bc46099156efe44d4f7b6d50de5a399ed4f4">my (quick) commit</a> of making a minimal README.Rmd</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="A common pitfall with README.Rmd">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A common pitfall with README.Rmd
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Remember to add <code>library(pkg)</code> to your README</li>
+<li>Remember to build the package before you knit!
+<ul>
+<li>You can do this with <code>build_readme()</code> (which builds the package and knits the README file)</li>
+</ul></li>
+</ul>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -748,7 +841,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2025, Nicholas Tierney</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/add-readme.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/add-readme.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
