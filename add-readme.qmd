@@ -1,3 +1,5 @@
+## Adding a README file
 
 - Take the vignette and make it small.
 - This is your README
+- `use_readme_rmd()`

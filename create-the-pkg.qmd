@@ -6,7 +6,7 @@ We've lined things up, now it's time to start tearing down some walls, and getti
 
 ## `create_package(here))`
 
-Let's run 
+Inside of the `learned` repository, run:
 
 ```r
 create_package(here::here(), open = FALSE)
@@ -37,9 +37,9 @@ Personally, I recommend No, there's not really a point to this in this instance.
 
 There's a bit to unpack here, you can see these new things have been created!
 
-You can see where I've done this here: https://github.com/njtierney/learned/pull/2/commits/d143b0f877c1e875cef98474299e628f1f95e488
+- See changes at [this commit](https://github.com/njtierney/learned/pull/2/commits/d143b0f877c1e875cef98474299e628f1f95e488)
 
-There are three files added, which I'll briefly discuss, and then we can move on to more substantial matters of _cleaning this directory up a little bit_.
+There are three files added, which I'll briefly discuss, and then we can move on to more substantial matters of __cleaning this directory up a little bit__.
 
 ### DESCRIPTION file
 
@@ -60,7 +60,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 ```
 
-Essentially, this is a bunch of metadata about the package. It is a very critical file to an R package, and we'll come back to it later. For the moment, I think there are two things worth noting
+Essentially, this is a bunch of metadata about the package. It is a very critical file to an R package, and we'll come back to it later. For the moment, I think there are two things worth noting:
 
 1. It's a bunch of metadata that is really important and specifically formatted
 2. The DESCRIPTION details here have my name and a few other things set (like `Language: en-GB`), because of where we set this up in [installation](installation).
@@ -88,14 +88,14 @@ Another super critical file. We don't touch it by hand. It gets updated automati
 
 ## Some housekeeping
 
-We need to really tidy up this repository to be an R package. Theres stuff _everywhere_.
+We need to really tidy up this repository to be an R package. There is stuff __everywhere__.
 
-### move the data to data-raw
+### Move the data to data-raw
 
 Let's clean up all the existing data and move it into a special `data-raw` folder.
 The `data-raw` folder exists in R packages as a place to hold original copies of data that will eventually be cleaned up and shared in the `data` folder. For the time being, we can store our data sets in here, and we'll come back to it later.
 
-:::{.callout-info title="Your turn"}
+:::{.callout-note title="Your turn"}
 
 1. Run `use_data_raw()`
 2. Move `raw_education_2014...2019.csv` into the newly created `data-raw` folder
@@ -126,19 +126,18 @@ This is the `usethis` package's way of telling us a couple of nifty things:
 
 A takeaway point from this is that the `usethis` package is quite chatty, and quite helpful!
 
-You can see my initial commit of `use_data_raw()` here: https://github.com/njtierney/learned/pull/2/commits/c47b00349c922411e207598a567f85226bc6b1b4
+- You can see [my initial commit](https://github.com/njtierney/learned/pull/2/commits/c47b00349c922411e207598a567f85226bc6b1b4) of `use_data_raw()`.
 
 #### Move CSVs into `data-raw/`
 
-There's a few ways to do this, personally, I just use RStudio's file interface and move the files around. Here's what that looks like: https://github.com/njtierney/learned/pull/2/commits/05720d1bcedc177905f71ebbb4a994b83f6da9e0
-
-(note that this is effectively a renaming, so there's not much going on in this commit)
+There's a few ways to do this, personally, I just use RStudio's file interface and move the files around. 
+- Here's what [that commit](https://github.com/njtierney/learned/pull/2/commits/05720d1bcedc177905f71ebbb4a994b83f6da9e0) looks like. Note, that this is effectively a renaming, so there's not much going on in this commit.
 
 ### Delete old quarto files, move one into vignettes
 
 We don't need the alpha-bravo-charlie of it all anymore, we can just stick with one. We're going to move it to a special folder called a "vignette". We're going to shelve it there for a little bit.
 
-:::{.callout-info title="Your turn"}
+:::{.callout-note title="Your turn"}
 
 1. Delete "analysis2014.qmd" and associated HTML/folders
 2. Delete "alpha-analysis2014.qmd" and associated HTML/folders
@@ -153,8 +152,8 @@ We don't need the alpha-bravo-charlie of it all anymore, we can just stick with 
 
 Here's the commit of deleting and moving files, and deleting solutions folder
 
-- https://github.com/njtierney/learned/pull/2/commits/fd74956d7fe7326b1e2c81f546b2a0086b65275e
-- https://github.com/njtierney/learned/pull/2/commits/c1aac99ffdc7b1261116180bdd504b8236d4e660
+- [commit deleting and moving files](https://github.com/njtierney/learned/pull/2/commits/fd74956d7fe7326b1e2c81f546b2a0086b65275e)
+- [commit deleting solutions folder](https://github.com/njtierney/learned/pull/2/commits/c1aac99ffdc7b1261116180bdd504b8236d4e660)
 
 #### Creating quarto vignettes
 
@@ -179,29 +178,31 @@ We get another nice chatty message from `usethis`:
 ☐ Modify vignettes/analysis-2014.Rmd.
 ```
 
-You can see the commit for this, here: https://github.com/njtierney/learned/pull/2/commits/4da0a62bb704591ae62d6104e38b6c6d24b6a088
+[You can see the commit for this](https://github.com/njtierney/learned/pull/2/commits/4da0a62bb704591ae62d6104e38b6c6d24b6a088)
 
 Note that although we started with a Quarto vignette, it opened an Rmarkdown vignette. It is actually possible to use a quarto vignette - as described in the [Quarto R package](https://cran.r-project.org/web/packages/quarto/vignettes/hello.html).
 
-And, just because I want this to be more on the side of bleeding-edge erring to timeless, we're going to do that. There's a few steps, so hold on.
+And, just because I want this to be more on the side of bleeding-edge erring to timeless, we're going to do that. 
+
+There's a few steps, so hold on.
 
 ##### update VignetteBuilder
 
 Open the DESCRIPTION file, and replace `knitr` with `quarto` in `VignetteBuilder`.
 
-https://github.com/njtierney/learned/pull/2/commits/e1b0f8b7fbc9a980e2f1bba692bdf1c79dd454ad
+- [commit](https://github.com/njtierney/learned/pull/2/commits/e1b0f8b7fbc9a980e2f1bba692bdf1c79dd454ad)
 
 Then, copy our "solution/charlie-analysis.qmd" file into vignette folder
 
-https://github.com/njtierney/learned/pull/2/commits/dcd99c067e1d8606a4771ef5afa8c4cef21f1511
+- [commit](https://github.com/njtierney/learned/pull/2/commits/dcd99c067e1d8606a4771ef5afa8c4cef21f1511)
 
 Then, add some of the appropriate metadata into the quarto YAML:
 
-https://github.com/njtierney/learned/pull/2/commits/fabf10bada36913c5a3045f0f754cc166820510e
+- [commit](https://github.com/njtierney/learned/pull/2/commits/fabf10bada36913c5a3045f0f754cc166820510e)
 
 Finally, delete the other Rmd file, and rename ours "analysis-2014.qmd"
 
-https://github.com/njtierney/learned/pull/2/commits/ec15dcf145ac58492a781d4380ba738f1f40dfea
+- [commit](https://github.com/njtierney/learned/pull/2/commits/ec15dcf145ac58492a781d4380ba738f1f40dfea)
 
 It's worthwhile noting that this vignette in its current state will not build properly, but we will get to it later.
 
@@ -209,7 +210,7 @@ It's worthwhile noting that this vignette in its current state will not build pr
 
 Now, we have a package! This will actually build, and install! Although we still need to do a few things to make it useable, it's worthwhile celebrating the small steps!
 
-:::{.callout-info title="Your turn"}
+:::{.callout-note title="Your turn"}
 
 Build the package by navigating to the "build" pane in the top right:
 
@@ -255,7 +256,7 @@ There is a great [cheatsheet for package development](https://rstudio.github.io/
 
 Let's try out our R package. To do this, I'm going to recommend you create a special R file, sometimes called a "scratch file". It lives inside a folder called `inst`, which is typically not touched by R package building. This is a useful trick if you want to have a way to play around with some R code, keeping it inside your R package.
 
-:::{.callout-info title="Your turn" collapse="true"}
+:::{.callout-note title="Your turn" collapse="true"}
 Create a scratch file:
 
 1. Create a directory `inst`
@@ -264,9 +265,7 @@ Create a scratch file:
 4. Read in the raw education 2014 data from data-raw, and use one of the functions from the R package, like `clean_education_data()`. What happens when you use this?
 :::
 
-See the commit for this at:
-
-https://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c
+[See the commit for this](https://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c)
 
 If you're like me, I got this error:
 

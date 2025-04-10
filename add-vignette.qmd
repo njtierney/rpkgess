@@ -3,7 +3,7 @@
 We have already covered this earlier, but recap this, and also check that the vignette is now building properly
 
 
-:::{.callout-info title="Your turn" collapse="true"}
+:::{.callout-note title="Your turn" collapse="true"}
 
 1. Open up "analysis-2014.qmd"
 2. Remove "Your Tasks"

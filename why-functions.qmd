@@ -35,7 +35,10 @@ There's a lot of work and thought that's gone into writing functions. A lot of m
 -   [**Lexical Scope and Statistical Computing**](https://www.stat.auckland.ac.nz/~ihaka/downloads/lexical.pdf)
 -   [**stat545 chapter on functions**](https://stat545.com/functions-part1.html)
 
-These are all well worth the time reading, but if I had to pick two, I would say that Hadley Wickham's "Many Models" talk, and Jenny Bryan's "Code Smells and Feels" have been two of the most influential on me.
+These are all well worth the time reading, or watching these. If I had to pick two of the most influential, I would say:
+
+1. Hadley Wickham's "Many Models" talk, and 
+2. Jenny Bryan's "Code Smells and Feels" 
 
 ## Code is for people
 
@@ -63,6 +66,7 @@ Let's say we had some data on age groups - the number of contacts these people r
 
 ```{r}
 #| label: build-contact
+options(tidyverse.quiet=TRUE)
 library(tidyverse)
 contact <- tibble(
   location = rep(c("QLD", "NSW"), 3),
@@ -74,7 +78,9 @@ contact
 
 ```
 
-We want to produce a plot of age groups and the number of contacts, but we can't do this, because there are all these different ways of representing "age_group".
+We want to produce a plot of age groups and the number of contacts.
+
+But, we can't do this, because there are all these different ways of representing "age_group".
 
 ```{r}
 #| label: plot-contact-false
@@ -131,7 +137,9 @@ population <- tibble(
 population
 ```
 
-And this is why I think you should write a function. We want to _encapsulate the idea_ of cleaning up age group. That is: "clean age groups". So let's write a function that captures this idea. 
+And __this__ is why I think you should write a function. 
+
+We want to __encapsulate the idea__ of cleaning up age group. That is: "clean age groups". So let's write a function that captures this idea. 
 
 ```{r}
 #| label: clean-age-groups
@@ -147,7 +155,7 @@ clean_age_groups <- function(age_groups){
 }
 ```
 
-And this is the difference in the worflow, for each of these tidying up processes:
+And this is the difference in the worflow, for each of these, script, or function tidying up processes:
 
 ::: {.panel-tabset}
 
@@ -258,7 +266,7 @@ clean_age_groups <- function(age_groups){ # The argument - age_groups
 ```
 
 
-:::{.callout-warning title="The last thing you do shouldn't be assignment `<-`" collapse="false"}
+:::{.callout-warning title="The last thing you do shouldn't be assignment `<-`" collapse="true"}
 
 The last thing that a function does is what it returns. If we take our example above and change the last line to assign to some variable, then the function will not return anything!
 
@@ -283,7 +291,9 @@ clean_age_groups("10--11")
 
 ```
 
-This is a pretty common mistake, one I still make. Just something to be aware of! The way to fix this is to make sure that the last thing you do isn't assigned. So, our example above should look like so:
+This is a pretty common mistake, one I still make--something to be aware of! 
+
+The way to fix this is to make sure that the last thing you do isn't assigned. So, our example above should look like so:
 
 ```{r}
 #| label: this-not-this
@@ -313,10 +323,14 @@ clean_age_groups("10--11")
 
 ## How to think about writing functions
 
-There are many ways to start writing functions. Fundamentally, it is about identifying inputs and outputs. One useful approach, I think, is to identify the outputs before the inputs:
+There are many ways to start writing functions. 
+
+Fundamentally, it is about identifying **inputs** and **outputs**. 
+
+One useful approach, I think, is to identify the outputs **before** the inputs:
 
 1. The output. What __one thing__ do you want this function to return?
-2. The input. What (potentially __many things__) goes in to this.
+2. The input. What (potentially __many__) thing(s) go in to this.
 
 This "gestalt", or top-down approach isn't how it always needs to be done. But I think it helps you identify __the thing you need__ first, which can help guide you.
 
@@ -363,15 +377,17 @@ str_replace_all(
 )
 ```
 
+Not quite what I'm after - I've got two underscores when I want just one.
+
 #### Iteration: Writing functions is writing
 
 I didn't get this right the first time - and I rarely do! The point I want to make here is:
 
 > Writing functions is just like writing. It takes iteration.
 
-We have incidentally replaced every "-" with "_", which means "--" becomes "__".
+We have incidentally replaced every `-` with `_`, which means `--` becomes `__`.
 
-Let's change that by using `|` in the "pattern" argument, which allows us to specify "-|--", which means, "-" OR "--":
+Let's change that by using `|` in the "pattern" argument, which allows us to specify `-|--`, which means, `-` OR `--`:
 
 ```{r}
 #| label: iterate-1
@@ -383,7 +399,7 @@ str_replace_all(
 )
 ```
 
-OK, the same problem. We actually need to flip the order here, so we change "--" first:
+OK, the same problem. We actually need to flip the order here, so we change `--` first:
 
 ```{r}
 #| label: iterate-2
@@ -413,7 +429,7 @@ clean_age_groups(ages)
 
 It's a useful process to scratch out a function like this. As you get more confident with this, you will start to be able to write the code as a function first, and then iterate in that way.
 
-:::{.callout-warning title="beware copying and pasting into functions" collapse="false"}
+:::{.callout-warning title="beware copying and pasting into functions" collapse="true"}
 
 The process of writing a function out in scratchings as we've done, is that we can leave some scraps in the code. In this case, I've actually left the `ages` object in the function, but the `argument` is `age_groups`:
 
@@ -459,7 +475,7 @@ clean_age_groups(ages)
 :::
 
 
-### Managing scope - functions are best (generally) when they do __one thing__.
+### Managing scope - functions are best (generally) when they do __one thing__
 
 Also, note that we wrote `clean_age_groups` to just focus on converting input like "10--12" into "10_12". We could have instead focussed on cleaning up the data frame, like so:
 
@@ -523,12 +539,14 @@ One of my overall points with functions is:
 
 > functions help you express your intention. 
 
-However, there are some generally good heuristics to follow to help guide you towards writing a function. Here are some of these.
+However, there are some generally good heuristics to follow to help guide you towards writing a function. Generally, it is time to write a function if:
 
-Generally, it is time to write a function if:
+1. You've **copied and pasted** the code 3 or more times.
+2. You've **re-read** your code more than 3 times.
 
-1. You've copied and pasted the code 3 or more times.
-2. You've re-read your code more than 3 times.
+This first principle is often called **DRY** - "Don't Repeat Yourself.
+
+The second principle has been coined by Miles McBain, also as DRY, or possibly DRRY: Don't ReRead Yourself.
 
 ## Naming things is **hard**
 
@@ -599,9 +617,49 @@ I can **reason** about it
 
 :::{.callout-note title="Practice naming things" collapse="false"}
 
-Practice naming these functions, going through
+Give names to the following functions:
+
+```{r}
+thingy <- function(x){
+  x^3
+}
+
+bobby <- function(x){
+  str_replace_all(
+    string = x,
+    pattern = "“",
+    replacement = '"'
+  )
+}
+
+f <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+```
 
 :::
+
+Generally speaking, it is good to following a naming convention of some kind, and also to keep the names descriptive:
+
+```{r}
+#| eval: false
+# good
+fit_lm()
+fit_cart()
+fit_glm()
+
+# less good - tab complete isn't as good, unless we have a lot of functions also named `lm` and `cart`, and `glm`. We don't emphasize things
+lm_fit()
+cart_fit()
+glm_fit()
+
+# bad
+flm()
+fcart()
+fglm()
+```
+
 
 ## Conclusion
 
@@ -610,7 +668,7 @@ The process of writing a function is:
 - Identify outputs and inputs
 - Identify the complexity to abstract away
 - Writing functions is **iterative**, Just like **regular writing**
-- Naming things is hard
+- Naming things is hard. Focus on making "slightly better" names.
 
 On a final note, I think it's worthwhile thinking about the iteration - and the idea of moving from a skateboard to a car, rather than building the car:
 

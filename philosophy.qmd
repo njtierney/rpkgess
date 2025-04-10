@@ -1,14 +1,10 @@
 # Philosophy
 
-I first learnt to write an R package from [Hilary Parker's famous blog post, ["Writing an R package from scratch"](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/). Then I consulted [Hadley Wickham's "R packages" book (1st edition)](https://r-pkgs.org/). I consider the "R packages" book (now in its second edition, by Hadley Wickham and Jenny Bryan), to be the authority on best practices for package development, alongside the rOpenSci guide, ["rOpenSci Packages: Development, Maintenance, and Peer Review"](https://devguide.ropensci.org/index.html), by Salmon et al. 
+I first learnt to write an R package from [Hilary Parker's famous blog post, ["Writing an R package from scratch"](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/). Then I consulted [Hadley Wickham's "R packages" book (1st edition)](https://r-pkgs.org/). I consider the "R packages" book (now in its second edition, by Hadley Wickham and Jenny Bryan), to be the authority on best practices for package development, alongside the rOpenSci guide, ["rOpenSci Packages: Development, Maintenance, and Peer Review"](https://devguide.ropensci.org/index.html).
 
 These are excellent pieces of reference test, however I think there is a need for a resource that sits somewhere between a blog post on making an R package, and resource. I want something that contains __just enough__ information to get you started on the right path to making an R package. This is what that book represents to me. Along the way I'll include breadcrumbs to other resources to look into when you want to learn more.
 
 This book also represents my efforts to explain the key parts of what I think people should know about how to write functions, and also to format this in a teachable way that can be covered in a single workshop.
-
-There are more comprehensive guides, and other guides out there for writing R packages. It has been the fundamental way people have shared code and ideas. So I want to share some resources I really enjoyed and think are great:
-
--
 
 > So, why write a book?
 

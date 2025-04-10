@@ -1,3 +1,5 @@
+## Using tests
+
 - initially these tests will make sure that they run on the example data
 - demonstrate testing dimensions/names
 - demonstrate snapshot tests

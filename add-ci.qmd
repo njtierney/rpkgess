@@ -1,3 +1,4 @@
+## Using Continuous Integration
 
 - `use_github_actions()`
   - follow prompts

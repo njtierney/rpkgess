@@ -149,7 +149,7 @@ options(
 
 This helps when setting up your R package for the first time, to make sure you set up your DESCRIPTION file. It isn't required, but it is neat, and I think worthwhile.
 
-Because I need to set these things up on different laptops sometimes, I actually write all these files to github. They are typically called "dotfiles" - you can see mine at http://github.com/njtierney/dotfiles.
+Because I need to set these things up on different laptops sometimes, I actually write all these files to github. They are typically called "dotfiles" - you can see mine at <http://github.com/njtierney/dotfiles>.
 
 ### git and github
 
@@ -166,16 +166,20 @@ My favourite book on using git and github with R is the book ["happy git with R"
 
 #### setting up github
 
-Getting set up on github you need an account. It's easy enough to set up - go to https://github.com/ . When picking a username, I recommend the following:
+Getting set up on github you need an account. It's easy enough to set up - go to <https://github.com/> . When picking a username, I recommend the following:
 
 1. Keep it short. `jsmith` is better than `jonathansmith`.
 2. Avoid numbers and jokes. `jsmith` is better than `jsmith123`
 3. Keep it professional. `jsmithisthebest` 
-4. Keep it lowercase
+4. Keep it lowercase `DONOTSHOUT`
 
 #### installing git
 
-Installing git can sometimes be a challenge. This is largely because there are different ways to install it on windows vs mac vs linux. As states earlier, the best, most battle tested instructions are at https://happygitwithr.com/install-git.
+Installing git can sometimes be a challenge. This is largely because sometimes there are small differences that arise to install windows vs mac vs linux. Or sometimes there are issues with work computers with strong permissions.
+
+Generally, you should install git from: <https://git-scm.com/downloads>
+
+But, if you encounter issues, I would advise checking out the battle-tested instructions at: <https://happygitwithr.com/install-git>.
 
 Once you've installed git, I recommend running this:
 
@@ -211,9 +215,13 @@ github needs a personal access token - this is so you can talk to github from R.
 usethis::create_github_token()
 ```
 
-This will open up GitHub and create a Personal Access Token. If this doesn't work, go to https://github.com/settings/tokens and click "Generate New Token", and select the (classic)."
+This will open up GitHub and create a Personal Access Token. If this doesn't work, go to <https://github.com/settings/tokens> and click "Generate New Token", and select the (classic)."
 
-Generally speaking you want the following scopes selected: "repo", "user", and "workflow".
+Generally speaking you want the following scopes selected: 
+
+- "repo"
+- "user"
+- "workflow".
 
 A token will be created - keep this page open, and copy the token to your clipboard.
 
