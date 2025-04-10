@@ -231,43 +231,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">add-readme.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Adding a README file</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./push-to-github.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">push-to-github.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pushing it to GitHub</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">add-tests.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Using tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-website.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">add-website.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Adding a website</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-ci.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">add-ci.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Using Continuous Integration</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./publish.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">publish.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Publishing your R package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Next Steps</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -479,7 +479,7 @@ logical.return = TRUE, : there is no package called 'whatevenisthis'</code></pre
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">reprex.session_info =</span> <span class="cn">TRUE</span></span>
 <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This helps when setting up your R package for the first time, to make sure you set up your DESCRIPTION file. It isn’t required, but it is neat, and I think worthwhile.</p>
-<p>Because I need to set these things up on different laptops sometimes, I actually write all these files to github. They are typically called “dotfiles” - you can see mine at http://github.com/njtierney/dotfiles.</p>
+<p>Because I need to set these things up on different laptops sometimes, I actually write all these files to github. They are typically called “dotfiles” - you can see mine at <a href="http://github.com/njtierney/dotfiles" class="uri">http://github.com/njtierney/dotfiles</a>.</p>
 </section>
 </section>
 <section id="git-and-github" class="level3" data-number="2.3.4">
@@ -494,17 +494,19 @@ logical.return = TRUE, : there is no package called 'whatevenisthis'</code></pre
 <p>My favourite book on using git and github with R is the book <a href="https://happygitwithr.com/">“happy git with R”</a> By Jenny Bryan, Jim Hester, and the Stat 545 TAs. Honestly, it’s hard to recommend better installation instructions than their battle tested ones, so I’ll point you to this resource in case you run into troubles here.</p>
 <section id="setting-up-github" class="level4" data-number="2.3.4.1">
 <h4 data-number="2.3.4.1" class="anchored" data-anchor-id="setting-up-github"><span class="header-section-number">2.3.4.1</span> setting up github</h4>
-<p>Getting set up on github you need an account. It’s easy enough to set up - go to https://github.com/ . When picking a username, I recommend the following:</p>
+<p>Getting set up on github you need an account. It’s easy enough to set up - go to <a href="https://github.com/" class="uri">https://github.com/</a> . When picking a username, I recommend the following:</p>
 <ol type="1">
 <li>Keep it short. <code>jsmith</code> is better than <code>jonathansmith</code>.</li>
 <li>Avoid numbers and jokes. <code>jsmith</code> is better than <code>jsmith123</code></li>
 <li>Keep it professional. <code>jsmithisthebest</code></li>
-<li>Keep it lowercase</li>
+<li>Keep it lowercase <code>DONOTSHOUT</code></li>
 </ol>
 </section>
 <section id="installing-git" class="level4" data-number="2.3.4.2">
 <h4 data-number="2.3.4.2" class="anchored" data-anchor-id="installing-git"><span class="header-section-number">2.3.4.2</span> installing git</h4>
-<p>Installing git can sometimes be a challenge. This is largely because there are different ways to install it on windows vs mac vs linux. As states earlier, the best, most battle tested instructions are at https://happygitwithr.com/install-git.</p>
+<p>Installing git can sometimes be a challenge. This is largely because sometimes there are small differences that arise to install windows vs mac vs linux. Or sometimes there are issues with work computers with strong permissions.</p>
+<p>Generally, you should install git from: <a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a></p>
+<p>But, if you encounter issues, I would advise checking out the battle-tested instructions at: <a href="https://happygitwithr.com/install-git" class="uri">https://happygitwithr.com/install-git</a>.</p>
 <p>Once you’ve installed git, I recommend running this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">git_vaccinate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -539,8 +541,13 @@ logical.return = TRUE, : there is no package called 'whatevenisthis'</code></pre
 </div>
 <p>github needs a personal access token - this is so you can talk to github from R. This becomes really handy, and dare I say it, nearly magical later on. To get this, run:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_github_token</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will open up GitHub and create a Personal Access Token. If this doesn’t work, go to https://github.com/settings/tokens and click “Generate New Token”, and select the (classic).”</p>
-<p>Generally speaking you want the following scopes selected: “repo”, “user”, and “workflow”.</p>
+<p>This will open up GitHub and create a Personal Access Token. If this doesn’t work, go to <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a> and click “Generate New Token”, and select the (classic).”</p>
+<p>Generally speaking you want the following scopes selected:</p>
+<ul>
+<li>“repo”</li>
+<li>“user”</li>
+<li>“workflow”.</li>
+</ul>
 <p>A token will be created - keep this page open, and copy the token to your clipboard.</p>
 <p>Then, go to R, and run:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_set</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

@@ -231,43 +231,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">add-readme.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Adding a README file</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./push-to-github.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">push-to-github.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pushing it to GitHub</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">add-tests.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Using tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-website.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">add-website.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Adding a website</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-ci.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">add-ci.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Using Continuous Integration</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./publish.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">publish.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Publishing your R package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Next Steps</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -329,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#some-housekeeping" id="toc-some-housekeeping" class="nav-link" data-scroll-target="#some-housekeeping"><span class="header-section-number">7.2</span> Some housekeeping</a>
   <ul class="collapse">
-  <li><a href="#move-the-data-to-data-raw" id="toc-move-the-data-to-data-raw" class="nav-link" data-scroll-target="#move-the-data-to-data-raw"><span class="header-section-number">7.2.1</span> move the data to data-raw</a></li>
+  <li><a href="#move-the-data-to-data-raw" id="toc-move-the-data-to-data-raw" class="nav-link" data-scroll-target="#move-the-data-to-data-raw"><span class="header-section-number">7.2.1</span> Move the data to data-raw</a></li>
   <li><a href="#delete-old-quarto-files-move-one-into-vignettes" id="toc-delete-old-quarto-files-move-one-into-vignettes" class="nav-link" data-scroll-target="#delete-old-quarto-files-move-one-into-vignettes"><span class="header-section-number">7.2.2</span> Delete old quarto files, move one into vignettes</a></li>
   </ul></li>
   <li><a href="#buildinstall-the-package" id="toc-buildinstall-the-package" class="nav-link" data-scroll-target="#buildinstall-the-package"><span class="header-section-number">7.3</span> Build/install the package</a></li>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We’ve lined things up, now it’s time to start tearing down some walls, and getting things ready to be an R package.</p>
 <section id="create_packagehere" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="create_packagehere"><span class="header-section-number">7.1</span> <code>create_package(here))</code></h2>
-<p>Let’s run</p>
+<p>Inside of the <code>learned</code> repository, run:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">create_package</span>(here<span class="sc">::</span><span class="fu">here</span>(), <span class="at">open =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This says:</p>
 <blockquote class="blockquote">
@@ -381,8 +381,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
 ✔ Setting active project to "&lt;no active project&gt;".</code></pre>
 <p>There’s a bit to unpack here, you can see these new things have been created!</p>
-<p>You can see where I’ve done this here: https://github.com/njtierney/learned/pull/2/commits/d143b0f877c1e875cef98474299e628f1f95e488</p>
-<p>There are three files added, which I’ll briefly discuss, and then we can move on to more substantial matters of <em>cleaning this directory up a little bit</em>.</p>
+<ul>
+<li>See changes at <a href="https://github.com/njtierney/learned/pull/2/commits/d143b0f877c1e875cef98474299e628f1f95e488">this commit</a></li>
+</ul>
+<p>There are three files added, which I’ll briefly discuss, and then we can move on to more substantial matters of <strong>cleaning this directory up a little bit</strong>.</p>
 <section id="description-file" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="description-file"><span class="header-section-number">7.1.1</span> DESCRIPTION file</h3>
 <p>My DESCRIPTION file looks like this, initially</p>
@@ -398,7 +400,7 @@ Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2</code></pre>
-<p>Essentially, this is a bunch of metadata about the package. It is a very critical file to an R package, and we’ll come back to it later. For the moment, I think there are two things worth noting</p>
+<p>Essentially, this is a bunch of metadata about the package. It is a very critical file to an R package, and we’ll come back to it later. For the moment, I think there are two things worth noting:</p>
 <ol type="1">
 <li>It’s a bunch of metadata that is really important and specifically formatted</li>
 <li>The DESCRIPTION details here have my name and a few other things set (like <code>Language: en-GB</code>), because of where we set this up in <a href="installation">installation</a>.</li>
@@ -420,15 +422,25 @@ RoxygenNote: 7.3.2</code></pre>
 </section>
 <section id="some-housekeeping" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="some-housekeeping"><span class="header-section-number">7.2</span> Some housekeeping</h2>
-<p>We need to really tidy up this repository to be an R package. Theres stuff <em>everywhere</em>.</p>
+<p>We need to really tidy up this repository to be an R package. There is stuff <strong>everywhere</strong>.</p>
 <section id="move-the-data-to-data-raw" class="level3" data-number="7.2.1">
-<h3 data-number="7.2.1" class="anchored" data-anchor-id="move-the-data-to-data-raw"><span class="header-section-number">7.2.1</span> move the data to data-raw</h3>
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="move-the-data-to-data-raw"><span class="header-section-number">7.2.1</span> Move the data to data-raw</h3>
 <p>Let’s clean up all the existing data and move it into a special <code>data-raw</code> folder. The <code>data-raw</code> folder exists in R packages as a place to hold original copies of data that will eventually be cleaned up and shared in the <code>data</code> folder. For the time being, we can store our data sets in here, and we’ll come back to it later.</p>
-<div class="callout-info" title="Your turn">
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>Run <code>use_data_raw()</code></li>
 <li>Move <code>raw_education_2014...2019.csv</code> into the newly created <code>data-raw</code> folder</li>
 </ol>
+</div>
 </div>
 <section id="running-use_data_raw" class="level4" data-number="7.2.1.1">
 <h4 data-number="7.2.1.1" class="anchored" data-anchor-id="running-use_data_raw"><span class="header-section-number">7.2.1.1</span> Running <code>use_data_raw()</code></h4>
@@ -449,18 +461,28 @@ RoxygenNote: 7.3.2</code></pre>
 <li>the <code>data</code> folder gets created with <code>usethis::use_data()</code> - we will come back to this.</li>
 </ol>
 <p>A takeaway point from this is that the <code>usethis</code> package is quite chatty, and quite helpful!</p>
-<p>You can see my initial commit of <code>use_data_raw()</code> here: https://github.com/njtierney/learned/pull/2/commits/c47b00349c922411e207598a567f85226bc6b1b4</p>
+<ul>
+<li>You can see <a href="https://github.com/njtierney/learned/pull/2/commits/c47b00349c922411e207598a567f85226bc6b1b4">my initial commit</a> of <code>use_data_raw()</code>.</li>
+</ul>
 </section>
 <section id="move-csvs-into-data-raw" class="level4" data-number="7.2.1.2">
 <h4 data-number="7.2.1.2" class="anchored" data-anchor-id="move-csvs-into-data-raw"><span class="header-section-number">7.2.1.2</span> Move CSVs into <code>data-raw/</code></h4>
-<p>There’s a few ways to do this, personally, I just use RStudio’s file interface and move the files around. Here’s what that looks like: https://github.com/njtierney/learned/pull/2/commits/05720d1bcedc177905f71ebbb4a994b83f6da9e0</p>
-<p>(note that this is effectively a renaming, so there’s not much going on in this commit)</p>
+<p>There’s a few ways to do this, personally, I just use RStudio’s file interface and move the files around. - Here’s what <a href="https://github.com/njtierney/learned/pull/2/commits/05720d1bcedc177905f71ebbb4a994b83f6da9e0">that commit</a> looks like. Note, that this is effectively a renaming, so there’s not much going on in this commit.</p>
 </section>
 </section>
 <section id="delete-old-quarto-files-move-one-into-vignettes" class="level3" data-number="7.2.2">
 <h3 data-number="7.2.2" class="anchored" data-anchor-id="delete-old-quarto-files-move-one-into-vignettes"><span class="header-section-number">7.2.2</span> Delete old quarto files, move one into vignettes</h3>
 <p>We don’t need the alpha-bravo-charlie of it all anymore, we can just stick with one. We’re going to move it to a special folder called a “vignette”. We’re going to shelve it there for a little bit.</p>
-<div class="callout-info" title="Your turn">
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>Delete “analysis2014.qmd” and associated HTML/folders</li>
 <li>Delete “alpha-analysis2014.qmd” and associated HTML/folders</li>
@@ -470,12 +492,13 @@ RoxygenNote: 7.3.2</code></pre>
 <li>run <code>use_vignette("analysis-2014")</code></li>
 </ol>
 </div>
+</div>
 <section id="deleting-old-files" class="level4" data-number="7.2.2.1">
 <h4 data-number="7.2.2.1" class="anchored" data-anchor-id="deleting-old-files"><span class="header-section-number">7.2.2.1</span> deleting old files</h4>
 <p>Here’s the commit of deleting and moving files, and deleting solutions folder</p>
 <ul>
-<li>https://github.com/njtierney/learned/pull/2/commits/fd74956d7fe7326b1e2c81f546b2a0086b65275e</li>
-<li>https://github.com/njtierney/learned/pull/2/commits/c1aac99ffdc7b1261116180bdd504b8236d4e660</li>
+<li><a href="https://github.com/njtierney/learned/pull/2/commits/fd74956d7fe7326b1e2c81f546b2a0086b65275e">commit deleting and moving files</a></li>
+<li><a href="https://github.com/njtierney/learned/pull/2/commits/c1aac99ffdc7b1261116180bdd504b8236d4e660">commit deleting solutions folder</a></li>
 </ul>
 </section>
 <section id="creating-quarto-vignettes" class="level4" data-number="7.2.2.2">
@@ -493,19 +516,28 @@ RoxygenNote: 7.3.2</code></pre>
   vignettes/.gitignore.
 ✔ Writing vignettes/analysis-2014.Rmd.
 ☐ Modify vignettes/analysis-2014.Rmd.</code></pre>
-<p>You can see the commit for this, here: https://github.com/njtierney/learned/pull/2/commits/4da0a62bb704591ae62d6104e38b6c6d24b6a088</p>
+<p><a href="https://github.com/njtierney/learned/pull/2/commits/4da0a62bb704591ae62d6104e38b6c6d24b6a088">You can see the commit for this</a></p>
 <p>Note that although we started with a Quarto vignette, it opened an Rmarkdown vignette. It is actually possible to use a quarto vignette - as described in the <a href="https://cran.r-project.org/web/packages/quarto/vignettes/hello.html">Quarto R package</a>.</p>
-<p>And, just because I want this to be more on the side of bleeding-edge erring to timeless, we’re going to do that. There’s a few steps, so hold on.</p>
+<p>And, just because I want this to be more on the side of bleeding-edge erring to timeless, we’re going to do that.</p>
+<p>There’s a few steps, so hold on.</p>
 <section id="update-vignettebuilder" class="level5" data-number="7.2.2.2.1">
 <h5 data-number="7.2.2.2.1" class="anchored" data-anchor-id="update-vignettebuilder"><span class="header-section-number">7.2.2.2.1</span> update VignetteBuilder</h5>
 <p>Open the DESCRIPTION file, and replace <code>knitr</code> with <code>quarto</code> in <code>VignetteBuilder</code>.</p>
-<p>https://github.com/njtierney/learned/pull/2/commits/e1b0f8b7fbc9a980e2f1bba692bdf1c79dd454ad</p>
+<ul>
+<li><a href="https://github.com/njtierney/learned/pull/2/commits/e1b0f8b7fbc9a980e2f1bba692bdf1c79dd454ad">commit</a></li>
+</ul>
 <p>Then, copy our “solution/charlie-analysis.qmd” file into vignette folder</p>
-<p>https://github.com/njtierney/learned/pull/2/commits/dcd99c067e1d8606a4771ef5afa8c4cef21f1511</p>
+<ul>
+<li><a href="https://github.com/njtierney/learned/pull/2/commits/dcd99c067e1d8606a4771ef5afa8c4cef21f1511">commit</a></li>
+</ul>
 <p>Then, add some of the appropriate metadata into the quarto YAML:</p>
-<p>https://github.com/njtierney/learned/pull/2/commits/fabf10bada36913c5a3045f0f754cc166820510e</p>
+<ul>
+<li><a href="https://github.com/njtierney/learned/pull/2/commits/fabf10bada36913c5a3045f0f754cc166820510e">commit</a></li>
+</ul>
 <p>Finally, delete the other Rmd file, and rename ours “analysis-2014.qmd”</p>
-<p>https://github.com/njtierney/learned/pull/2/commits/ec15dcf145ac58492a781d4380ba738f1f40dfea</p>
+<ul>
+<li><a href="https://github.com/njtierney/learned/pull/2/commits/ec15dcf145ac58492a781d4380ba738f1f40dfea">commit</a></li>
+</ul>
 <p>It’s worthwhile noting that this vignette in its current state will not build properly, but we will get to it later.</p>
 </section>
 </section>
@@ -514,7 +546,16 @@ RoxygenNote: 7.3.2</code></pre>
 <section id="buildinstall-the-package" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="buildinstall-the-package"><span class="header-section-number">7.3</span> Build/install the package</h2>
 <p>Now, we have a package! This will actually build, and install! Although we still need to do a few things to make it useable, it’s worthwhile celebrating the small steps!</p>
-<div class="callout-info" title="Your turn">
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Build the package by navigating to the “build” pane in the top right:</p>
 <p><img src="figs/build-pkg.png" class="img-fluid"></p>
 <p>Click this, and see some text like the following appear!</p>
@@ -535,6 +576,7 @@ No man pages found in package  ‘learned’
 ** testing if installed package keeps a record of temporary installation path
 * DONE (learned)</code></pre>
 </div>
+</div>
 <p>Let’s celebrate this win, and also wrap up this long section on a slight cliffhanger: let’s try using our package.</p>
 </section>
 <section id="the-workflow-of-package-development." class="level2" data-number="7.4">
@@ -546,7 +588,7 @@ No man pages found in package  ‘learned’
 <li>Edit R functions.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Cheatsheets">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -555,14 +597,25 @@ Cheatsheets
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There is a great <a href="https://rstudio.github.io/cheatsheets/html/package-development.html">cheatsheet for package development</a> that I had stapled to my cubicle wall during my PhD. The website now is very useful, but make sure to check out <a href="https://rstudio.github.io/cheatsheets/package-development.pdf">the PDF</a>.</p>
 </div>
 </div>
 </div>
 <p>Let’s try out our R package. To do this, I’m going to recommend you create a special R file, sometimes called a “scratch file”. It lives inside a folder called <code>inst</code>, which is typically not touched by R package building. This is a useful trick if you want to have a way to play around with some R code, keeping it inside your R package.</p>
-<div class="callout-info" title="Your turn" data-collapse="true">
+<div class="callout callout-style-default callout-note callout-titled" title="Your turn">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your turn
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Create a scratch file:</p>
 <ol type="1">
 <li>Create a directory <code>inst</code></li>
@@ -571,15 +624,16 @@ Cheatsheets
 <li>Read in the raw education 2014 data from data-raw, and use one of the functions from the R package, like <code>clean_education_data()</code>. What happens when you use this?</li>
 </ol>
 </div>
-<p>See the commit for this at:</p>
-<p>https://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c</p>
+</div>
+</div>
+<p><a href="https://github.com/njtierney/learned/pull/2/commits/5779d2b1ff7c4f5f87b4babdfe47ca608b6ebf3c">See the commit for this</a></p>
 <p>If you’re like me, I got this error:</p>
 <pre><code>&gt; clean_education_data(raw_education_2014)
 Error in mutate(data, age_group = clean_age_groups(age_group), prop_studying = na_if(prop_studying,  : 
   could not find function "mutate"</code></pre>
 <p>Let’s pick this up in the next section, “How to use extra packages”</p>
 <div class="callout callout-style-default callout-caution callout-titled" title="This is a non-standard way of making an R package">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -588,7 +642,7 @@ This is a non-standard way of making an R package
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This whole approach we have taken in this course, is not what I would describe as “the standard way” to make an R package. This represents a bit of a funny situation, where we have taken an existing workflow, and then morphed things into an R package. The benefits to this are that it is useful for teaching. And sometimes, this is how things happen.</p>
 </div>

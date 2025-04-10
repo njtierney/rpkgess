@@ -231,43 +231,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">add-readme.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Adding a README file</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./push-to-github.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">push-to-github.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pushing it to GitHub</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">add-tests.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Using tests</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-website.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">add-website.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Adding a website</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./add-ci.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">add-ci.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Using Continuous Integration</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./publish.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">publish.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Publishing your R package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./next-steps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">next-steps.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Next Steps</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -369,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="questions" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="questions"><span class="header-section-number">6.2</span> Questions</h2>
 <ul>
-<li></li>
+<li>How to convert code into functions?</li>
 </ul>
 </section>
 <section id="objectives" class="level2" data-number="6.3">
@@ -380,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="how-this-works" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="how-this-works"><span class="header-section-number">6.4</span> How this works</h2>
-<p>One of my big goals with teaching functions, and with teaching R packages, is that I want the examples to be somewhat rooted in the familiar and the real. There are really useful toy examples of writing packages that deliver praise (e.g., ones I’ve used to teach R packages in the past: https://github.com/njtierney/praiseme), or do simple conversions between units (celcius to farenheit being a very common example).</p>
+<p>One of my big goals with teaching functions, and with teaching R packages, is that I want the examples to be somewhat rooted in the familiar and the real. There are really useful toy examples of writing packages that deliver praise (e.g., ones I’ve used to teach R packages in the past: <a href="https://github.com/njtierney/praiseme" class="uri">https://github.com/njtierney/praiseme</a>), or do simple conversions between units (celcius to farenheit being a very common example).</p>
 <p>These examples are useful because they teach you the tools, and the process. However in this course, I want to focus on a bit more than this and incorporate the process of turning code into functions. I think this is important, because it more closely represents other examples we come across in using R, and presents a bit of a richer learning journey, because in addition to learning about the tools and the process of R package building, you will also learn:</p>
 <ul>
 <li>How to think about converting scripts to functions</li>
@@ -392,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-example-learned" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="the-example-learned"><span class="header-section-number">6.5</span> The example: “learned”</h2>
 <p>We are going to be looking at a role-play situation where we imagine we are at some fictional workplace, where part of our job is to look at education data that we have acquired from some source. The overall goal of our job here is to produce some <strong>key outputs</strong> from some data.</p>
-<p>You can see this example at: https://github.com/njtierney/learned</p>
+<p>You can see this example at: <a href="https://github.com/njtierney/learned" class="uri">https://github.com/njtierney/learned</a></p>
 <p>To download it, run the following code</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
@@ -410,7 +410,7 @@ Your turn
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Download the repository using the code above</li>
-<li>Render the document</li>
+<li>Render the document, “analysis2014.qmd”</li>
 <li>Read over the document, thinking about what we discussed in <a href="why-functions">Why functions</a>.</li>
 <li>Identify some potential problems with the code</li>
 <li>Think about what might happen if we want to read in data from 2015 (or later years), how would you like to do this?</li>
@@ -499,9 +499,11 @@ Your turn
 <li>Open, “alpha-analysis2014.qmd”</li>
 <li>Move all the “data quality” checks into a new section called “data quality”</li>
 <li>Move all of the data cleaning code up to the top, so we just work with one data set, named <code>tidy_age_state_education_2014</code></li>
-<li>Create two functions to clean the data:</li>
+<li>Create two functions to clean the data:
+<ol type="1">
 <li>tidy the age groups</li>
 <li>remove the missing values</li>
+</ol></li>
 <li>Put these two functions into another function that does the data cleaning</li>
 </ol>
 </div>
@@ -529,10 +531,12 @@ Your turn
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Open, “bravo-analysis2014.qmd”</li>
-<li>Write a function for each of the following:</li>
+<li>Write a function for each of the following:
+<ol type="1">
 <li>Bar plot of proportion of people educated by state and age</li>
 <li>Boxplot of <strong>proportion of people educated</strong> for each state</li>
 <li>Table of 5 number summary of <strong>proportion of people educated</strong> for each state</li>
+</ol></li>
 <li>Move all these functions to the top of the document into a single code chunk labelled “functions”</li>
 <li>Move the “data checks” to the end of the document. We will come back to this later</li>
 <li>Make a “libraries” code chunk and put the library call in there</li>
@@ -581,12 +585,14 @@ Your turn
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>Open “charlie-analysis2014.qmd”</li>
-<li>Use <code>use_r()</code> from <code>devtools</code>/<code>usethis</code> to create a separate R file for each of the R functions:</li>
+<li>Use <code>use_r()</code> from <code>devtools</code>/<code>usethis</code> to create a separate R file for each of the R functions:
+<ol type="1">
 <li>clean_age_groups</li>
 <li>clean_education_data</li>
 <li>plot_study_age_state</li>
 <li>boxplot_study_state</li>
 <li>summarise_prop_study</li>
+</ol></li>
 <li>load all of these R functions, by calling <code>source</code> at the top of the quarto document</li>
 </ol>
 </div>
@@ -597,7 +603,7 @@ Your turn
 <ul>
 <li>Thoughts on this process?</li>
 <li>Shall we just get to the making the R package?</li>
-<li>See https://github.com/njtierney/learned/pull/1 for solution</li>
+<li>See <a href="https://github.com/njtierney/learned/pull/1" class="uri">https://github.com/njtierney/learned/pull/1</a> for solution</li>
 </ul>
 <p>Now, let’s move to making the R package!</p>
 
