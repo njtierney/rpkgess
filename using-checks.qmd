@@ -88,6 +88,7 @@ We resolve this at [this commit](https://github.com/njtierney/learned/pull/2/com
 
 Even as an experienced package developer, once I fixed the above, I still had quite a few things to fix. Let's walk through these.
 
+### Introducing a new error
 
 We also introduce a new error:
 
@@ -101,9 +102,19 @@ We also introduce a new error:
 
 Which I believe is fixed by adding `quarto` to Suggests - done in [this commit](https://github.com/njtierney/learned/pull/2/commits/6da2ab6ef280b12b3ee7e86d32a96712598be4fe).
 
-- Suggests is a place where you put packages that are used in your vignettes, but not your package.
+This can also be done with:
 
-Doing that, and running `check()` we now get a bit more of thata can of worms of errors, warnings, and notes:
+```r
+use_package("quarto", type = "Suggests")
+```
+
+- `Suggests` is a place where you put packages that are used in your vignettes, but not your package.
+
+### More errors, warnings, notes
+
+<!-- TODO - have a box explaining error, warning, note -->
+
+Doing that, and running `check()` we now get a bit more of a can of worms of errors, warnings, and notes:
 
 ```
 ❯ checking re-building of vignette outputs ... ERROR

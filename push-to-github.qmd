@@ -1,12 +1,47 @@
 ## Pushing it to GitHub
 
-We can pretty much achieve this with:
+We've got all this locally, and that's great, but let's share it with the world!
 
-- `use_git()`
-- `use_github()`
+If all went well with [installation](installation), then there are two steps to making this available publicly.
 
-Discuss the benefits and tools of:
+1. Set up git
+2. Push to github
+
+### `use_git()`
+
+We can establish a git repository with:
+
+```r
+use_git()
+```
+
+Which does:
+
+- initialise a git repository
+- asks you to commit files
+- other setup
+
+After this is done, we want to put it somewhere online. For our use case, we want to use GitHub for this.
+
+### `use_github()`
+
+The `usethis` package really does make our lives enormously easier here. They've got a little handy function called `use_github()` which does the following key things:
+
+- ensures the project uses git
+- creates the repo on github
+- pushes it to github
+
+This saves us a bit of time, and honestly, feels like a bit of magic.
+
+::: {.callout-tip title="Features of GitHub"}
+There's a lot of things about github! Let's take some time to discuss the following:
+
  - issues
  - releases
  - milestones
  - projects
+
+What questions do you have about github from here?
+
+:::
+

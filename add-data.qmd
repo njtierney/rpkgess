@@ -113,5 +113,17 @@ See [this commit](https://github.com/njtierney/learned/pull/2/commits/93f6824a50
 
 See [this commit](https://github.com/njtierney/learned/pull/2/commits/c4991d09c763b43ee91cedfa4d27c2950772264d) to see what this looks like.
 
+## A note on writing documentation and examples
+
+Good examples, and good documentation really help the user experience. Remember that the user includes you (You  are always collaborating with your future self!). It's worthwhile trying to put yourself in the shoes of a new learner, and err on the side of slightly over explaining things.
+
+It's also worth noting that adding examples to data documentation is a great idea as it helps people understand more about the data.
+
+::: {.callout-tip title="Extension"}
+What would you change about the documentation to make it more friendly to new users?
+:::
+
+
+## Next up
 
 We're getting close now - let's see if we can pass checks!
