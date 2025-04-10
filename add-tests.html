@@ -310,8 +310,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#use_testthat" id="toc-use_testthat" class="nav-link active" data-scroll-target="#use_testthat"><span class="header-section-number">14.1</span> <code>use_testthat()</code></a></li>
+  <li><a href="#plan-for-writing-tests" id="toc-plan-for-writing-tests" class="nav-link" data-scroll-target="#plan-for-writing-tests"><span class="header-section-number">14.2</span> Plan for writing tests</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/add-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -335,32 +342,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>When writing your R package, a workflow often looks like:</p>
 <ul>
-<li><p><code>use_testthat()</code></p></li>
+<li>Write the code</li>
+<li>use <code>load_all()</code></li>
+<li>test the input in the console</li>
+<li>change code</li>
+<li><code>load_all()</code></li>
+</ul>
+<p>These local sanity checks are really important, but also benefit from being formalised in a way so that they run every time you check your package.</p>
+<p>This has the following benefits</p>
+<ul>
+<li>Confidence that if you change code you don’t break things</li>
+<li>Confidence from users that your code is robust</li>
+</ul>
+<section id="use_testthat" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="use_testthat"><span class="header-section-number">14.1</span> <code>use_testthat()</code></h2>
+<p>To get started, we will run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">use_testthat()</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Which gives us</p>
+<pre><code>✔ Adding testthat to Suggests field in DESCRIPTION.
+✔ Adding "3" to Config/testthat/edition.
+✔ Creating tests/testthat/.
+✔ Writing tests/testthat.R.
+☐ Call usethis::use_test() to initialize a basic
+  test file and open it for editing.</code></pre>
+<p>See <a href="https://github.com/njtierney/learned/pull/2/commits/e4e1fbcab9fd3ace8ed322e0a5774a8870c5e16b">this commit</a></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Your Turn">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>What sort of tests do you think we should care about</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="plan-for-writing-tests" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="plan-for-writing-tests"><span class="header-section-number">14.2</span> Plan for writing tests</h2>
+<ul>
 <li><p>re-examine data quality checks</p></li>
 <li><p>explain moving from less-formal to more formalised approach</p></li>
 <li><p>demonstrate testing dimensions/names</p></li>
 <li><p>demonstrate snapshot tests</p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_snapshot</span>(<span class="fu">clean_data</span>(raw_education_2014))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_snapshot</span>(<span class="fu">clean_data</span>(raw_education_2014))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>demonstrate vdiffr tests</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025-04-11</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plot_name <span class="ot">&lt;-</span> <span class="fu">plot_code</span>(data)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"plot works"</span>, {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skip_on_cran</span>()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skip_on_ci</span>()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  vdiffr<span class="sc">::</span><span class="fu">expect_doppelganger</span>(<span class="st">"plot_name"</span>, plot_name)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025-04-11</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plot_name <span class="ot">&lt;-</span> <span class="fu">plot_code</span>(data)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"plot works"</span>, {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skip_on_cran</span>()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skip_on_ci</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  vdiffr<span class="sc">::</span><span class="fu">expect_doppelganger</span>(<span class="st">"plot_name"</span>, plot_name)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li><p>circle back to the data quality checks</p></li>
-<li><p>touch on the idea that R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?</p></li>
-<li><p>reference Miles’s https://milesmcbain.xyz/posts/an-okay-idea/</p></li>
+<li><p>Circle back to the data quality checks</p></li>
+<li><p>R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?</p></li>
+<li><p>R Packages vs Projects: Miles McBain https://milesmcbain.xyz/posts/an-okay-idea/</p></li>
 </ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -800,7 +851,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2025, Nicholas Tierney</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/add-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/njtierney/rpkgess/edit/main/add-tests.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/njtierney/rpkgess/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

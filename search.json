@@ -674,7 +674,27 @@
     "href": "add-tests.html",
     "title": "14  Using tests",
     "section": "",
-    "text": "use_testthat()\nre-examine data quality checks\nexplain moving from less-formal to more formalised approach\ndemonstrate testing dimensions/names\ndemonstrate snapshot tests\n\nexpect_snapshot(clean_data(raw_education_2014))\n\ndemonstrate vdiffr tests\n\nset.seed(2025-04-11)\nplot_name &lt;- plot_code(data)\n\ntest_that(\"plot works\", {\n  skip_on_cran()\n  skip_on_ci()\n  vdiffr::expect_doppelganger(\"plot_name\", plot_name)\n})\n\ncircle back to the data quality checks\ntouch on the idea that R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?\nreference Miles’s https://milesmcbain.xyz/posts/an-okay-idea/",
+    "text": "14.1 use_testthat()\nWhen writing your R package, a workflow often looks like:\nThese local sanity checks are really important, but also benefit from being formalised in a way so that they run every time you check your package.\nThis has the following benefits\nTo get started, we will run:\nWhich gives us\nSee this commit",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Using tests</span>"
+    ]
+  },
+  {
+    "objectID": "add-tests.html#use_testthat",
+    "href": "add-tests.html#use_testthat",
+    "title": "14  Using tests",
+    "section": "",
+    "text": "`use_testthat()`\n\n✔ Adding testthat to Suggests field in DESCRIPTION.\n✔ Adding \"3\" to Config/testthat/edition.\n✔ Creating tests/testthat/.\n✔ Writing tests/testthat.R.\n☐ Call usethis::use_test() to initialize a basic\n  test file and open it for editing.\n\n\n\n\n\n\n\nYour Turn\n\n\n\n\nWhat sort of tests do you think we should care about",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Using tests</span>"
+    ]
+  },
+  {
+    "objectID": "add-tests.html#plan-for-writing-tests",
+    "href": "add-tests.html#plan-for-writing-tests",
+    "title": "14  Using tests",
+    "section": "14.2 Plan for writing tests",
+    "text": "14.2 Plan for writing tests\n\nre-examine data quality checks\nexplain moving from less-formal to more formalised approach\ndemonstrate testing dimensions/names\ndemonstrate snapshot tests\n\nexpect_snapshot(clean_data(raw_education_2014))\n\ndemonstrate vdiffr tests\n\nset.seed(2025-04-11)\nplot_name &lt;- plot_code(data)\n\ntest_that(\"plot works\", {\n  skip_on_cran()\n  skip_on_ci()\n  vdiffr::expect_doppelganger(\"plot_name\", plot_name)\n})\n\nCircle back to the data quality checks\nR packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?\nR Packages vs Projects: Miles McBain https://milesmcbain.xyz/posts/an-okay-idea/",
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Using tests</span>"
     ]
@@ -684,7 +704,17 @@
     "href": "add-website.html",
     "title": "15  Adding a website",
     "section": "",
-    "text": "pkgdown\nuse_pkgdown_github_pages()\nlook at other packages for inspiration on structure\ntry to use a different default theme",
+    "text": "15.1 Package website tips\nWe’ve got our package written! Now let’s make it even more attractive to users by making a fancy website.\nThis has now been made so easy thanks to pkgdown. Essentially, you run:",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Adding a website</span>"
+    ]
+  },
+  {
+    "objectID": "add-website.html#package-website-tips",
+    "href": "add-website.html#package-website-tips",
+    "title": "15  Adding a website",
+    "section": "",
+    "text": "look at other packages for inspiration on structure\ntry to use a different default theme",
     "crumbs": [
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Adding a website</span>"
     ]
@@ -694,7 +724,7 @@
     "href": "add-ci.html",
     "title": "16  Using Continuous Integration",
     "section": "",
-    "text": "use_github_action() (singular)\n\nfollow prompts\n\nThis is all much easier than it used to be\nExplain that there is a game of “watching the green lights”\nExplain test coverage\n\nsee covr::report()",
+    "text": "It’s nice to run tests and checks locally, but we can actually set things up to happen automatically every time we psuh to GitHub.\nTo do this, run:\n#  (singular, not plural)\nuse_github_action()\nAnd follow the prompts\n\nThis is all much easier than it used to be\nExplain that there is a game of “watching the green lights”\nExplain test coverage\n\nsee covr::report()",
     "crumbs": [
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Using Continuous Integration</span>"
     ]
