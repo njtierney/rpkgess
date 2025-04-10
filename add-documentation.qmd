@@ -1,8 +1,108 @@
 # Add documentation
 
-- explain NAMESPACE
-- use roxygen skeleton
-- use `@export`
-- use `@examples`
-- wrap up by using `library(learned)` effectively
-- now show what happens when we run check
+So we noticed that there was __nothing__ in `learned` when we looked at it - the reason is that we need to export the functions. To do this, we need to document our functions using `roxygen2`.
+
+In short, `roxygen2` provides us with nifty syntax to give documentation to our functions, which also allows them to be exported.
+
+Let's demonstrate with `boxplot_study_state.R`:
+
+It starts like this:
+
+```r
+boxplot_study_state <- function(data) {
+  ggplot2::ggplot(
+    data,
+    ggplot2::aes(
+      x = prop_studying,
+      y = state_territory
+    )
+  ) +
+    ggplot2::geom_boxplot()
+}
+```
+
+And we can add a "roxygen skeleton" by going to `code > insert roxygen skeleton` (or with Alt/Option + Ctrl/Cmd + Shift + R) whilst our cursor is in the function, and we get this:
+
+```r
+#' Title
+#'
+#' @param data 
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+boxplot_study_state <- function(data) {
+  ggplot2::ggplot(
+    data,
+    ggplot2::aes(
+      x = prop_studying,
+      y = state_territory
+    )
+  ) +
+    ggplot2::geom_boxplot()
+}
+```
+
+Which we can then populate:
+
+```r
+#' Provide a boxplot of study data
+#'
+#' @param data data from education 2014
+#'
+#' @returns a ggplot object
+#' @export
+#'
+#' @examples
+#' # no example data yet
+boxplot_study_state <- function(data) {
+  ggplot2::ggplot(
+    data,
+    ggplot2::aes(
+      x = prop_studying,
+      y = state_territory
+    )
+  ) +
+    ggplot2::geom_boxplot()
+}
+```
+
+We then call `document()`, which gives us the output:
+
+```
+ℹ Updating learned documentation
+ℹ Loading learned
+Writing NAMESPACE
+Writing boxplot_study_state.Rd
+```
+
+This allows us to look at the documented function with `?boxplot_study_state`.
+
+This function also gets added to the NAMESPACE file.
+
+Here's [the commit of that](https://github.com/njtierney/learned/pull/2/commits/fb9ebdf5a958a38625b79e9bf95d6078090b8683)
+
+Note three things:
+
+1. NAMESPACE now has `boxplot_study_state.R` in it
+2. We have added some roxygen code
+3. There's some LaTeX looking code in `man/boxplot_study_state.Rd`
+
+
+::: {.callout-note title="Your Turn"}
+
+1. Repeat this process for all the remaining functions in `learned`
+    1. add the roxygen skeleton
+    2. population the roxygen skeleton
+    3. run `document()`
+    
+:::
+
+See [this commit](https://github.com/njtierney/learned/pull/2/commits/831df1227f87ca8f6f4c810f3f9e1eeb100f9a4d) to see what this looks like when done.
+
+So now we have some functions in our package! Woo! 
+
+For fun, try looking at the documentation with `?clean_age_groups`
+
+What's missing from these functions? Examples! For examples, we need our data! Let's add that to the package.

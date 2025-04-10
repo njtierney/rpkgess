@@ -26,9 +26,9 @@ book:
     - "why-functions.qmd"
     - "motivation.qmd"
     - "create-the-pkg.qmd"
-    - "how-to-use-extra-pkgs.qmd" #
-    - "add-data.qmd"
+    - "how-to-use-extra-pkgs.qmd"
     - "add-documentation.qmd"
+    - "add-data.qmd" #
     - "using-checks.qmd"
     - "add-vignette.qmd"
     - "add-readme.qmd"

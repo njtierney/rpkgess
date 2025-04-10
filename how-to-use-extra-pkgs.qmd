@@ -1,24 +1,145 @@
 # How to use extra packages
 
-One of the major shifts from writing R code and analyses to writing R packges is how you interact with other R packages you want to use.
+One of the major shifts from writing R code and analyses to writing R packages is how you interact with other R packages you want to use.
 
-- previously use library
-- cannot use library in pkg
-- idea of overloading namespace
-- using pkg::fun
+Normally, in an R script, when you want to use a function from, say, `dplyr`, you use `library(dplyr)`.
 
-introduce workflow:
+However, we **do not ever** want to call `library(dplyr)` inside a function in an R package. The reason is to do with NAMESPACE conflicts. A popular usecase of this is in the `tidyverse` R package - where we get this message when we call `library(tidyverse)`.
 
-- `use_package(pkg)`
-- `pkg::fun()`
+```{r}
+library(tidyverse)
+```
 
-- show commits
-- show how DESCRIPTION changes
+The conflict message at the bottom tells us that `dplyr::filter()` masks `stats::filter()`.
 
-- note about using Tidyverse - instead we must call packages directly
-- note about Imports vs Depends. We only really use Imports.
-- note about package versions - usually a good idea.
-- note/philosophy about dependencies. Greedy approach is (in my opinion) best, because you don't waste human cycles. Best approach is greedy, then prune back
+This is a key issue with package development - masking. If all R packages called `library(<package>)` on every R package that they depended upon, then we'd have SO MUCH masking. It's almost considered rude or overbearing.
 
-- wrap up by using the package successfully in scratch.R
-- which leads us to consider making the data accessible
+> How do you NOT use library??
+
+You say? The solution is to use what is called the "namespaced" form: `pkg::fun()`.
+
+For example, if I want to use `filter` from `dplyr`, I do so with:
+
+```{r}
+cars |> 
+  dplyr::filter(speed <= 4)
+```
+
+So for every package we want to use a function from in an R package, we use the "namespaced form", e.g., `dplyr::filter()`. We also have to declare the dependencies formally, which I'll discuss now.
+
+## `use_package(<pkg>) and `pkg::fun()`
+
+So now we need to identify the packages that we use in our R package, and then namespace them. We then formally add the dependency with: `use_package(<pkg>)`.
+
+For example, looking at 
+
+```r
+boxplot_study_state <- function(data) {
+  ggplot(
+    data,
+    aes(
+      x = prop_studying,
+      y = state_territory
+    )
+  ) +
+    geom_boxplot()
+}
+```
+
+We turn it into its __namespaced__ form like so:
+
+```r
+boxplot_study_state <- function(data) {
+  ggplot2::ggplot(
+    data,
+    ggplot2::aes(
+      x = prop_studying,
+      y = state_territory
+    )
+  ) +
+    ggplot2::geom_boxplot()
+}
+```
+
+And then call `use_package()`:
+
+```r
+use_package("ggplot2")
+```
+
+Which gives us a nice chatty response from `usethis`:
+
+```
+✔ Setting active project to
+  "/Users/nick/github/njtierney/learned".
+✔ Adding ggplot2 to Imports field in DESCRIPTION.
+☐ Refer to functions with `ggplot2::fun()`.
+```
+
+You can see this at [this commit](https://github.com/njtierney/learned/pull/2/commits/4b93e0f4754fa00f405a519be2abe8ba91214efe)
+
+::: {.callout-note title="Your turn"}
+
+1. Identify all the R packages used in `learned`
+1. call `use_package()` on each of these packages
+1. Namespace all the functions
+
+
+:::
+
+See [this commit](https://github.com/njtierney/learned/pull/2/commits/2019478ac9a1e868aa173f316d2cc9eccacefbba) for what you should end up with.
+
+
+::: {.callout-tip title="How many dependencies should you have?"}
+
+My opinion is that you should depend on as many R packages as you like! It's far faster, I think, to depend on packages that get the job done, and then maybe later trim back some dependencies and rewrite code. 
+
+My reasoning is that it is (generally) really cheap to add dependencies, but more expensive (for my brain), to write them from scratch. 
+
+So, be greedy, add dependencies, then prune back.
+
+::: 
+
+## Demo in `scratch`
+
+Now that we've done this, let's install the package, and then go to `scratch.R`
+
+I then get this error:
+
+```
+> clean_education_data(raw_education_2014)
+Error in clean_education_data(raw_education_2014) : 
+  could not find function "clean_education_data"
+```
+
+However, if we do load all, with:
+
+```r
+load_all(".")
+```
+
+Then it works!
+
+But what gives with the function not being available? Let's have a look inside `learned` by using `::`:
+
+There's nothing in there! Now let's focus on getting that working, which will involve learning about **documenting our code!**
+
+
+::: {.callout-caution title="The `tidyverse` package is not a dependency in packages" collapse="true"}
+
+Because the purpose of the R package `tidyverse` is only really to load other R packages, it does not contain functions. Don't put `tidyverse` in imports.
+
+:::
+
+
+::: {.callout-tip title="Managing conflicts in scripts with `conflicted`" collapse="true"}
+Outside of the R package development world, it's a good idea to proactively manage function conflicts. Lest you use `stats::filter()` instead of `dplyr::filter()` 
+
+See the [`conflicted` R package](https://github.com/r-lib/conflicted) for more on this idea.
+:::
+
+::: {.callout-tip title="Some other ideas" collapse="true"}
+- Imports vs Depends. We only really use Imports. Don't use Depends unless you're building an extension package, e.g., something that works with ggplot2, where it doesn't make sense to have the package without ggplot2. Depends is like having `library(pkg)`. Generally, don't do it.
+- It's usually a good idea to state package versions after their name in Imports. Find out the package name with `packageVersion("pkg")`. Generally onlt do `>=`, and not `==` and never `<`
+:::
+
