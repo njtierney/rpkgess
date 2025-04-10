@@ -1,5 +1,6 @@
 ## Adding a README file
 
-- Take the vignette and make it small.
+- Take the vignette, make it small.
 - This is your README
 - `use_readme_rmd()`
+- Now github looks a bit neater!

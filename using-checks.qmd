@@ -1,5 +1,390 @@
 # Passing Checks
 
-- explain this isn't something to run all the time, but as the quote goes, frequency reduces difficulty
+Our package is really starting to grow up on us!
 
-- unpack the process of R CMD Check
+But it's time to test it - we do this with `devtools::check()`
+
+This function runs all the general tests to see if our package can go onto CRAN. There are usually a few more checks to run, but it's mostly 95% of the way there.
+
+Essentially, `devtools::check()` does the following:
+
+- updates documentation
+- loads the package
+- builds the package (essentially puts it into machine code)
+- creates vignettes
+- runs tests, if there are any
+- runs examples
+
+It does usually take a minute or so to do, so it's not something we run all the time, but it's a good idea to get into a habit of being somewhat regular about the checks.
+
+Let's run `devtools::check()` on `learned`
+
+```
+E  creating vignettes (2.9s)
+   --- re-building ‘analysis-2014.qmd’ using html
+   
+   
+   processing file: analysis-2014.qmd
+```
+
+We pretty quickly get an error!
+
+Let's take a full look at the vignette error:
+
+
+```
+E  creating vignettes (2.9s)
+   --- re-building ‘analysis-2014.qmd’ using html
+   
+   
+   processing file: analysis-2014.qmd
+   
+     |                                                  
+     |                                            |   0%
+     |                                                  
+     |..                                          |   5%                          
+     |                                                  
+     |....                                        |  10% [libraries]              
+     |                                                  
+     |......                                      |  14%                          
+     |                                                  
+     |........                                    |  19% [functions]              
+     |                                                  
+     |..........                                  |  24%                          
+     |                                                  
+     |.............                               |  29% [read-data]              
+   
+   Error: '/private/var/folders/9c/k3wqmhhx4qsb3fd66n4prhlw0000gq/T/RtmpBzprFu/Rbuild397478ba5ca0/learned/raw_education_2014.csv' does not exist.
+   
+   Quitting from analysis-2014.qmd:64-75 [read-data]
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   <error/rlang_error>
+   Error:
+   ! '/private/var/folders/9c/k3wqmhhx4qsb3fd66n4prhlw0000gq/T/RtmpBzprFu/Rbuild397478ba5ca0/learned/raw_education_2014.csv' does not exist.
+   ---
+   Backtrace:
+       ▆
+    1. ├─readr::read_csv(here("raw_education_2014.csv"))
+    2. │ └─vroom::vroom(...)
+    3. │   └─vroom:::vroom_(...)
+    4. └─vroom (local) `<fn>`("/private/var/folders/9c/k3wqmhhx4qsb3fd66n4prhlw0000gq/T/RtmpBzprFu/Rbuild397478ba5ca0/learned/raw_education_2014.csv")
+    5.   └─vroom:::check_path(path)
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+
+OK, so the issue is that we are reading in the CSV in a non standard way. But, now that we have the data __built in to the package__, we don't need to worry about this.
+
+In fact, looking at the vignette now, there's a few things going on!
+
+::: {.callout-note title="Your turn"}
+
+1. What do you think we need to fix in this vignette to get it to run?
+1. Have a go at cleaning up the functions, the data read ins, and see if you can get `devtools::check()` to pass building the vignettes
+:::
+
+We resolve this at [this commit](https://github.com/njtierney/learned/pull/2/commits/e0a2f5ee76af424f6a13a99011518608a7932498).
+
+## Check can sometimes open a can of worms
+
+Even as an experienced package developer, once I fixed the above, I still had quite a few things to fix. Let's walk through these.
+
+
+We also introduce a new error:
+
+```
+❯ checking package dependencies ... ERROR
+  VignetteBuilder package not declared: ‘quarto’
+  
+  See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+  manual.
+```
+
+Which I believe is fixed by adding `quarto` to Suggests - done in [this commit](https://github.com/njtierney/learned/pull/2/commits/6da2ab6ef280b12b3ee7e86d32a96712598be4fe).
+
+- Suggests is a place where you put packages that are used in your vignettes, but not your package.
+
+Doing that, and running `check()` we now get a bit more of thata can of worms of errors, warnings, and notes:
+
+```
+❯ checking re-building of vignette outputs ... ERROR
+  Error(s) in re-building vignettes:
+  --- re-building ‘analysis-2014.qmd’ using html
+  
+  
+  processing file: analysis-2014.qmd
+  Error in library(naniar) : there is no package called 'naniar'
+  Calls: .main ... withCallingHandlers -> withVisible -> eval -> eval -> library
+  
+  Quitting from analysis-2014.qmd:35-39 [libraries]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  <error/rlang_error>
+  Error in `library()`:
+  ! there is no package called 'naniar'
+  ---
+  Backtrace:
+      ▆
+   1. └─base::library(naniar)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+  Execution halted
+  Error: processing vignette 'analysis-2014.qmd' failed with diagnostics:
+  ✖ Error running quarto cli.
+  Caused by error:
+  ! System command 'quarto' failed
+  --- failed re-building ‘analysis-2014.qmd’
+  
+  SUMMARY: processing the following file failed:
+    ‘analysis-2014.qmd’
+  
+  Error: Vignette re-building failed.
+  Execution halted
+
+❯ checking DESCRIPTION meta-information ... WARNING
+  Invalid license file pointers: LICENSE
+
+❯ checking R code for possible problems ... NOTE
+  boxplot_study_state: no visible binding for global variable
+    ‘prop_studying’
+  boxplot_study_state: no visible binding for global variable
+    ‘state_territory’
+  clean_education_data: no visible binding for global variable
+    ‘age_group’
+  clean_education_data: no visible binding for global variable
+    ‘prop_studying’
+  plot_study_age_state: no visible binding for global variable
+    ‘prop_studying’
+  plot_study_age_state: no visible binding for global variable
+    ‘age_group’
+  summarise_prop_study: no visible binding for global variable
+    ‘state_territory’
+  summarise_prop_study: no visible binding for global variable
+    ‘prop_studying’
+  summarise_prop_study: no visible global function definition for
+    ‘quantile’
+  summarise_prop_study: no visible global function definition for
+    ‘median’
+  summarise_prop_study: no visible global function definition for ‘sd’
+  Undefined global functions or variables:
+    age_group median prop_studying quantile sd state_territory
+  Consider adding
+    importFrom("stats", "median", "quantile", "sd")
+  to your NAMESPACE file.
+
+❯ checking for unstated dependencies in vignettes ... NOTE
+  'library' or 'require' call not declared from: ‘naniar’
+
+1 error ✖ | 1 warning ✖ | 2 notes ✖
+```
+
+This all looks a bit intense. It's OK. We will get through.
+
+Start by tackling the ERRORs.
+
+### Packages used in vignettes have to be declared in Suggests
+
+This error
+
+```
+❯ checking re-building of vignette outputs ... ERROR
+  Error(s) in re-building vignettes:
+  --- re-building ‘analysis-2014.qmd’ using html
+  
+  
+  processing file: analysis-2014.qmd
+  Error in library(tidyverse) : there is no package called 'tidyverse'
+  Calls: .main ... withCallingHandlers -> withVisible -> eval -> eval -> library
+  
+  Quitting from analysis-2014.qmd:35-41 [libraries]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  <error/rlang_error>
+  Error in `library()`:
+  ! there is no package called 'tidyverse'
+  ---
+  Backtrace:
+      ▆
+   1. └─base::library(tidyverse)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+  Execution halted
+  Error: processing vignette 'analysis-2014.qmd' failed with diagnostics:
+  ✖ Error running quarto cli.
+  Caused by error:
+  ! System command 'quarto' failed
+  --- failed re-building ‘analysis-2014.qmd’
+  
+  SUMMARY: processing the following file failed:
+    ‘analysis-2014.qmd’
+  
+  Error: Vignette re-building failed.
+  Execution halted
+```
+
+We actually don't need some of these packages anymore - so let's remove `tidyverse`, and `here`.
+
+Then, doing that, we still get a similar error, but just for the "naniar" package.
+
+We can resolve this by doing
+
+```r
+use_package("naniar", type = "Suggests")
+```
+
+This works!
+
+That puts at at [this commit](https://github.com/njtierney/learned/pull/2/commits/c3147f46be1cac27fe82770d51ceabfdb805b0b1)
+
+We now have this state
+
+```
+❯ checking DESCRIPTION meta-information ... WARNING
+  Invalid license file pointers: LICENSE
+
+❯ checking R code for possible problems ... NOTE
+  boxplot_study_state: no visible binding for global variable
+    ‘prop_studying’
+  boxplot_study_state: no visible binding for global variable
+    ‘state_territory’
+  clean_education_data: no visible binding for global variable
+    ‘age_group’
+  clean_education_data: no visible binding for global variable
+    ‘prop_studying’
+  plot_study_age_state: no visible binding for global variable
+    ‘prop_studying’
+  plot_study_age_state: no visible binding for global variable
+    ‘age_group’
+  summarise_prop_study: no visible binding for global variable
+    ‘state_territory’
+  summarise_prop_study: no visible binding for global variable
+    ‘prop_studying’
+  summarise_prop_study: no visible global function definition for
+    ‘quantile’
+  summarise_prop_study: no visible global function definition for
+    ‘median’
+  summarise_prop_study: no visible global function definition for ‘sd’
+  Undefined global functions or variables:
+    age_group median prop_studying quantile sd state_territory
+  Consider adding
+    importFrom("stats", "median", "quantile", "sd")
+  to your NAMESPACE file.
+
+0 errors ✔ | 1 warning ✖ | 1 note ✖
+
+```
+
+### Addressing the warning
+
+```
+❯ checking DESCRIPTION meta-information ... WARNING
+  Invalid license file pointers: LICENSE
+```
+
+Let's look at the DESCRIPTION file, and at the License section
+
+It says:
+
+```
+License: MIT + file LICENSE
+```
+
+We didn't initialise the License properly, so we run
+
+```r
+use_mit_license()
+```
+
+Which gives us
+
+```
+✔ Writing LICENSE.
+✔ Writing LICENSE.md.
+✔ Adding "^LICENSE\\.md$" to .Rbuildignore.
+```
+
+checkpoint [this commit](https://github.com/njtierney/learned/pull/2/commits/d179339cd76fbe93cf560231659d925d4719e4e1)
+
+### The NOTES
+
+Running Check again, we are down to the NOTEs:
+
+```
+❯ checking R code for possible problems ... NOTE
+  boxplot_study_state: no visible binding for global variable
+    ‘prop_studying’
+  boxplot_study_state: no visible binding for global variable
+    ‘state_territory’
+  clean_education_data: no visible binding for global variable
+    ‘age_group’
+  clean_education_data: no visible binding for global variable
+    ‘prop_studying’
+  plot_study_age_state: no visible binding for global variable
+    ‘prop_studying’
+  plot_study_age_state: no visible binding for global variable
+    ‘age_group’
+  summarise_prop_study: no visible binding for global variable
+    ‘state_territory’
+  summarise_prop_study: no visible binding for global variable
+    ‘prop_studying’
+  summarise_prop_study: no visible global function definition for
+    ‘quantile’
+  summarise_prop_study: no visible global function definition for
+    ‘median’
+  summarise_prop_study: no visible global function definition for ‘sd’
+  Undefined global functions or variables:
+    age_group median prop_studying quantile sd state_territory
+  Consider adding
+    importFrom("stats", "median", "quantile", "sd")
+  to your NAMESPACE file.
+
+```
+
+OK, so there's two things here:
+
+1. we forgot to namespace `median`, `quantile`, and `sd`
+2. We need to deal with "Undefined global functions or variables:
+    age_group median prop_studying quantile sd state_territory"
+    
+The latter one is more painful, let's deal with this.
+
+Essentially, R is complaining because we use these variables inside dplyr code, and it doesn't know where they come from. My preferred way of dealing with this is using a function called `globalVariables`.  I usually do this inside a centralised R function in what is called a "package doc file".
+
+We can create this file with:
+
+```r
+use_package_doc()
+```
+
+Which tells us:
+
+```
+✔ Writing R/learned-package.R.
+☐ Modify R/learned-package.R.
+☐ Run devtools::document() to update package-level
+  documentation.
+```
+
+And then inside that file I put `age_group median prop_studying quantile sd state_territory`. It ends up looking like this:
+
+```r
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
+NULL
+
+globalVariables(c(
+  "age_group",
+  "median",
+  "prop_studying",
+  "quantile",
+  "sd",
+  "state_territory"
+))
+
+```
+
+So now, let's run `document()`, and then run `check()` again.
+
+And now we are clear! This actually solved the other problem...which is a bit mysterious, but that's sometimes how it goes.
+
+Here is [the commit](https://github.com/njtierney/learned/pull/2/commits/f70501dcbab48aae91e47351c4737691bb5bbc86) of this.

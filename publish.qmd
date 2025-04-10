@@ -5,6 +5,22 @@
   - CRAN
   - R Universe
   
-- pros and cons
-- work through getting it on R Universe
+## github
+
+- Ease of use
+- slow
 - Discuss risks of building/installing from github
+
+## CRAN
+
+- A few barriers
+- very stable, fast
+
+## R Universe
+
+- similar to CRAN speed wise
+- linked to github
+- fewer barriers
+- https://docs.r-universe.dev/publish/set-up.html
+  
+

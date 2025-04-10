@@ -1,15 +1,117 @@
 # Adding data to an R package
 
-overall goals
-- add raw 2014 data
-- add tidy 2014 data
+We want examples - and we want to show our data! So let's add the raw education 2014 data to the package.
 
-- demonstrate using data-raw/dataset.R
-  - briefly discuss compression = "xz"
-- show using set.seed(yyyy-mm-dd) / providing a date
+To do this, we're going to navigate back to the `data-raw/DATASET.R` file.
 
-- demo now by having the data be used without read_csv in scratch.R
+This file is effectively a data cleaning script - in our case, we're just going to read in the data, then use `usethis::use_data()` on it to export it. Then we will document the data.
 
-But now just use library, not load all - see that there's no functions!
+## Reading and exporting the data
 
-So now go on to having documentation and @export
+Currently, our DATASET.R file looks like this:
+
+```r
+## code to prepare `DATASET` dataset goes here
+
+usethis::use_data(DATASET, overwrite = TRUE)
+```
+
+Let's read in the data and then export it, so it will look like this:
+
+```r
+## 2015-04-10
+library(readr)
+raw_education_2014 <- read_csv("data-raw/raw_education_2014.csv")
+
+usethis::use_data(raw_education_2014, overwrite = TRUE, compress = "xz")
+```
+
+(`compress = "xz"` is a very efficient storage format)
+
+Once again, `usethis` gives us a nice chatty response:
+
+```
+✔ Setting active project to
+  "/Users/nick/github/njtierney/learned".
+✔ Adding R to Depends field in DESCRIPTION.
+✔ Creating data/.
+✔ Setting LazyData to "true" in DESCRIPTION.
+✔ Saving "raw_education_2014" to
+  "data/raw_education_2014.rda".
+☐ Document your data (see
+  <https://r-pkgs.org/data.html>).
+```
+
+With a little note about documenting your data!
+
+::: {.callout-note title="Your turn"}
+1. Export the 2014 data, as described above
+
+See [this commit](https://github.com/njtierney/learned/pull/2/commits/e641652fb2e0d4aecf5e474654ecf4bddf13c8a9) for a demonstration
+:::
+
+To finish this off, we need to document the data. This looks like us creating a new R file, that contains some information like this:
+
+```r
+#' ABS Education data
+#'
+#' Some education data used for practicing building R packages.
+#'   Each row represents the number of people studying in a given age group in 
+#'   a given state.
+#'
+#' @format ## `raw_education_2014`
+#' A data frame with 72 rows and 6 columns:
+#' \describe{
+#'   \item{year}{The year of data - 2014}
+#'   \item{state_territory}{One of 8 states or territories}
+#'   \item{age_group}{age groups from 15 to 44}
+#'   \item{n_studying}{how many people are studying}
+#'   \item{population}{population in that state in that}
+#'   \item{prop_studying}{proportion studying}
+#' }
+#' @source <https://www.who.int/teams/global-tuberculosis-programme/data>
+"raw_education_2014"
+```
+
+I usually save this in R under something like `data-<NAME>`
+
+::: {.callout-note title="Your turn"}
+
+1. Document your data
+2. Run `document()`
+
+:::
+
+See [this commit](https://github.com/njtierney/learned/pull/2/commits/2bb98e70f9e5793f0624a4bbdc099e8a73752510) for what this looks like.
+
+## Improve our examples with our data
+
+Now that we have some data easily accessible, we can go back and fix our examples in documentation!
+
+For example, in `boxplot_study_state.R` we can change 
+
+```r
+#' @examples
+#' # no example data yet
+```
+
+To
+
+```r
+#' @examples
+#' boxplot_study_state(raw_education_2014)
+```
+
+See [this commit](https://github.com/njtierney/learned/pull/2/commits/93f6824a503c43ad6fb7c1b4ebe8a6d6c5914e3d)
+
+::: {.callout-note title="Your turn"}
+
+1. Add the example data to all functions in `learned`
+2. run `document()`
+
+:::
+
+See [this commit](https://github.com/njtierney/learned/pull/2/commits/c4991d09c763b43ee91cedfa4d27c2950772264d) to see what this looks like.
+
+
+We're getting close now - let's see if we can pass checks!

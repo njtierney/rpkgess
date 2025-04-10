@@ -28,11 +28,10 @@ book:
     - "create-the-pkg.qmd"
     - "how-to-use-extra-pkgs.qmd"
     - "add-documentation.qmd"
-    - "add-data.qmd" #
+    - "add-data.qmd"
     - "using-checks.qmd"
-    - "add-vignette.qmd"
+    - "push-to-github.qmd" #
     - "add-readme.qmd"
-    - "push-to-github.qmd"
     - "add-tests.qmd"
     - "add-website.qmd"
     - "add-ci.qmd"

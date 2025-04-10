@@ -1,10 +1,33 @@
 ## Using tests
 
-- initially these tests will make sure that they run on the example data
+- `use_testthat()`
+- re-examine data quality checks
+- explain moving from less-formal to more formalised approach
+
 - demonstrate testing dimensions/names
+
 - demonstrate snapshot tests
+
+```r
+expect_snapshot(clean_data(raw_education_2014))
+```
+
 - demonstrate vdiffr tests
+
+```r
+set.seed(2025-04-11)
+plot_name <- plot_code(data)
+
+test_that("plot works", {
+  skip_on_cran()
+  skip_on_ci()
+  vdiffr::expect_doppelganger("plot_name", plot_name)
+})
+```
+
+
 - circle back to the data quality checks
-  - maybe these can become our tests?
+
 - touch on the idea that R packages can be used for other things than CRAN - although this does maybe go against some ideas in this course, the R package structure can be exploited to do some cool things - like perhaps data validation?
+
 - reference Miles's https://milesmcbain.xyz/posts/an-okay-idea/
